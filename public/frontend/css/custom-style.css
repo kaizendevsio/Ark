@@ -3041,10 +3041,11 @@ ul.seller-brand-list .brand-item {
 
     .side-menu-list ul li a {
         color: #5a5a5a;
-        font-size: 13px;
+        font-size: 17px;
         padding: 5px 0;
         display: block;
         font-weight: 500;
+        line-height: 38px;
     }
 
     .side-menu-list ul li a i {

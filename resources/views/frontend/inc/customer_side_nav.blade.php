@@ -65,6 +65,14 @@
                         </span>
                     </a>
                 </li>
+                 <li>
+                    <a href="{{ route('affiliate') }}" class="{{ areActiveRoutesHome(['affiliate'])}}">
+                        <i class="la la-users"></i>
+                        <span class="category-name">
+                            {{__('Enterprise')}}
+                        </span>
+                    </a>
+                </li>
                 @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
                     <li>
                         <a href="{{ route('wallet.index') }}" class="{{ areActiveRoutesHome(['wallet.index'])}}">

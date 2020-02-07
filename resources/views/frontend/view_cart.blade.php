@@ -27,16 +27,16 @@
                     </div>
                 </div>
 
-                <div class="col-3">
-                    <div class="icon-block icon-block--style-1-v5 text-center">
-                        <div class="block-icon mb-0 c-gray-light">
-                            <i class="la la-truck"></i>
-                        </div>
-                        <div class="block-content d-none d-md-block">
-                            <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Delivery info')}}</h3>
-                        </div>
-                    </div>
-                </div>
+				<div class="col-3" style="display:none!important">
+					<div class="icon-block icon-block--style-1-v5 text-center">
+						<div class="block-icon mb-0 c-gray-light">
+							<i class="la la-truck"></i>
+						</div>
+						<div class="block-content d-none d-md-block">
+							<h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Delivery info')}}</h3>
+						</div>
+					</div>
+				</div>
 
                 <div class="col-3">
                     <div class="icon-block icon-block--style-1-v5 text-center">
@@ -44,7 +44,7 @@
                             <i class="la la-credit-card"></i>
                         </div>
                         <div class="block-content d-none d-md-block">
-                            <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">4. {{__('Payment')}}</h3>
+                            <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">3. {{__('Payment')}}</h3>
                         </div>
                     </div>
                 </div>

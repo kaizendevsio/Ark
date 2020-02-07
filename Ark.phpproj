@@ -1124,6 +1124,7 @@
     <Compile Include="resources\views\flash_deals\index.blade.php" />
     <Compile Include="resources\views\frontend\conversations\index.blade.php" />
     <Compile Include="resources\views\frontend\conversations\show.blade.php" />
+    <Compile Include="resources\views\frontend\customer\affiliate.blade.php" />
     <Compile Include="resources\views\frontend\customer\dashboard.blade.php" />
     <Compile Include="resources\views\frontend\customer\profile.blade.php" />
     <Compile Include="resources\views\frontend\inc\customer_side_nav.blade.php" />

@@ -22,7 +22,7 @@
                                                     <div class="form-group">
                                                         <!-- <label>{{ __('name') }}</label> -->
                                                         <div class="input-group input-group--style-1">
-                                                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('Name') }}" name="name">
+                                                            <input type="text" class="form-control{{ $errors->has('fname') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('First Name') }}" name="fname">
                                                             <span class="input-group-addon">
                                                                 <i class="text-md la la-user"></i>
                                                             </span>
@@ -36,6 +36,44 @@
                                                 </div>
                                             </div>
 
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('name') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('mname') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('Middle Name') }}" name="mname" />
+															<span class="input-group-addon">
+																<i class="text-md la la-user"></i>
+															</span>
+															@if ($errors->has('name'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('name') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('name') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('lname') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('Last Name') }}" name="lname" />
+															<span class="input-group-addon">
+																<i class="text-md la la-user"></i>
+															</span>
+															@if ($errors->has('name'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('name') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
+                                            <hr />
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
@@ -87,7 +125,25 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <hr />
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('email') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="email" class="form-control{{ $errors->has('source_code') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ __('Source Code') }}" name="source_code" />
+															<span class="input-group-addon">
+																<i class="text-md la la-lock"></i>
+															</span>
+															@if ($errors->has('email'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('email') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
