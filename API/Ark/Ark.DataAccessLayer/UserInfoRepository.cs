@@ -9,7 +9,7 @@ namespace Ark.DataAccessLayer
 {
     public class UserInfoRepository
     {
-        public TblUserInfo Create(UserBO userBO, dbWorldCCityContext db)
+        public TblUserInfo Create(UserBO userBO, ArkContext db)
         {
             TblUserInfo _userInfo = new TblUserInfo();
             Guid g = Guid.NewGuid();
@@ -31,7 +31,7 @@ namespace Ark.DataAccessLayer
             return _userInfo;
         }
 
-        public TblUserInfo Get(TblUserAuth userAuth, dbWorldCCityContext db)
+        public TblUserInfo Get(TblUserAuth userAuth, ArkContext db)
         {
             var _qUi = from a in db.TblUserInfo
                        join b in db.TblUserAuth on a.Id equals b.UserInfoId
@@ -56,7 +56,7 @@ namespace Ark.DataAccessLayer
             return _tblUserInfo;
         }
 
-        public List<UserBO> GetAll(dbWorldCCityContext db)
+        public List<UserBO> GetAll(ArkContext db)
         {
             var _qUi = from a in db.TblUserInfo
                        join b in db.TblUserAuth on a.Id equals b.UserInfoId

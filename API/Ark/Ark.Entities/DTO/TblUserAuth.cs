@@ -7,7 +7,6 @@ namespace Ark.Entities.DTO
     {
         public TblUserAuth()
         {
-            TblDividend = new HashSet<TblDividend>();
             TblUserAddress = new HashSet<TblUserAddress>();
             TblUserAuthHistory = new HashSet<TblUserAuthHistory>();
             TblUserBusinessPackage = new HashSet<TblUserBusinessPackage>();
@@ -17,7 +16,6 @@ namespace Ark.Entities.DTO
             TblUserMapUplineUser = new HashSet<TblUserMap>();
             TblUserRank = new HashSet<TblUserRank>();
             TblUserRole = new HashSet<TblUserRole>();
-            TblUserVolumes = new HashSet<TblUserVolumes>();
             TblUserWallet = new HashSet<TblUserWallet>();
             TblUserWalletAddress = new HashSet<TblUserWalletAddress>();
             TblUserWalletTransaction = new HashSet<TblUserWalletTransaction>();
@@ -45,7 +43,6 @@ namespace Ark.Entities.DTO
 
         public virtual TblUserInfo UserInfo { get; set; }
         public virtual TblUserMap TblUserMapIdNavigation { get; set; }
-        public virtual ICollection<TblDividend> TblDividend { get; set; }
         public virtual ICollection<TblUserAddress> TblUserAddress { get; set; }
         public virtual ICollection<TblUserAuthHistory> TblUserAuthHistory { get; set; }
         public virtual ICollection<TblUserBusinessPackage> TblUserBusinessPackage { get; set; }
@@ -55,7 +52,6 @@ namespace Ark.Entities.DTO
         public virtual ICollection<TblUserMap> TblUserMapUplineUser { get; set; }
         public virtual ICollection<TblUserRank> TblUserRank { get; set; }
         public virtual ICollection<TblUserRole> TblUserRole { get; set; }
-        public virtual ICollection<TblUserVolumes> TblUserVolumes { get; set; }
         public virtual ICollection<TblUserWallet> TblUserWallet { get; set; }
         public virtual ICollection<TblUserWalletAddress> TblUserWalletAddress { get; set; }
         public virtual ICollection<TblUserWalletTransaction> TblUserWalletTransaction { get; set; }

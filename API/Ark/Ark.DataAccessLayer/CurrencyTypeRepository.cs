@@ -12,7 +12,7 @@ namespace Ark.DataAccessLayer
 {
    public class CurrencyTypeRepository
     {
-        public TblCurrency Get(TblCurrency currency, dbWorldCCityContext db)
+        public TblCurrency Get(TblCurrency currency, ArkContext db)
         {
             TblCurrency currencyType = db.TblCurrency.FirstOrDefault(item => item.Id == currency.Id || item.CurrencyIsoCode3 == currency.CurrencyIsoCode3);
             return currencyType;

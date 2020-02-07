@@ -9,7 +9,7 @@ namespace Ark.DataAccessLayer
 {
    public class UserRoleRepository
     {
-        public TblUserRole Get(TblUserAuth userAuth, dbWorldCCityContext db)
+        public TblUserRole Get(TblUserAuth userAuth, ArkContext db)
         {
             var _qObj= from a in db.TblUserRole
                          where a.UserAuthId == userAuth.Id
@@ -26,7 +26,7 @@ namespace Ark.DataAccessLayer
             return userRole;
         }
 
-        public TblUserRole Create(TblUserAuth userAuth, dbWorldCCityContext db)
+        public TblUserRole Create(TblUserAuth userAuth, ArkContext db)
         {
             TblUserRole userRole = new TblUserRole();
             userRole.UserAuthId = userAuth.Id;

@@ -11,7 +11,7 @@ namespace Ark.DataAccessLayer
 {
    public class UserDepositRequestRepository
     {
-        public TblUserDepositRequest Create(TblUserDepositRequest tblUserDepositRequest,dbWorldCCityContext db)
+        public TblUserDepositRequest Create(TblUserDepositRequest tblUserDepositRequest,ArkContext db)
         {
             db.TblUserDepositRequest.Add(tblUserDepositRequest);
             db.SaveChanges();

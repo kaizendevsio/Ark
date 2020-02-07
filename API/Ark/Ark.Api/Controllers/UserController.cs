@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -243,7 +243,6 @@ namespace Ark.Api.Controllers
         [HttpGet("Affiliate/TradeTransactions")]
         public ActionResult AffiliateTradeTransactions()
         {
-            UserAffiliateAppService userAffiliateAppService = new UserAffiliateAppService();
             UserAffiliateProfitsResponseBO _apiResponse = new UserAffiliateProfitsResponseBO();
 
             try
@@ -252,7 +251,6 @@ namespace Ark.Api.Controllers
                 SessionController sessionController = new SessionController();
                 TblUserAuth userAuth = sessionController.GetSession(HttpContext.Session);
 
-                _apiResponse.TradeTransactions = userAffiliateAppService.GetAllTradeProfits(userAuth);
 
                 _apiResponse.HttpStatusCode = "200";
                 _apiResponse.Status = "Success";
@@ -354,34 +352,5 @@ namespace Ark.Api.Controllers
             return Ok(_apiResponse);
         }
 
-        [HttpGet("Affiliate/Counters")]
-        public ActionResult AffiliateCounters()
-        {
-            ExternalRecordsAppService externalRecordsAppService = new ExternalRecordsAppService();
-            AffiliateCountersBO _apiResponse = new AffiliateCountersBO();
-
-            try
-            {
-                // GET SESSIONS
-                SessionController sessionController = new SessionController();
-                TblUserAuth userAuth = sessionController.GetSession(HttpContext.Session);
-
-                _apiResponse.DirectPartners = externalRecordsAppService.GetDirectPartners(userAuth);
-                _apiResponse.InvestmentSum = externalRecordsAppService.GetInvestmentSum(userAuth);
-
-                _apiResponse.HttpStatusCode = "200";
-                //_apiResponse.Message = "UserWallet GET";
-                _apiResponse.Status = "Success";
-            }
-            catch (Exception ex)
-            {
-                _apiResponse.HttpStatusCode = "500";
-                _apiResponse.Message = ex.Message;
-                _apiResponse.Status = "Error";
-
-            }
-
-            return Ok(_apiResponse);
-        }
     }
 }

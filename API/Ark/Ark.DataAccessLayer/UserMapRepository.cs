@@ -12,7 +12,7 @@ namespace Ark.DataAccessLayer
 {
     public class UserMapRepository
     {
-        public bool Create(TblUserMap userMapQuery, dbWorldCCityContext db)
+        public bool Create(TblUserMap userMapQuery, ArkContext db)
         {
             db.TblUserMap.Add(userMapQuery);
             db.SaveChanges();
@@ -20,7 +20,7 @@ namespace Ark.DataAccessLayer
             return true;
 
         }
-        public List<TblUserMap> GetAll(TblUserMap userMapQuery, dbWorldCCityContext db)
+        public List<TblUserMap> GetAll(TblUserMap userMapQuery, ArkContext db)
         {
             var _q = from a in db.TblUserMap
                      where a.Id == userMapQuery.Id || a.UserUid == userMapQuery.UserUid || a.UplineUserId == userMapQuery.UplineUserId
@@ -48,7 +48,7 @@ namespace Ark.DataAccessLayer
             UserInfoRepository userInfoRepository = new UserInfoRepository();
             UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
 
-            using dbWorldCCityContext db = new dbWorldCCityContext();
+            using ArkContext db = new ArkContext();
             TblUserInfo userInfo = userInfoRepository.Get(userAuth, db);
 
             var _q = from a in db.TblUserMap
@@ -86,7 +86,7 @@ namespace Ark.DataAccessLayer
         }
         public UserMapBO GetMap(TblUserAuth userAuth)
         {
-            using dbWorldCCityContext db = new dbWorldCCityContext();
+            using ArkContext db = new ArkContext();
             UserInfoRepository userInfoRepository = new UserInfoRepository();
             UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
 
@@ -104,7 +104,7 @@ namespace Ark.DataAccessLayer
 
             return userMapBO;
         }
-        public List<UnilevelMapBO> GetUnilevelChildren(TblUserAuth userAuth, dbWorldCCityContext db)
+        public List<UnilevelMapBO> GetUnilevelChildren(TblUserAuth userAuth, ArkContext db)
         {
             var _q = from a in db.TblUserMap
                      join b in db.TblUserAuth on a.Id equals b.Id
@@ -132,7 +132,7 @@ namespace Ark.DataAccessLayer
 
             return _qRes;
         }
-        public UnilevelMapBO GetUnilevel(TblUserAuth userAuth, dbWorldCCityContext db)
+        public UnilevelMapBO GetUnilevel(TblUserAuth userAuth, ArkContext db)
         {
             List<UnilevelMapBO> _o = GetUnilevelChildren(userAuth, db);
             UnilevelMapBO unilevelMapBO = new UnilevelMapBO()

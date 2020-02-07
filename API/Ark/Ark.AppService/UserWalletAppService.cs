@@ -8,7 +8,7 @@ namespace Ark.AppService
 {
     public class UserWalletAppService
     {
-        public bool Create(TblUserAuth tblUserAuth, dbWorldCCityContext db = null)
+        public bool Create(TblUserAuth tblUserAuth, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -17,7 +17,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -30,7 +30,7 @@ namespace Ark.AppService
             }
 
         }
-        public List<TblUserWallet> Get(TblUserAuth tblUserAuth, dbWorldCCityContext db = null)
+        public List<TblUserWallet> Get(TblUserAuth tblUserAuth, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -39,7 +39,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -50,7 +50,7 @@ namespace Ark.AppService
             }
 
         }
-        public TblUserWallet GetSingle(TblUserAuth tblUserAuth, TblWalletType walletType, dbWorldCCityContext db = null)
+        public TblUserWallet GetSingle(TblUserAuth tblUserAuth, TblWalletType walletType, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -63,7 +63,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -77,7 +77,7 @@ namespace Ark.AppService
                 }
             }
         }
-        public List<UserWalletBO> GetAllBO(TblUserAuth tblUserAuth, dbWorldCCityContext db = null)
+        public List<UserWalletBO> GetAllBO(TblUserAuth tblUserAuth, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -88,7 +88,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -101,7 +101,7 @@ namespace Ark.AppService
             }
 
         }
-        public UserWalletBO GetBO(UserWalletBO userWallet, dbWorldCCityContext db = null)
+        public UserWalletBO GetBO(UserWalletBO userWallet, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -110,7 +110,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -121,7 +121,7 @@ namespace Ark.AppService
             }
 
         }
-        public List<TblUserWalletTransaction> GetAllTransactions(TblUserAuth tblUserAuth, dbWorldCCityContext db = null)
+        public List<TblUserWalletTransaction> GetAllTransactions(TblUserAuth tblUserAuth, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -130,7 +130,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -141,7 +141,7 @@ namespace Ark.AppService
             }
 
         }
-        public bool Increment(UserWalletBO userWallet, WalletTransactionBO walletTransaction, dbWorldCCityContext db = null)
+        public bool Increment(UserWalletBO userWallet, WalletTransactionBO walletTransaction, DataAccessLayer.ArkContext db = null)
         {
             UserWalletRepository userWalletRepository = new UserWalletRepository();
 
@@ -159,7 +159,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -179,7 +179,7 @@ namespace Ark.AppService
             }
 
         }
-        public bool Decrement(UserWalletBO userWallet, WalletTransactionBO walletTransaction, dbWorldCCityContext db = null)
+        public bool Decrement(UserWalletBO userWallet, WalletTransactionBO walletTransaction, DataAccessLayer.ArkContext db = null)
         {
             UserWalletRepository userWalletRepository = new UserWalletRepository();
 
@@ -197,7 +197,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -216,7 +216,7 @@ namespace Ark.AppService
                 }
             }
         }
-        public bool Adjust(UserWalletBO userWallet, WalletTransactionBO walletTransaction, dbWorldCCityContext db = null)
+        public bool Adjust(UserWalletBO userWallet, WalletTransactionBO walletTransaction, DataAccessLayer.ArkContext db = null)
         {
             UserWalletRepository userWalletRepository = new UserWalletRepository();
 
@@ -234,7 +234,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -253,7 +253,7 @@ namespace Ark.AppService
                 }
             }
         }
-        public bool Transfer(UserWalletBO sourceUserWalletBO, UserWalletBO targetUserWalletBO, WalletTransactionBO walletTransaction, dbWorldCCityContext db = null)
+        public bool Transfer(UserWalletBO sourceUserWalletBO, UserWalletBO targetUserWalletBO, WalletTransactionBO walletTransaction, DataAccessLayer.ArkContext db = null)
         {
             UserWalletRepository userWalletRepository = new UserWalletRepository();
             ExchangeRateRepository exchangeRateRepository = new ExchangeRateRepository();
@@ -305,7 +305,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {

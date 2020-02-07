@@ -9,7 +9,7 @@ namespace Ark.AppService
 {
    public class UserIncomeAppService
     {
-        public bool DirectRewards(TblUserAuth userAuth, dbWorldCCityContext db)
+        public bool DirectRewards(TblUserAuth userAuth, DataAccessLayer.ArkContext db)
         {
             UserWalletRepository userWalletRepository = new UserWalletRepository();
             IncomeTypeRepository incomeTypeRepository = new IncomeTypeRepository();

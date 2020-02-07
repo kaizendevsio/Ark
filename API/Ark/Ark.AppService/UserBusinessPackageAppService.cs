@@ -10,7 +10,7 @@ namespace Ark.AppService
 {
    public class UserBusinessPackageAppService
     {
-        public bool Create(UserBusinessPackageBO userBusinessPackage, dbWorldCCityContext db = null)
+        public bool Create(UserBusinessPackageBO userBusinessPackage, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -76,7 +76,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using var transaction = db.Database.BeginTransaction();
                     WalletTypeRepository walletTypeRepository = new WalletTypeRepository();
@@ -147,7 +147,7 @@ namespace Ark.AppService
 
         }
 
-        public List<TblUserBusinessPackage> GetAll(TblUserAuth userAuth, dbWorldCCityContext db = null)
+        public List<TblUserBusinessPackage> GetAll(TblUserAuth userAuth, DataAccessLayer.ArkContext db = null)
         {
 
             if (db != null)
@@ -157,7 +157,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using var transaction = db.Database.BeginTransaction();
                     UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();

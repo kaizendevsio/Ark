@@ -17,7 +17,7 @@ namespace Ark.DataAccessLayer
             return true;
         }
 
-        public TblWalletType Get(UserWalletBO walletBO,dbWorldCCityContext db)
+        public TblWalletType Get(UserWalletBO walletBO,ArkContext db)
         {
             var _q = from a in db.TblWalletType
                      where a.Id == (int)walletBO.WalletTypeId || a.Code == walletBO.WalletCode
@@ -35,7 +35,7 @@ namespace Ark.DataAccessLayer
 
             return _qWalletTypeRes;
         }
-        public List<TblWalletType> GetAll(dbWorldCCityContext db)
+        public List<TblWalletType> GetAll(ArkContext db)
         {
             var _q = from a in db.TblWalletType
                      join b in db.TblCurrency on a.CurrencyId equals b.Id

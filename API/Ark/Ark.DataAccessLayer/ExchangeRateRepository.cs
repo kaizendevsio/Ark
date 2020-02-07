@@ -16,7 +16,7 @@ namespace Ark.DataAccessLayer
         {
             return true;
         }
-        public ExchangeRateBO Get(TblExchangeRate exchangeRate,dbWorldCCityContext db)
+        public ExchangeRateBO Get(TblExchangeRate exchangeRate,ArkContext db)
         {
             var _q = from a in db.TblExchangeRate
                      where a.SourceCurrencyId == exchangeRate.SourceCurrencyId && a.TargetCurrencyId == exchangeRate.TargetCurrencyId && a.IsEnabled == true
@@ -41,7 +41,7 @@ namespace Ark.DataAccessLayer
             return _qRes;
         }
 
-        public List<TblExchangeRate> GetAll(int sourceCurrencyId, dbWorldCCityContext db)
+        public List<TblExchangeRate> GetAll(int sourceCurrencyId, ArkContext db)
         {
             var _q = from a in db.TblExchangeRate
                      where a.SourceCurrencyId == sourceCurrencyId && a.IsEnabled == true

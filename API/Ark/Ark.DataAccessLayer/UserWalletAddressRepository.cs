@@ -12,14 +12,14 @@ namespace Ark.DataAccessLayer
 {
    public class UserWalletAddressRepository
     {
-        public bool Create(TblUserWalletAddress tblUserWalletAddress, dbWorldCCityContext db)
+        public bool Create(TblUserWalletAddress tblUserWalletAddress, ArkContext db)
         {
             db.TblUserWalletAddress.Add(tblUserWalletAddress);
             db.SaveChanges();
             return true;
         }
 
-        public List<TblUserWalletAddress> GetAll(TblUserAuth userAuth, dbWorldCCityContext db)
+        public List<TblUserWalletAddress> GetAll(TblUserAuth userAuth, ArkContext db)
         {
             var _q = from a in db.TblUserWalletAddress
                      join b in db.TblWalletType on a.WalletTypeId equals b.Id
@@ -41,7 +41,7 @@ namespace Ark.DataAccessLayer
             return _r;
         }
 
-        public bool Update(TblUserWalletAddress tblUserWalletAddress, dbWorldCCityContext db)
+        public bool Update(TblUserWalletAddress tblUserWalletAddress, ArkContext db)
         {
             db.TblUserWalletAddress.Update(tblUserWalletAddress);
             db.SaveChanges();

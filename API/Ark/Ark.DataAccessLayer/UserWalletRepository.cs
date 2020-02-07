@@ -12,7 +12,7 @@ namespace Ark.DataAccessLayer
 {
    public class UserWalletRepository
     {
-        public bool Create(TblUserAuth userAuth, dbWorldCCityContext db)
+        public bool Create(TblUserAuth userAuth, ArkContext db)
         {
             // ENUMERATE ALL WALELT TYPES
             WalletTypeRepository walletTypeRepository = new WalletTypeRepository();
@@ -35,7 +35,7 @@ namespace Ark.DataAccessLayer
             return true;
         }
 
-        public TblUserWallet Get(UserWalletBO userWallet, dbWorldCCityContext db)
+        public TblUserWallet Get(UserWalletBO userWallet, ArkContext db)
         {
             var _q = from a in db.TblUserWallet
                      join b in db.TblWalletType on a.WalletTypeId equals b.Id
@@ -60,7 +60,7 @@ namespace Ark.DataAccessLayer
             //return tblUserWallet;
         }
 
-        public List<TblUserWallet> GetAll(TblUserAuth userAuth, dbWorldCCityContext db)
+        public List<TblUserWallet> GetAll(TblUserAuth userAuth, ArkContext db)
         {
             var _qUi = from a in db.TblUserWallet
                        join b in db.TblWalletType on a.WalletTypeId equals b.Id
@@ -82,7 +82,7 @@ namespace Ark.DataAccessLayer
             return userWallet;
         }
 
-        public UserWalletBO GetBO(UserWalletBO userWallet, dbWorldCCityContext db)
+        public UserWalletBO GetBO(UserWalletBO userWallet, ArkContext db)
         {
             var _qUi = from a in db.TblUserWallet
                        join b in db.TblWalletType on a.WalletTypeId equals b.Id
@@ -107,7 +107,7 @@ namespace Ark.DataAccessLayer
 
             return _userWalletResult;
         }
-        public List<UserWalletBO> GetAllBO(TblUserAuth userAuth, dbWorldCCityContext db)
+        public List<UserWalletBO> GetAllBO(TblUserAuth userAuth, ArkContext db)
         {
             var _qUi = from a in db.TblUserWallet
                        join b in db.TblWalletType on a.WalletTypeId equals b.Id
@@ -133,7 +133,7 @@ namespace Ark.DataAccessLayer
             return userWallet;
         }
 
-        public bool Update(UserWalletBO userWallet, dbWorldCCityContext db)
+        public bool Update(UserWalletBO userWallet, ArkContext db)
         {
             UserWalletTransactionRepository userWalletTransactionRepository = new UserWalletTransactionRepository();
             TblUserWallet tblUserWallet = db.TblUserWallet.FirstOrDefault(item => item.UserAuthId == userWallet.UserAuthId && item.WalletTypeId == userWallet.WalletTypeId);

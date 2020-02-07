@@ -10,7 +10,7 @@ namespace Ark.AppService
 {
    public class AdminAccessAppService
     {
-        public List<UserBO> GetAllUsers(dbWorldCCityContext db = null)
+        public List<UserBO> GetAllUsers(DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -19,7 +19,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {

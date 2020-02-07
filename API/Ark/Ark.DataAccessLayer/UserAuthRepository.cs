@@ -11,7 +11,7 @@ namespace Ark.DataAccessLayer
 {
     public class UserAuthRepository : GenericRepository
     {
-        public TblUserAuth Create(UserBO userBO, TblUserInfo userInfo, dbWorldCCityContext db)
+        public TblUserAuth Create(UserBO userBO, TblUserInfo userInfo, ArkContext db)
         {
             GenericRepository genericRepository = new GenericRepository();
 
@@ -39,7 +39,7 @@ namespace Ark.DataAccessLayer
 
         }
 
-        public TblUserAuth Get(UserBO userBO, dbWorldCCityContext db)
+        public TblUserAuth Get(UserBO userBO, ArkContext db)
         {
             byte[] _passwordByte = Encoding.ASCII.GetBytes(userBO.PasswordString);
             byte[] _hashPasswordByte;
@@ -91,7 +91,7 @@ namespace Ark.DataAccessLayer
 
         }
 
-        public TblUserAuth GetByUID(string Uid, dbWorldCCityContext db)
+        public TblUserAuth GetByUID(string Uid, ArkContext db)
         {
             var _qAuth = from a in db.TblUserAuth
                          join b in db.TblUserInfo on a.UserInfoId equals b.Id
@@ -111,7 +111,7 @@ namespace Ark.DataAccessLayer
             return tblUserAuth;
         }
 
-        public TblUserAuth GetByID(int Id, dbWorldCCityContext db)
+        public TblUserAuth GetByID(int Id, ArkContext db)
         {
             var _qAuth = from a in db.TblUserAuth
                          join b in db.TblUserInfo on a.UserInfoId equals b.Id

@@ -1,17 +1,17 @@
-﻿using System;
+using System;
 using Ark.Entities.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Ark.DataAccessLayer
 {
-    public partial class dbWorldCCityContext : DbContext
+    public partial class ArkContext : DbContext
     {
-        public dbWorldCCityContext()
+        public ArkContext()
         {
         }
 
-        public dbWorldCCityContext(DbContextOptions<dbWorldCCityContext> options)
+        public ArkContext(DbContextOptions<ArkContext> options)
             : base(options)
         {
         }
@@ -22,9 +22,7 @@ namespace Ark.DataAccessLayer
         public virtual DbSet<TblAuditFields> TblAuditFields { get; set; }
         public virtual DbSet<TblBusinessPackage> TblBusinessPackage { get; set; }
         public virtual DbSet<TblBusinessPackageType> TblBusinessPackageType { get; set; }
-        public virtual DbSet<TblClosedTransaction> TblClosedTransaction { get; set; }
         public virtual DbSet<TblCurrency> TblCurrency { get; set; }
-        public virtual DbSet<TblDividend> TblDividend { get; set; }
         public virtual DbSet<TblExchangeRate> TblExchangeRate { get; set; }
         public virtual DbSet<TblIncomeDistribution> TblIncomeDistribution { get; set; }
         public virtual DbSet<TblIncomeType> TblIncomeType { get; set; }
@@ -40,24 +38,18 @@ namespace Ark.DataAccessLayer
         public virtual DbSet<TblUserMap> TblUserMap { get; set; }
         public virtual DbSet<TblUserRank> TblUserRank { get; set; }
         public virtual DbSet<TblUserRole> TblUserRole { get; set; }
-        public virtual DbSet<TblUserVolumes> TblUserVolumes { get; set; }
         public virtual DbSet<TblUserWallet> TblUserWallet { get; set; }
         public virtual DbSet<TblUserWalletAddress> TblUserWalletAddress { get; set; }
         public virtual DbSet<TblUserWalletTransaction> TblUserWalletTransaction { get; set; }
         public virtual DbSet<TblUserWithdrawalRequest> TblUserWithdrawalRequest { get; set; }
         public virtual DbSet<TblWalletType> TblWalletType { get; set; }
-        public virtual DbSet<VClose> VClose { get; set; }
-        public virtual DbSet<VDividend> VDividend { get; set; }
-        public virtual DbSet<VMember> VMember { get; set; }
-        public virtual DbSet<VOrder> VOrder { get; set; }
-        public virtual DbSet<VUserData> VUserData { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=dbworldccity.caxbcdtsfhob.ap-southeast-1.rds.amazonaws.com;Database=dbWorldCCity;Username=dbAdmin;Password=Jr2Ge4FvY!=Z5u!^");
+                optionsBuilder.UseNpgsql("Host=localhost;Database=Ark;Username=dbAdmin;Password=Jr2Ge4FvY!=Z5u!^");
             }
         }
 
@@ -212,19 +204,6 @@ namespace Ark.DataAccessLayer
                 entity.Property(e => e.Name).HasMaxLength(100);
             });
 
-            modelBuilder.Entity<TblClosedTransaction>(entity =>
-            {
-                entity.ToTable("tbl_ClosedTransaction", "dbo");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.LastChanged).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
-            });
-
             modelBuilder.Entity<TblCurrency>(entity =>
             {
                 entity.ToTable("tbl_Currency", "dbo");
@@ -248,30 +227,6 @@ namespace Ark.DataAccessLayer
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
-            });
-
-            modelBuilder.Entity<TblDividend>(entity =>
-            {
-                entity.ToTable("tbl_Dividend", "dbo");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.DividendPrice).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.DividendRate).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.DividendUserAuthId).HasColumnName("DividendUserAuthID");
-
-                entity.Property(e => e.LastChanged).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
-
-                entity.HasOne(d => d.DividendUserAuth)
-                    .WithMany(p => p.TblDividend)
-                    .HasForeignKey(d => d.DividendUserAuthId)
-                    .HasConstraintName("tbl_dividend_fk");
             });
 
             modelBuilder.Entity<TblExchangeRate>(entity =>
@@ -753,35 +708,6 @@ namespace Ark.DataAccessLayer
                     .HasConstraintName("tbl_UserRole_UserAuthID_fkey");
             });
 
-            modelBuilder.Entity<TblUserVolumes>(entity =>
-            {
-                entity.ToTable("tbl_UserVolumes", "dbo");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.LastChanged).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.MemberRankCd).HasColumnName("MemberRankCD");
-
-                entity.Property(e => e.MemberVolumeLeft).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.MemberVolumeOwn).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.MemberVolumeRight).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.MemberVolumeUni).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
-
-                entity.HasOne(d => d.UserAuth)
-                    .WithMany(p => p.TblUserVolumes)
-                    .HasForeignKey(d => d.UserAuthId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("UserAuthId");
-            });
-
             modelBuilder.Entity<TblUserWallet>(entity =>
             {
                 entity.ToTable("tbl_UserWallet", "dbo");
@@ -826,6 +752,8 @@ namespace Ark.DataAccessLayer
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
 
+                entity.Property(e => e.Remarks).HasMaxLength(100);
+
                 entity.HasOne(d => d.UserAuth)
                     .WithMany(p => p.TblUserWalletAddress)
                     .HasForeignKey(d => d.UserAuthId)
@@ -850,6 +778,8 @@ namespace Ark.DataAccessLayer
                 entity.Property(e => e.Amount).HasColumnType("numeric(18,10)");
 
                 entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.Description).HasMaxLength(500);
 
                 entity.Property(e => e.LastChanged).HasColumnType("timestamp with time zone");
 
@@ -938,119 +868,6 @@ namespace Ark.DataAccessLayer
                     .WithMany(p => p.TblWalletType)
                     .HasForeignKey(d => d.CurrencyId)
                     .HasConstraintName("CurrencyID");
-            });
-
-            modelBuilder.Entity<VClose>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("v_close", "dbo");
-
-                entity.Property(e => e.CloseDevidend).HasColumnType("numeric");
-            });
-
-            modelBuilder.Entity<VDividend>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("v_dividend", "dbo");
-
-                entity.Property(e => e.BonusName).HasMaxLength(45);
-
-                entity.Property(e => e.DividendPrice).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.DividendRate).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.FirstName).HasMaxLength(50);
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.LastName).HasMaxLength(50);
-
-                entity.Property(e => e.Uid).HasColumnName("UID");
-
-                entity.Property(e => e.UserAuthId).HasColumnName("UserAuthID");
-
-                entity.Property(e => e.UserInfoId).HasColumnName("UserInfoID");
-            });
-
-            modelBuilder.Entity<VMember>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("v_member", "dbo");
-
-                entity.Property(e => e.FirstName).HasMaxLength(50);
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.LastName).HasMaxLength(50);
-
-                entity.Property(e => e.MemberRankCd).HasColumnName("MemberRankCD");
-
-                entity.Property(e => e.MemberVolumeLeft).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.MemberVolumeOwn).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.MemberVolumeRight).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.MemberVolumeUni).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.Uid)
-                    .HasColumnName("UID")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.UserAuthId).HasColumnName("UserAuthID");
-
-                entity.Property(e => e.UserName).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<VOrder>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("v_order", "dbo");
-
-                entity.Property(e => e.Amount).HasColumnType("numeric(18,10)");
-
-                entity.Property(e => e.BusinessPackageId).HasColumnName("BusinessPackageID");
-
-                entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.FirstName).HasMaxLength(50);
-
-                entity.Property(e => e.LastName).HasMaxLength(50);
-
-                entity.Property(e => e.UserAuthId).HasColumnName("UserAuthID");
-
-                entity.Property(e => e.UserDepositRequestId).HasColumnName("UserDepositRequestID");
-
-                entity.Property(e => e.UserInfoId).HasColumnName("UserInfoID");
-            });
-
-            modelBuilder.Entity<VUserData>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("v_UserData", "dbo");
-
-                entity.Property(e => e.CreatedOn).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.LastChanged).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.ModifiedOn).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.ResetPasswordCodeExpiration).HasColumnType("timestamp with time zone");
-
-                entity.Property(e => e.TemporaryPassword).HasMaxLength(256);
-
-                entity.Property(e => e.UserAlias).HasMaxLength(256);
-
-                entity.Property(e => e.UserInfoId).HasColumnName("UserInfoID");
-
-                entity.Property(e => e.UserName).HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

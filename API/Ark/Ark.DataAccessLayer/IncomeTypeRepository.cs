@@ -16,7 +16,7 @@ namespace Ark.DataAccessLayer
         {
             throw new NotImplementedException();
         }
-        public TblIncomeType Get(TblIncomeType incomeTypeQuery, dbWorldCCityContext db)
+        public TblIncomeType Get(TblIncomeType incomeTypeQuery, ArkContext db)
         {
             TblIncomeType incomeType = db.TblIncomeType.FirstOrDefault(item => item.Id == incomeTypeQuery.Id || item.IncomeShortName == incomeTypeQuery.IncomeShortName);
             return incomeType;

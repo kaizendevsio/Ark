@@ -1,4 +1,4 @@
-﻿using Ark.Entities.DTO;
+using Ark.Entities.DTO;
 using Ark.Entities.BO;
 using Ark.Entities.Enums;
 using Ark.DataAccessLayer;
@@ -14,7 +14,7 @@ namespace Ark.AppService
 
         public UserResponseBO Authenticate(UserBO userBO)
         {
-            using (var db = new dbWorldCCityContext())
+            using (var db = new DataAccessLayer.ArkContext())
             {
                 UserAuthRepository userAuthRepository = new UserAuthRepository();
                 TblUserAuth userAuth = userAuthRepository.Get(userBO, db);
@@ -38,7 +38,7 @@ namespace Ark.AppService
                 return userAuthResponse;
             }
         }
-        public async Task<bool> CreateAsync(UserBO userBO, dbWorldCCityContext db = null)
+        public async Task<bool> CreateAsync(UserBO userBO, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -57,9 +57,6 @@ namespace Ark.AppService
                 UserWalletAppService userWallet = new UserWalletAppService();
                 userWallet.Create(userAuth, db);
 
-                ExternalRecordsRepository externalRecordsRepository = new ExternalRecordsRepository();
-                externalRecordsRepository.CreateUserVolume(userAuth,db);
-
                 UserWalletAddressAppService userWalletAddressAppService = new UserWalletAddressAppService();
                 bool r = await userWalletAddressAppService.Create(userAuth,"BTC");
 
@@ -70,7 +67,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -89,13 +86,7 @@ namespace Ark.AppService
                         // CREATE USER WALLETS
                         UserWalletAppService userWallet = new UserWalletAppService();
                         userWallet.Create(userAuth, db);
-
-                        //ExternalRecordsRepository externalRecordsRepository = new ExternalRecordsRepository();
-                        //externalRecordsRepository.CreateUserVolume(userAuth, db);
-
-                        //UserWalletAddressAppService userWalletAddressAppService = new UserWalletAddressAppService();
-                        //bool r = await userWalletAddressAppService.Create(userAuth, "BTC", "", db);
-
+                        
                         UserMapAppService userMapAppService = new UserMapAppService();
                         userMapAppService.Create(userBO, userAuth, db);
 
@@ -108,7 +99,7 @@ namespace Ark.AppService
         }
         public TblUserInfo Get(TblUserAuth userAuth)
         {
-            using (var db = new dbWorldCCityContext())
+            using (var db = new DataAccessLayer.ArkContext())
             {
                 using (var transaction = db.Database.BeginTransaction())
                 {
@@ -122,7 +113,7 @@ namespace Ark.AppService
         }
         public TblUserRole GetUserRole(TblUserAuth userAuth)
         {
-            using (var db = new dbWorldCCityContext())
+            using (var db = new DataAccessLayer.ArkContext())
             {
                 using (var transaction = db.Database.BeginTransaction())
                 {
@@ -148,7 +139,7 @@ namespace Ark.AppService
             TblUserInfo userInfoDirectSponsor = new TblUserInfo();
             TblUserAuth userAuth = new TblUserAuth();
 
-            using (var db = new dbWorldCCityContext())
+            using (var db = new DataAccessLayer.ArkContext())
             {
                 using (var transaction = db.Database.BeginTransaction())
                 {
@@ -177,7 +168,7 @@ namespace Ark.AppService
                         user.FirstName = structureMap.BinarySponsorDataArray[i].Name;
                         user.LastName = "User";
                         user.UserName = structureMap.BinarySponsorDataArray[i].Name;
-                        user.Email = String.Format("{0}{1}", structureMap.BinarySponsorDataArray[i].Name, "@mail.com");
+                        user.Email = string.Format("{0}{1}", structureMap.BinarySponsorDataArray[i].Name, "@mail.com");
                         user.PasswordString = "123";
                         user.DirectSponsorID = userInfoDirectSponsor.Uid;
                         user.BinarySponsorID = userInfoBinarySponsor.Uid;

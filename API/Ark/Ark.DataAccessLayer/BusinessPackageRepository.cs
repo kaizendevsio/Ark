@@ -11,7 +11,7 @@ namespace Ark.DataAccessLayer
 {
    public class BusinessPackageRepository
     {
-        public TblBusinessPackage Get(TblBusinessPackage businessPackageQuery, dbWorldCCityContext db)
+        public TblBusinessPackage Get(TblBusinessPackage businessPackageQuery, ArkContext db)
         {
             TblBusinessPackage businessPackage = db.TblBusinessPackage.FirstOrDefault(item => item.Id == businessPackageQuery.Id || item.PackageCode == businessPackageQuery.PackageCode);
             return businessPackage;

@@ -10,7 +10,7 @@ namespace Ark.AppService
 {
     public class UserMapAppService
     {
-        public bool Create(UserBO userBO, TblUserAuth userAuth, dbWorldCCityContext db)
+        public bool Create(UserBO userBO, TblUserAuth userAuth, DataAccessLayer.ArkContext db)
         {
             UserMapRepository userMapRepository = new UserMapRepository();
             TblUserMap _userMap = new TblUserMap();
@@ -50,7 +50,7 @@ namespace Ark.AppService
 
             return userMapRepository.Create(userMap, db);
         }
-        public UserMapBO GetBinary(TblUserAuth userAuth, dbWorldCCityContext db = null)
+        public UserMapBO GetBinary(TblUserAuth userAuth, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -62,7 +62,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using var transaction = db.Database.BeginTransaction();
                     UserMapRepository userMapRepository = new UserMapRepository();
@@ -72,7 +72,7 @@ namespace Ark.AppService
                 }
             }
         }
-        public UnilevelMapBO GetUnilevel(TblUserAuth userAuth, dbWorldCCityContext db = null)
+        public UnilevelMapBO GetUnilevel(TblUserAuth userAuth, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -81,14 +81,14 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     UserMapRepository userMapRepository = new UserMapRepository();
                     return userMapRepository.GetUnilevel(userAuth, db);
                 }
             }
         }
-        public UserBO GetExtremeBinary(UserBO userBO, dbWorldCCityContext db)
+        public UserBO GetExtremeBinary(UserBO userBO, DataAccessLayer.ArkContext db)
         {
             UserAuthRepository userAuthRepository = new UserAuthRepository();
             UserMapRepository userMapRepository = new UserMapRepository();
@@ -135,7 +135,7 @@ namespace Ark.AppService
 
 
         }
-        public UserBO SetDefaultUpline(UserBO userBO, dbWorldCCityContext db, bool isEnabled = true)
+        public UserBO SetDefaultUpline(UserBO userBO, DataAccessLayer.ArkContext db, bool isEnabled = true)
         {
             UserAuthRepository userAuthRepository = new UserAuthRepository();
             TblUserAuth directSponsorUser = userAuthRepository.GetByUID(userBO.DirectSponsorID, db);
@@ -160,7 +160,7 @@ namespace Ark.AppService
 
             return userBO;
         }
-        public BinaryMapStatus Validate(UserBO userBO, dbWorldCCityContext db)
+        public BinaryMapStatus Validate(UserBO userBO, DataAccessLayer.ArkContext db)
         {
             UserAuthRepository userAuthRepository = new UserAuthRepository();
             UserMapRepository userMapRepository = new UserMapRepository();

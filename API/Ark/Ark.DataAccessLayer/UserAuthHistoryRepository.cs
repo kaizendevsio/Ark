@@ -8,7 +8,7 @@ namespace Ark.DataAccessLayer
 {
    public class UserAuthHistoryRepository
     {
-        public bool Create(short authStatus, TblUserAuth userAuth, dbWorldCCityContext db)
+        public bool Create(short authStatus, TblUserAuth userAuth, ArkContext db)
         {
             TblUserAuthHistory _userAuthHistory = new TblUserAuthHistory();
             _userAuthHistory.AuthStatus = authStatus;

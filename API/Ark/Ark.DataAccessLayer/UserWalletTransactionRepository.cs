@@ -12,7 +12,7 @@ namespace Ark.DataAccessLayer
 {
     public class UserWalletTransactionRepository
     {
-        public bool Create(UserWalletBO userWallet, WalletTransactionBO walletTransaction, dbWorldCCityContext db)
+        public bool Create(UserWalletBO userWallet, WalletTransactionBO walletTransaction, ArkContext db)
         {
             TblUserWalletTransaction userWalletTransaction = new TblUserWalletTransaction();
             userWalletTransaction.UserAuthId = userWallet.UserAuthId;
@@ -36,7 +36,7 @@ namespace Ark.DataAccessLayer
             return true;
         }
 
-        public List<TblUserWalletTransaction> GetAll(TblUserAuth userAuth, dbWorldCCityContext db)
+        public List<TblUserWalletTransaction> GetAll(TblUserAuth userAuth, ArkContext db)
         {
             var _q = from a in db.TblUserWalletTransaction
                      join b in db.TblUserWallet on a.SourceUserWalletId equals b.Id

@@ -15,7 +15,7 @@ namespace Ark.AppService
 {
    public class UserWalletAddressAppService
     {
-        public async Task<bool> Create(TblUserAuth userAuth, string walletCode, string appendAddress = null, dbWorldCCityContext db = null)
+        public async Task<bool> Create(TblUserAuth userAuth, string walletCode, string appendAddress = null, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -43,7 +43,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -76,7 +76,7 @@ namespace Ark.AppService
 
             return true;
         }
-        public List<TblUserWalletAddress> GetAll(TblUserAuth userAuth, dbWorldCCityContext db = null)
+        public List<TblUserWalletAddress> GetAll(TblUserAuth userAuth, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -88,7 +88,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
@@ -102,7 +102,7 @@ namespace Ark.AppService
                 }
             }
         }
-        private bool _UpdateBalance(List<TblUserWalletAddress> userWalletAddresses, TblWalletType walletType, dbWorldCCityContext db)
+        private bool _UpdateBalance(List<TblUserWalletAddress> userWalletAddresses, TblWalletType walletType, DataAccessLayer.ArkContext db)
         {
 
             UserWalletAddressRepository userWalletAddressRepository = new UserWalletAddressRepository();
@@ -129,7 +129,7 @@ namespace Ark.AppService
 
             return true;
         }
-        public bool UpdateBalance(TblUserAuth userAuth, dbWorldCCityContext db = null)
+        public bool UpdateBalance(TblUserAuth userAuth, DataAccessLayer.ArkContext db = null)
         {
             if (db != null)
             {
@@ -141,7 +141,7 @@ namespace Ark.AppService
             }
             else
             {
-                using (db = new dbWorldCCityContext())
+                using (db = new DataAccessLayer.ArkContext())
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {

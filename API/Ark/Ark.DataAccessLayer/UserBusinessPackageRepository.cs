@@ -12,7 +12,7 @@ namespace Ark.DataAccessLayer
 {
    public class UserBusinessPackageRepository
     {
-        public bool Create(TblUserBusinessPackage tblUserBusinessPackage, dbWorldCCityContext db)
+        public bool Create(TblUserBusinessPackage tblUserBusinessPackage, ArkContext db)
         {
             db.TblUserBusinessPackage.Add(tblUserBusinessPackage);
             db.SaveChanges();
@@ -20,7 +20,7 @@ namespace Ark.DataAccessLayer
             return true;
         }
 
-        public List<TblUserBusinessPackage> GetAll(TblUserAuth userAuth, dbWorldCCityContext db)
+        public List<TblUserBusinessPackage> GetAll(TblUserAuth userAuth, ArkContext db)
         {
             var _qUi = from a in db.TblUserAuth
                        join b in db.TblUserBusinessPackage on a.Id equals b.UserAuthId
