@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Linq;
 using System.Security.Cryptography;
 using Ark.Entities.DTO;
@@ -111,7 +111,7 @@ namespace Ark.DataAccessLayer
             return tblUserAuth;
         }
 
-        public TblUserAuth GetByID(int Id, ArkContext db)
+        public TblUserAuth GetByID(long Id, ArkContext db)
         {
             var _qAuth = from a in db.TblUserAuth
                          join b in db.TblUserInfo on a.UserInfoId equals b.Id

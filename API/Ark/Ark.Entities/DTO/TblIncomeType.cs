@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ark.Entities.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace Ark.Entities.DTO
@@ -18,9 +19,9 @@ namespace Ark.Entities.DTO
         public DateTime? ModifiedOn { get; set; }
         public long? ModifiedBy { get; set; }
         public DateTime? LastChanged { get; set; }
-        public string IncomeTypeCode { get; set; }
+        public IncomeType IncomeTypeCode { get; set; }
         public string IncomeTypeName { get; set; }
-        public string IncomeShortName { get; set; }
+        public string IncomeTypeShortName { get; set; }
         public string IncomeTypeDescription { get; set; }
         public decimal? IncomePercentage { get; set; }
         public bool? IsReward { get; set; }

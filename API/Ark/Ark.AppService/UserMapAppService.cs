@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Ark.Entities.DTO;
 using Ark.Entities.BO;
 using Ark.Entities.Enums;
@@ -95,7 +95,7 @@ namespace Ark.AppService
 
             if (userBO.BinarySponsorID != null)
             {
-                TblUserAuth binarySponsorUser = userAuthRepository.GetByID(int.Parse(userBO.BinarySponsorID), db);
+                TblUserAuth binarySponsorUser = userAuthRepository.GetByID(long.Parse(userBO.BinarySponsorID), db);
 
                 List<TblUserMap> _userMapList = userMapRepository.GetAll(new TblUserMap { UplineUserId = binarySponsorUser.Id, UserUid = "" }, db).FindAll(i => i.Position == short.Parse(userBO.BinaryPosition));
 

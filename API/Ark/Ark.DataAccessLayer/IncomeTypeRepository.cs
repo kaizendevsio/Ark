@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Linq;
 using System.Security.Cryptography;
@@ -18,8 +18,14 @@ namespace Ark.DataAccessLayer
         }
         public TblIncomeType Get(TblIncomeType incomeTypeQuery, ArkContext db)
         {
-            TblIncomeType incomeType = db.TblIncomeType.FirstOrDefault(item => item.Id == incomeTypeQuery.Id || item.IncomeShortName == incomeTypeQuery.IncomeShortName);
+            TblIncomeType incomeType = db.TblIncomeType.FirstOrDefault(item => item.Id == incomeTypeQuery.Id || item.IncomeTypeShortName == incomeTypeQuery.IncomeTypeShortName);
             return incomeType;
+        }
+
+        public TblIncomeDistribution GetDistribution(IncomeType incomeType, TblBusinessPackage businessPackage, ArkContext db)
+        {
+            TblIncomeDistribution incomeDistribution = db.TblIncomeDistribution.FirstOrDefault(item => item.IncomeType.IncomeTypeCode == incomeType && item.BusinessPackageId == businessPackage.Id);
+            return incomeDistribution;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Linq;
 using System.Security.Cryptography;
@@ -18,6 +18,12 @@ namespace Ark.DataAccessLayer
             db.SaveChanges();
 
             return true;
+
+        }
+        public TblUserMap Get(TblUserAuth userAuth, ArkContext db)
+        {
+            TblUserMap userMap = db.TblUserMap.FirstOrDefault(item => item.Id == userAuth.Id);
+            return userMap;
 
         }
         public List<TblUserMap> GetAll(TblUserMap userMapQuery, ArkContext db)

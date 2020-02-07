@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Ark.Entities.DTO;
@@ -10,10 +10,11 @@ namespace Ark.AppService
 {
    public class UserBusinessPackageAppService
     {
-        public bool Create(UserBusinessPackageBO userBusinessPackage, DataAccessLayer.ArkContext db = null)
+        public bool Create(UserBusinessPackageBO userBusinessPackage, ArkContext db = null)
         {
             if (db != null)
             {
+                using var transaction = db.Database.BeginTransaction();
                 WalletTypeRepository walletTypeRepository = new WalletTypeRepository();
                 TblWalletType walletType = walletTypeRepository.Get(new UserWalletBO { WalletCode = userBusinessPackage.FromWalletCode, WalletTypeId = 0 }, db);
 
@@ -43,7 +44,7 @@ namespace Ark.AppService
                     {
                         Address = userBusinessPackage.PaymentAddress,
                         Amount = _amountPaid,
-                        DepositStatus = (short)DepositStatus.Paid,
+                        DepositStatus = (short)DepositStatus.PendingPayment,
                         CreatedOn = DateTime.Now,
                         SourceCurrencyId = currency.Id,
                         TargetWalletTypeId = walletType.Id,
@@ -60,23 +61,26 @@ namespace Ark.AppService
                         ActivationDate = DateTime.Now,
                         BusinessPackageId = 1,
                         UserAuthId = userBusinessPackage.Id,
-                        PackageStatus = PackageStatus.Activated,
+                        PackageStatus = PackageStatus.PendingActivation,
                         UserDepositRequestId = x.Id
                     };
-
-                    db.TblUserBusinessPackage.Add(tblUserBusinessPackage);
+                    userBusinessPackageRepository.Create(tblUserBusinessPackage, db);
 
                     userWalletAppService.Decrement(new UserWalletBO { UserAuthId = userWallet.UserAuthId, WalletCode = userWallet.WalletType.Code, WalletTypeId = userWallet.WalletTypeId }, new WalletTransactionBO { Amount = (_amountPaid * exchangeRateBO.OppositeValue) });
 
+                    UserIncomeAppService userIncomeAppService = new UserIncomeAppService();
+                    userIncomeAppService.ExecuteIncomeDistribution(new TblUserAuth { Id = userBusinessPackage.Id }, tblUserBusinessPackage, db);
+
                     db.SaveChanges();
 
+                    transaction.Commit();
                     return true;
                 }
                 else { throw new ArgumentException("Insufficient wallet funds"); }
             }
             else
             {
-                using (db = new DataAccessLayer.ArkContext())
+                using (db = new ArkContext())
                 {
                     using var transaction = db.Database.BeginTransaction();
                     WalletTypeRepository walletTypeRepository = new WalletTypeRepository();
@@ -124,14 +128,17 @@ namespace Ark.AppService
                             CreatedOn = DateTime.Now,
                             ActivationDate = DateTime.Now,
                             BusinessPackageId = 1,
+                            BusinessPackage = businessPackage,
                             UserAuthId = userBusinessPackage.Id,
-                            PackageStatus = PackageStatus.Activated,
+                            PackageStatus = PackageStatus.PendingActivation,
                             UserDepositRequestId = x.Id
                         };
-
-                        db.TblUserBusinessPackage.Add(tblUserBusinessPackage);
+                        userBusinessPackageRepository.Create(tblUserBusinessPackage, db);
 
                         userWalletAppService.Decrement(new UserWalletBO { UserAuthId = userWallet.UserAuthId, WalletCode = userWallet.WalletType.Code, WalletTypeId = userWallet.WalletTypeId }, new WalletTransactionBO { Amount = (_amountPaid * exchangeRateBO.OppositeValue) });
+
+                        UserIncomeAppService userIncomeAppService = new UserIncomeAppService();
+                        userIncomeAppService.ExecuteIncomeDistribution(new TblUserAuth { Id = userBusinessPackage.Id }, tblUserBusinessPackage, _amountPaid, db);
 
                         db.SaveChanges();
 

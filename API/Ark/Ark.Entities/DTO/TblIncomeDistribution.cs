@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
 namespace Ark.Entities.DTO
 {
+    using Ark.Entities.Enums;
+    using System;
+    using System.Collections.Generic;
+
     public partial class TblIncomeDistribution
     {
         public long Id { get; set; }
@@ -15,7 +16,7 @@ namespace Ark.Entities.DTO
         public long BusinessPackageId { get; set; }
         public long IncomeTypeId { get; set; }
         public decimal Value { get; set; }
-        public string DistributionType { get; set; }
+        public IncomeDistributionType DistributionType { get; set; }
 
         public virtual TblBusinessPackage BusinessPackage { get; set; }
         public virtual TblIncomeType IncomeType { get; set; }
