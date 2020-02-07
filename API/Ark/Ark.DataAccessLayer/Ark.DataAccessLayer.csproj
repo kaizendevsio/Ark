@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CryptoCityWallet.Entities\Ark.Entities.csproj" />
+    <ProjectReference Include="..\Ark.Entities\Ark.Entities.csproj" />
   </ItemGroup>
 
 </Project>

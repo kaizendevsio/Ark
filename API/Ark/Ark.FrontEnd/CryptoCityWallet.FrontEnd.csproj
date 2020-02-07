@@ -27,15 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CryptoCityWallet.Wrapper\CryptoCityWallet.Wrapper.csproj" />
+    <ProjectReference Include="..\Ark.Wrapper\Ark.Wrapper.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="CryptoCityWallet.Entities">
-      <HintPath>..\CryptoCityWallet.Entities\bin\Debug\netcoreapp3.0\CryptoCityWallet.Entities.dll</HintPath>
+    <Reference Include="Ark.Entities">
+      <HintPath>..\Ark.Entities\bin\Debug\netcoreapp3.0\Ark.Entities.dll</HintPath>
     </Reference>
-    <Reference Include="CryptoCityWallet.ExternalUtilities">
-      <HintPath>..\CryptoCityWallet.ExternalUtilities\bin\Debug\netcoreapp3.0\CryptoCityWallet.ExternalUtilities.dll</HintPath>
+    <Reference Include="Ark.ExternalUtilities">
+      <HintPath>..\Ark.ExternalUtilities\bin\Debug\netcoreapp3.0\Ark.ExternalUtilities.dll</HintPath>
     </Reference>
   </ItemGroup>
 

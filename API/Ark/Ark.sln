@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.Api", "CryptoCityWallet.Api\Ark.Api.csproj", "{6A07CFB4-B657-45A6-B15F-A27C95055325}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.Api", "Ark.Api\Ark.Api.csproj", "{6A07CFB4-B657-45A6-B15F-A27C95055325}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.AppService", "CryptoCityWallet.AppService\Ark.AppService.csproj", "{68F217E0-3FDB-4CC5-8A79-FFAC49A9B790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.AppService", "Ark.AppService\Ark.AppService.csproj", "{68F217E0-3FDB-4CC5-8A79-FFAC49A9B790}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.DataAccessLayer", "CryptoCityWallet.DataAccessLayer\Ark.DataAccessLayer.csproj", "{086515FB-0976-481E-BCFC-46075CCC7450}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.DataAccessLayer", "Ark.DataAccessLayer\Ark.DataAccessLayer.csproj", "{086515FB-0976-481E-BCFC-46075CCC7450}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.Entities", "CryptoCityWallet.Entities\Ark.Entities.csproj", "{C3E583D6-CC09-46E5-B9B0-D342749EC505}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.Entities", "Ark.Entities\Ark.Entities.csproj", "{C3E583D6-CC09-46E5-B9B0-D342749EC505}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.ExternalUtilities", "CryptoCityWallet.ExternalUtilities\Ark.ExternalUtilities.csproj", "{B0BEECD5-D6CF-4BA9-B742-A6E16D01635C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.ExternalUtilities", "Ark.ExternalUtilities\Ark.ExternalUtilities.csproj", "{B0BEECD5-D6CF-4BA9-B742-A6E16D01635C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.UnitTest", "CryptoCityWallet.UnitTest\Ark.UnitTest.csproj", "{0BD59FC5-93BB-47E4-B516-9857BCA56912}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ark.UnitTest", "Ark.UnitTest\Ark.UnitTest.csproj", "{0BD59FC5-93BB-47E4-B516-9857BCA56912}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

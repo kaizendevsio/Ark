@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CryptoCityWallet.ExternalUtilities\Ark.ExternalUtilities.csproj" />
+    <ProjectReference Include="..\Ark.ExternalUtilities\Ark.ExternalUtilities.csproj" />
   </ItemGroup>
 
 </Project>

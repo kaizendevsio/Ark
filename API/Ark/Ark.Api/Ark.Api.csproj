@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>CryptoCityWallet.Api</RootNamespace>
-    <AssemblyName>CryptoCityWallet.Api</AssemblyName>
+    <RootNamespace>Ark.Api</RootNamespace>
+    <AssemblyName>Ark.Api</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CryptoCityWallet.AppService\Ark.AppService.csproj" />
-    <ProjectReference Include="..\CryptoCityWallet.Entities\Ark.Entities.csproj" />
-    <ProjectReference Include="..\CryptoCityWallet.ExternalUtilities\Ark.ExternalUtilities.csproj" />
+    <ProjectReference Include="..\Ark.AppService\Ark.AppService.csproj" />
+    <ProjectReference Include="..\Ark.Entities\Ark.Entities.csproj" />
+    <ProjectReference Include="..\Ark.ExternalUtilities\Ark.ExternalUtilities.csproj" />
   </ItemGroup>
 
  <ItemGroup>

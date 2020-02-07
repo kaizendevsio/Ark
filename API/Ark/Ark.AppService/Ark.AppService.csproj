@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CryptoCityWallet.DataAccessLayer\Ark.DataAccessLayer.csproj" />
-    <ProjectReference Include="..\CryptoCityWallet.Entities\Ark.Entities.csproj" />
+    <ProjectReference Include="..\Ark.DataAccessLayer\Ark.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\Ark.Entities\Ark.Entities.csproj" />
   </ItemGroup>
 
 </Project>

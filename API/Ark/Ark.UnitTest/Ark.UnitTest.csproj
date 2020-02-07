@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CryptoCityWallet.AppService\Ark.AppService.csproj" />
-    <ProjectReference Include="..\CryptoCityWallet.Entities\Ark.Entities.csproj" />
+    <ProjectReference Include="..\Ark.AppService\Ark.AppService.csproj" />
+    <ProjectReference Include="..\Ark.Entities\Ark.Entities.csproj" />
   </ItemGroup>
 
 </Project>
