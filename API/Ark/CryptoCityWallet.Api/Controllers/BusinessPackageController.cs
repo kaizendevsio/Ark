@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Ark.AppService;
+using Ark.Entities.BO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Ark.Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BusinessPackageController : ControllerBase
+    {
+        [HttpPost("Buy")]
+        public ActionResult Create([FromBody] UserBusinessPackageBO userBusinessPackageBO)
+        {
+            UserBusinessPackageAppService userBusinessPackageAppService = new UserBusinessPackageAppService();
+            ApiResponseBO _apiResponse = new ApiResponseBO();
+
+            try
+            {
+                userBusinessPackageAppService.Create(userBusinessPackageBO);
+
+                _apiResponse.HttpStatusCode = "200";
+                _apiResponse.Message = "Package successfully purchased";
+                _apiResponse.Status = "Success";
+
+                return Ok(_apiResponse);
+            }
+            catch (Exception ex)
+            {
+                _apiResponse.HttpStatusCode = "500";
+                _apiResponse.Message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                _apiResponse.Status = "Error";
+                return Ok(_apiResponse);
+            }
+
+        }
+    }
+}
