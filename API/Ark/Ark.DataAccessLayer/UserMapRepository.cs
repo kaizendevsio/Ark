@@ -29,7 +29,7 @@ namespace Ark.DataAccessLayer
         public List<TblUserMap> GetAll(TblUserMap userMapQuery, ArkContext db)
         {
             var _q = from a in db.TblUserMap
-                     where a.Id == userMapQuery.Id || a.UserUid == userMapQuery.UserUid || a.UplineUserId == userMapQuery.UplineUserId
+                     where a.Id == userMapQuery.Id || a.UserUid == userMapQuery.UserUid || a.UplineUserId == userMapQuery.UplineUserId || a.SponsorUserId == userMapQuery.SponsorUserId
                      join b in db.TblUserAuth on a.Id equals b.Id
                      select new TblUserMap
                      {

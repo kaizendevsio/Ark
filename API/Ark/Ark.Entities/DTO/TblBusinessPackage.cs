@@ -1,4 +1,5 @@
-﻿using System;
+using Ark.Entities.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace Ark.Entities.DTO
@@ -25,6 +26,10 @@ namespace Ark.Entities.DTO
         public decimal? ValueFrom { get; set; }
         public decimal? ValueTo { get; set; }
         public long? CurrencyId { get; set; }
+        public long? DiscountValue { get; set; }
+        public long? DiscountType { get; set; }
+        public long? NetworkValue { get; set; }
+        public BusinessPackageCalculationMethod CalculationMethod { get; set; }
 
         public virtual TblCurrency Currency { get; set; }
         public virtual TblBusinessPackageType PackageType { get; set; }
