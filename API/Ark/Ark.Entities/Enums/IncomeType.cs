@@ -11,6 +11,8 @@ namespace Ark.Entities.Enums
         USI = 1,
         MSI = 2,
         TMI = 3,
-        GSI = 4
+        GSI = 4,
+        PSI = 5,
+        PSR = 6
     }
 }

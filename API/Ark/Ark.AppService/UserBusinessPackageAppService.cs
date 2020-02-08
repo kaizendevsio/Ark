@@ -69,7 +69,7 @@ namespace Ark.AppService
                     userWalletAppService.Decrement(new UserWalletBO { UserAuthId = userWallet.UserAuthId, WalletCode = userWallet.WalletType.Code, WalletTypeId = userWallet.WalletTypeId }, new WalletTransactionBO { Amount = (_amountPaid * exchangeRateBO.OppositeValue) });
 
                     UserIncomeAppService userIncomeAppService = new UserIncomeAppService();
-                    userIncomeAppService.ExecuteIncomeDistribution(new TblUserAuth { Id = userBusinessPackage.Id }, tblUserBusinessPackage, db);
+                    userIncomeAppService.ExecuteIncomeDistribution(new TblUserAuth { Id = userBusinessPackage.Id }, tblUserBusinessPackage, _amountPaid, db);
 
                     db.SaveChanges();
 
