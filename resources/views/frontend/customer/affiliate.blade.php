@@ -20,7 +20,7 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6 col-12">
                                     <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-                                        {{__('Your Affiliates')}}
+                                        {{__('Your Enterprise')}}
                                     </h2>
                                 </div>
                                 <div class="col-md-6 col-12">

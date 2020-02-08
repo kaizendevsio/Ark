@@ -317,7 +317,7 @@ namespace Ark.DataAccessLayer
 
                 entity.Property(e => e.IncomePercentage).HasColumnType("numeric(18,10)");
 
-                entity.Property(e => e.IncomeShortName).HasMaxLength(50);
+                entity.Property(e => e.IncomeTypeShortName).HasMaxLength(50);
 
                 entity.Property(e => e.IncomeTypeCode)
                     .IsRequired()

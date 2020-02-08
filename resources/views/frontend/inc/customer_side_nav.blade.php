@@ -76,7 +76,7 @@
                 @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
                     <li>
                         <a href="{{ route('wallet.index') }}" class="{{ areActiveRoutesHome(['wallet.index'])}}">
-                            <i class="la la-dollar"></i>
+                            <i class="la la-wallet"></i>
                             <span class="category-name">
                                 {{__('My Wallet')}}
                             </span>

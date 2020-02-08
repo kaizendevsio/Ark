@@ -20,15 +20,15 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <!-- <label>{{ __('name') }}</label> -->
+                                                        <!-- <label>{{ __('fname') }}</label> -->
                                                         <div class="input-group input-group--style-1">
-                                                            <input type="text" class="form-control{{ $errors->has('fname') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('First Name') }}" name="fname">
+															<input type="text" class="form-control{{ $errors->has('fname') ? ' is-invalid' : '' }}" value="{{ old('fname') }}" placeholder="{{ __('First Name') }}" name="fname" />
                                                             <span class="input-group-addon">
                                                                 <i class="text-md la la-user"></i>
                                                             </span>
-                                                            @if ($errors->has('name'))
+                                                            @if ($errors->has('fname'))
                                                                 <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                                    <strong>{{ $errors->first('fname') }}</strong>
                                                                 </span>
                                                             @endif
                                                         </div>
@@ -39,15 +39,15 @@
 											<div class="row">
 												<div class="col-12">
 													<div class="form-group">
-														<!-- <label>{{ __('name') }}</label> -->
+														<!-- <label>{{ __('mname') }}</label> -->
 														<div class="input-group input-group--style-1">
-															<input type="text" class="form-control{{ $errors->has('mname') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('Middle Name') }}" name="mname" />
+															<input type="text" class="form-control{{ $errors->has('mname') ? ' is-invalid' : '' }}" value="{{ old('mname') }}" placeholder="{{ __('Middle Name') }}" name="mname" />
 															<span class="input-group-addon">
 																<i class="text-md la la-user"></i>
 															</span>
-															@if ($errors->has('name'))
+															@if ($errors->has('mname'))
 															<span class="invalid-feedback" role="alert">
-																<strong>{{ $errors->first('name') }}</strong>
+																<strong>{{ $errors->first('mname') }}</strong>
 															</span>
 															@endif
 														</div>
@@ -58,15 +58,15 @@
 											<div class="row">
 												<div class="col-12">
 													<div class="form-group">
-														<!-- <label>{{ __('name') }}</label> -->
+														<!-- <label>{{ __('lname') }}</label> -->
 														<div class="input-group input-group--style-1">
-															<input type="text" class="form-control{{ $errors->has('lname') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{ __('Last Name') }}" name="lname" />
+															<input type="text" class="form-control{{ $errors->has('lname') ? ' is-invalid' : '' }}" value="{{ old('lname') }}" placeholder="{{ __('Last Name') }}" name="lname" />
 															<span class="input-group-addon">
 																<i class="text-md la la-user"></i>
 															</span>
-															@if ($errors->has('name'))
+															@if ($errors->has('lname'))
 															<span class="invalid-feedback" role="alert">
-																<strong>{{ $errors->first('name') }}</strong>
+																<strong>{{ $errors->first('lname') }}</strong>
 															</span>
 															@endif
 														</div>
@@ -129,15 +129,15 @@
 											<div class="row">
 												<div class="col-12">
 													<div class="form-group">
-														<!-- <label>{{ __('email') }}</label> -->
+														<!-- <label>{{ __('source_code') }}</label> -->
 														<div class="input-group input-group--style-1">
-															<input type="email" class="form-control{{ $errors->has('source_code') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ __('Source Code') }}" name="source_code" />
+															<input type="text" class="form-control{{ $errors->has('source_code') ? ' is-invalid' : '' }}" value="{{ old('source_code') }}" placeholder="{{ __('Source Code') }}" name="source_code" />
 															<span class="input-group-addon">
 																<i class="text-md la la-lock"></i>
 															</span>
-															@if ($errors->has('email'))
+															@if ($errors->has('source_code'))
 															<span class="invalid-feedback" role="alert">
-																<strong>{{ $errors->first('email') }}</strong>
+																<strong>{{ $errors->first('source_code') }}</strong>
 															</span>
 															@endif
 														</div>

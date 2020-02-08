@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Ark.Entities.DTO;
 using Ark.Entities.BO;
 using Ark.Entities.Enums;
@@ -13,6 +13,9 @@ namespace Ark.DataAccessLayer
         {
             TblUserInfo _userInfo = new TblUserInfo();
             Guid g = Guid.NewGuid();
+            Random random = new Random();
+
+            string r = String.Format("{0}{1}{2}", userBO.UserName, random.Next(999), Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65))));
 
             _userInfo.FirstName = userBO.FirstName;
             _userInfo.LastName = userBO.LastName;
@@ -21,7 +24,7 @@ namespace Ark.DataAccessLayer
             _userInfo.Dob = userBO.Dob;
             _userInfo.CountryIsoCode2 = userBO.CountryIsoCode2;
             _userInfo.Gender = userBO.Gender;
-            _userInfo.Uid = g.ToString();
+            _userInfo.Uid = r;//g.ToString();
             _userInfo.IsEnabled = true;
             _userInfo.EmailStatus = (short)EmailStatus.Unverified;
 
