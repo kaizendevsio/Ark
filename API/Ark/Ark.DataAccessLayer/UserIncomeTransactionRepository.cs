@@ -1,15 +1,13 @@
-using System.Text;
-using System.Linq;
-using System.Security.Cryptography;
-using Ark.Entities.DTO;
 using Ark.Entities.BO;
+using Ark.Entities.DTO;
 using Ark.Entities.Enums;
-using AutoMapper;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Ark.DataAccessLayer
 {
-   public class UserIncomeTransactionRepository
+    public class UserIncomeTransactionRepository
     {
         public TblUserIncomeTransaction Create(UserWalletBO userWallet, WalletTransactionBO walletTransaction, TblIncomeDistribution incomeDistribution, DataAccessLayer.ArkContext db)
         {
@@ -24,11 +22,16 @@ namespace Ark.DataAccessLayer
             };
 
             db.TblUserIncomeTransaction.Add(userIncomeTransaction);
-
             db.SaveChanges();
 
             return userIncomeTransaction;
 
+        }
+
+        public List<TblUserIncomeTransaction> GetAll(TblUserAuth userAuth, ArkContext db)
+        {
+            List<TblUserIncomeTransaction> userIncomeTransactions = db.TblUserIncomeTransaction.Where(item => item.UserAuthId == userAuth.Id).ToList();
+            return userIncomeTransactions;
         }
     }
 }

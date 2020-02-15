@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Ark.Entities.DTO;
 
 namespace Ark.Entities.BO
@@ -14,5 +14,7 @@ namespace Ark.Entities.BO
         public List<UserWalletBO> UserWallet { get; set;}
         public List<TblUserWalletTransaction> UserWalletTransactions { get; set; }
         public List<TblUserWalletAddress> UserWalletAddress { get; set; }
+        public List<TblUserIncomeTransaction> UserIncomeTransactions { get; set; }
+        public List<TblUserDepositRequest> UserDepositRequests { get; set; }
     }
 }

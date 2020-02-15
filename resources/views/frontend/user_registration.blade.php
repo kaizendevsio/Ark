@@ -74,6 +74,24 @@
 												</div>
 											</div>
                                             <hr />
+											<div class="row" style="display:none">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('username') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" value="{{ old('username') }}" placeholder="{{ __('Username') }}" name="username" />
+															<span class="input-group-addon">
+																<i class="text-md la la-envelope"></i>
+															</span>
+															@if ($errors->has('username'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('username') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
@@ -92,6 +110,25 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="tel" class="form-control{{ $errors->has('mobileNo') ? ' is-invalid' : '' }}" value="{{ old('mobileNo') }}" placeholder="{{ __('Phone Number') }}" name="mobileNo" />
+															<span class="input-group-addon">
+																<i class="text-md la la-mobile"></i>
+															</span>
+															@if ($errors->has('mobileNo'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('mobileNo') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
 
                                             <div class="row">
                                                 <div class="col-12">
@@ -138,6 +175,24 @@
 															@if ($errors->has('source_code'))
 															<span class="invalid-feedback" role="alert">
 																<strong>{{ $errors->first('source_code') }}</strong>
+															</span>
+															@endif
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-12">
+													<div class="form-group">
+														<!-- <label>{{ __('special_code') }}</label> -->
+														<div class="input-group input-group--style-1">
+															<input type="text" class="form-control{{ $errors->has('special_code') ? ' is-invalid' : '' }}" value="{{ old('special_code') }}" placeholder="{{ __('Special Code') }}" name="special_code" />
+															<span class="input-group-addon">
+																<i class="text-md la la-lock"></i>
+															</span>
+															@if ($errors->has('source_code'))
+															<span class="invalid-feedback" role="alert">
+																<strong>{{ $errors->first('special_code') }}</strong>
 															</span>
 															@endif
 														</div>

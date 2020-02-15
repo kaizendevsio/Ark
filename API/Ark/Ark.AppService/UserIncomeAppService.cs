@@ -45,22 +45,25 @@ namespace Ark.AppService
         private bool DirectIncome(TblUserAuth userAuth,TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)
         {
             UserAuthRepository userAuthRepository = new UserAuthRepository();            
-            UserMapRepository userMapRepository = new UserMapRepository();            
+            UserMapRepository userMapRepository = new UserMapRepository();
+            UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
 
             userAuth = userAuthRepository.GetByID(userAuth.Id, db);
             TblUserMap userMap = userMapRepository.Get(userAuth, db);
 
-            int minUserCount = 3;
+            int minUserCount = 1;
 
-            ///Get directs count
-            List<TblUserMap> userMaps = userMapRepository.GetAll(new TblUserMap { SponsorUserId = userAuth.Id }, db);
-            MinimumUserCheckBO minimumUserCheckBO = MinimumUserCheck(userMaps, minUserCount);
+            // Get directs count
+            List<TblUserBusinessPackage> userBusinessPackage = userBusinessPackageRepository.GetAllUserPackages(userAuth, db);
 
-            if (minimumUserCheckBO.IsPassed)
-            {
-                CalculateIncomeBO calculateIncome = CalculateIncome_v2(incomeDistribution, minimumUserCheckBO.userBusinessPackages, amountPaid);
-                DistributeToWallet((long)userMap.SponsorUserId, userAuth.Id, calculateIncome, incomeDistribution, db);
-            }
+            CalculateIncomeBO calculateIncome = CalculateIncome_v2(incomeDistribution, userBusinessPackage, amountPaid);
+            DistributeToWallet((long)userMap.SponsorUserId, userAuth.Id, calculateIncome, incomeDistribution, db);
+
+            //if (minimumUserCheckBO.IsPassed)
+            //{
+            //    CalculateIncomeBO calculateIncome = CalculateIncome_v2(incomeDistribution, minimumUserCheckBO.userBusinessPackages, amountPaid);
+            //    DistributeToWallet((long)userMap.SponsorUserId, userAuth.Id, calculateIncome, incomeDistribution, db);
+            //}
 
             return true;
         }
@@ -173,22 +176,33 @@ namespace Ark.AppService
         }
         private MinimumUserCheckBO MinimumUserCheck(List<TblUserMap> userMaps, int minUserCount)
         {
-            decimal _ck = userMaps.Count % minUserCount;
             MinimumUserCheckBO minimumUserCheckBO = new MinimumUserCheckBO() { IsPassed = false };
-
-            if (userMaps.Count >= minUserCount && _ck == 0)
+            if (minUserCount != 0)
             {
                 List<TblUserBusinessPackage> userBusinessPackages = userMaps.SelectMany(item => item.IdNavigation.TblUserBusinessPackage).ToList();
-                int _removeUserCount = userMaps.Count / minUserCount > 1 ? minUserCount * (userMaps.Count / minUserCount) : 0;
+                decimal _ck = userBusinessPackages.Count % minUserCount;
+                
 
-                if (_removeUserCount > 0)
+                if (userBusinessPackages.Count >= minUserCount && _ck == 0)
                 {
-                    userBusinessPackages.RemoveAll(i => i.Id <= (userBusinessPackages[0].Id + _removeUserCount));
+                    
+                    int _removeUserCount = userBusinessPackages.Count / minUserCount > 1 ? minUserCount * (userBusinessPackages.Count / minUserCount) : 0;
+
+                    if (_removeUserCount > 0)
+                    {
+                        userBusinessPackages.RemoveAll(i => i.Id <= (userBusinessPackages[0].Id + _removeUserCount));
+                    }
+                    minimumUserCheckBO.IsPassed = true;
+                    minimumUserCheckBO.userBusinessPackages = userBusinessPackages;
                 }
+            }
+            else {
+                List<TblUserBusinessPackage> userBusinessPackages = userMaps.SelectMany(item => item.IdNavigation.TblUserBusinessPackage).ToList();
                 minimumUserCheckBO.IsPassed = true;
                 minimumUserCheckBO.userBusinessPackages = userBusinessPackages;
             }
             return minimumUserCheckBO;
+
         }
         private CalculateIncomeBO CalculateIncome(TblIncomeDistribution incomeDistribution, decimal amountPaid)
         {
@@ -258,8 +272,8 @@ namespace Ark.AppService
                     switch (incomeDistribution.BusinessPackage.CalculationMethod)
                     {
                         case BusinessPackageCalculationMethod.NetworkValue:
-                            calculateIncome.IncomeAmount = (decimal)userBusinessPackages.Sum(i => i.BusinessPackage.NetworkValue) * ((decimal)incomeDistribution.BusinessPackage.NetworkValue / 100);
-                            calculateIncome.Remarks = String.Format("Value = ({0}) * ({1})", (decimal)userBusinessPackages.Sum(i => i.BusinessPackage.NetworkValue), ((decimal)incomeDistribution.BusinessPackage.NetworkValue / 100));
+                            calculateIncome.IncomeAmount = (decimal)userBusinessPackages.Sum(i => i.BusinessPackage.NetworkValue) * ((decimal)incomeDistribution.Value / 100);
+                            calculateIncome.Remarks = String.Format("Value = ({0}) * ({1})", (decimal)userBusinessPackages.Sum(i => i.BusinessPackage.NetworkValue), ((decimal)incomeDistribution.Value / 100));
                             break;
                         case BusinessPackageCalculationMethod.PaymentValue:
                             calculateIncome.IncomeAmount = (incomeDistribution.Value / 100) * amountPaid;
@@ -300,5 +314,24 @@ namespace Ark.AppService
             return true;
 
         }
+        public List<TblUserIncomeTransaction> GetUserIncomeTransactions(TblUserAuth userAuth, ArkContext db = null)
+        {
+            if (db != null)
+            {
+                UserIncomeTransactionRepository userIncomeTransactionRepository = new UserIncomeTransactionRepository();
+                return userIncomeTransactionRepository.GetAll(userAuth, db);
+            }
+            else
+            {
+                using (db = new DataAccessLayer.ArkContext())
+                {
+                    UserIncomeTransactionRepository userIncomeTransactionRepository = new UserIncomeTransactionRepository();
+                    return userIncomeTransactionRepository.GetAll(userAuth, db);
+                }
+            }
+
+            
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +7,7 @@ using Ark.Entities.BO;
 using Ark.Entities.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Ark.Entities.Enums;
 
 namespace Ark.Api.Controllers
 {
@@ -17,11 +18,12 @@ namespace Ark.Api.Controllers
         [HttpGet("UserList")]
         public ActionResult UserList()
         {
-            dynamic _apiResponse = new object();
+            AdminResponseBO _apiResponse = new AdminResponseBO();
             try
             {
                 AdminAccessAppService adminAccessAppService = new AdminAccessAppService();
                 _apiResponse.UserList = adminAccessAppService.GetAllUsers();
+                _apiResponse.UserDepositRequests = adminAccessAppService.GetAllDepositRequest();
 
                 _apiResponse.HttpStatusCode = "200";
                 _apiResponse.Status = "Success";

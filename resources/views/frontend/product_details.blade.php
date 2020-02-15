@@ -127,7 +127,7 @@
 								</div>
 								@if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
 									<div class="col-auto">
-										<button class="btn" onclick="show_chat_modal()">{{__('Message Seller')}}</button>
+										<button class="btn" onclick="show_chat_modal()">{{__('Message')}}</button>
 									</div>
 								@endif
 							</div>
@@ -271,10 +271,10 @@
 								<div class="d-table-cell">
 									<!-- Buy Now button -->
 									@if ($qty > 0)
-									<button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now" onclick="buyNow()">
+									<button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now" style="background-color:#00babc!important" onclick="buyNow()">
 										<i class="la la-shopping-cart"></i> {{__('Buy Now')}}
 									</button>
-									<button type="button" class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart" onclick="addToCart()">
+									<button type="button" class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart" style="background-color:#f04f00!important" onclick="addToCart()">
 										<i class="la la-shopping-cart"></i>
 										<span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
 									</button>
@@ -304,9 +304,8 @@
 								</div>
 							</div>
 
-							<hr class="mt-2">
 
-							<div class="row no-gutters mt-3">
+							<div class="row no-gutters mt-3" style="display:none">
 								<div class="col-2">
 									<div class="product-description-label alpha-6">{{__('Return Policy')}}:</div>
 								</div>
@@ -328,23 +327,23 @@
 									</div>
 								</div>
 							@endif
-							<div class="row no-gutters mt-3">
+							<div class="row no-gutters mt-3" style="display:none">
 								<div class="col-2">
 									<div class="product-description-label alpha-6">{{__('Payment')}}:</div>
 								</div>
 								<div class="col-10">
 									<ul class="inline-links">
 										<li>
-											<img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/visa.png') }}" width="30" class="lazyload">
+											<img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/visa.png') }}" width="30" class="lazyload" />
 										</li>
 										<li>
-											<img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/mastercard.png') }}" width="30" class="lazyload">
+											<img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/mastercard.png') }}" width="30" class="lazyload" />
 										</li>
-									   <!-- <li>
+										<!-- <li>
 											<img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/maestro.png') }}" width="30" class="lazyload">
 										</li>-->
 										<li>
-											<img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/paypal.png') }}" width="30" class="lazyload">
+											<img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/paypal.png') }}" width="30" class="lazyload" />
 										</li>
 									</ul>
 								</div>

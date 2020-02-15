@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using SendGrid;
@@ -44,7 +44,7 @@ namespace Ark.AppService
             
             var mail = new MailMessage()
             {
-                From = new MailAddress("no-reply@world-ccity.com"),                
+                From = new MailAddress("no-reply@ark.ph"),                
             };
 
            

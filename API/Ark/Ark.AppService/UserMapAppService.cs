@@ -14,6 +14,8 @@ namespace Ark.AppService
         {
             UserMapRepository userMapRepository = new UserMapRepository();
             TblUserMap _userMap = new TblUserMap();
+
+            //userBO = SetDefaultUpline(userBO, db, true);
             BinaryMapStatus _y = Validate(userBO, db);
 
             if (_y == BinaryMapStatus.BinaryPositionTaken)
@@ -33,17 +35,17 @@ namespace Ark.AppService
             }
             else if (_y == BinaryMapStatus.InvalidDirectSponsor)
             {
-                throw new ArgumentException("Introducer ID is invalid");
+                throw new ArgumentException("Source Code is invalid");
             }
 
-            _userMap.UplineUserId = long.Parse(userBO.BinarySponsorID);
+            //_userMap.UplineUserId = long.Parse(userBO.BinarySponsorID);
             _userMap.SponsorUserId = long.Parse(userBO.DirectSponsorID);
 
             TblUserMap userMap = new TblUserMap
             {
                 Id = userAuth.Id,
                 SponsorUserId = _userMap.SponsorUserId,
-                UplineUserId = _userMap.UplineUserId,
+                //UplineUserId = _userMap.UplineUserId,
                 Position = short.Parse(userBO.BinaryPosition),
                 UserUid = userBO.Uid
             };
@@ -154,8 +156,8 @@ namespace Ark.AppService
             }
             else
             {
-                userBO.DirectSponsorID = directSponsorUser.Id.ToString();
-                userBO.BinarySponsorID = binarySponsorUser.Id.ToString();
+                userBO.DirectSponsorID = directSponsorUser != null ? directSponsorUser.Id.ToString() : "2";
+                userBO.BinarySponsorID = binarySponsorUser != null ? binarySponsorUser.Id.ToString() : "2";
             }
 
             return userBO;

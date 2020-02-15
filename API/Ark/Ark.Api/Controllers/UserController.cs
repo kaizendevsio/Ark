@@ -184,6 +184,8 @@ namespace Ark.Api.Controllers
         {
             UserWalletAppService userWalletAppService = new UserWalletAppService();
             UserWalletAddressAppService userWalletAddressAppService = new UserWalletAddressAppService();
+            UserBusinessPackageAppService userBusinessPackageAppService = new UserBusinessPackageAppService();
+
             UserResponseBO _apiResponse = new UserResponseBO();
 
             try
@@ -195,6 +197,7 @@ namespace Ark.Api.Controllers
 
                 _apiResponse.UserWallet = userWalletAppService.GetAllBO(userAuth);
                 _apiResponse.UserWalletAddress = userWalletAddressAppService.GetAll(userAuth);
+                _apiResponse.UserDepositRequests = userBusinessPackageAppService.GetUserDepositRequests(userAuth, DepositStatus.PendingPayment);
                 
                 _apiResponse.HttpStatusCode = "200";
                 _apiResponse.Message = "UserWallet GET";
@@ -336,6 +339,35 @@ namespace Ark.Api.Controllers
                 TblUserAuth userAuth = sessionController.GetSession(HttpContext.Session);
 
                 _apiResponse.UserUnilevelMap = userMapAppService.GetUnilevel(userAuth);
+
+                _apiResponse.HttpStatusCode = "200";
+                //_apiResponse.Message = "UserWallet GET";
+                _apiResponse.Status = "Success";
+            }
+            catch (Exception ex)
+            {
+                _apiResponse.HttpStatusCode = "500";
+                _apiResponse.Message = ex.Message;
+                _apiResponse.Status = "Error";
+
+            }
+
+            return Ok(_apiResponse);
+        }
+
+        [HttpGet("UserIncomeTransactions")]
+        public ActionResult UserIncomeTransactions()
+        {
+            UserIncomeAppService userIncomeAppService = new UserIncomeAppService();
+            UserResponseBO _apiResponse = new UserResponseBO();
+
+            try
+            {
+                // GET SESSIONS
+                SessionController sessionController = new SessionController();
+                TblUserAuth userAuth = sessionController.GetSession(HttpContext.Session);
+
+                _apiResponse.UserIncomeTransactions = userIncomeAppService.GetUserIncomeTransactions(userAuth);
 
                 _apiResponse.HttpStatusCode = "200";
                 //_apiResponse.Message = "UserWallet GET";

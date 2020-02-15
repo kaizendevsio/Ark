@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -34,6 +34,7 @@ namespace Ark.Entities.BO
         public string DirectSponsorID { get; set; }
         public string BinarySponsorID { get; set; }
         public string BinaryPosition { get; set; }
+        public TblUserBusinessPackage UserBusinessPackage { get; set; }
 
     }
 }

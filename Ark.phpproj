@@ -171,8 +171,6 @@
     <Compile Include="database\migrations\2014_10_12_100000_create_password_resets_table.php" />
     <Compile Include="database\seeds\DatabaseSeeder.php" />
     <Compile Include="database\.gitignore" />
-    <Compile Include="documentation\Documentation.pdf" />
-    <Compile Include="documentation\Ecommerce how to update to the latest version.pdf" />
     <Compile Include="public\css\demo\fonts\nifty-demo-icons.svg" />
     <Compile Include="public\css\demo\fonts\nifty-demo-icons.ttf" />
     <Compile Include="public\css\demo\fonts\nifty-demo-icons.woff" />
@@ -1118,6 +1116,7 @@
     <Compile Include="resources\views\coupons\create.blade.php" />
     <Compile Include="resources\views\coupons\edit.blade.php" />
     <Compile Include="resources\views\coupons\index.blade.php" />
+    <Compile Include="resources\views\customers\deposits.blade.php" />
     <Compile Include="resources\views\customers\index.blade.php" />
     <Compile Include="resources\views\emails\invoice.blade.php" />
     <Compile Include="resources\views\emails\newsletter.blade.php" />
@@ -1404,7 +1403,6 @@
     <Folder Include="database\migrations" />
     <Folder Include="database\seeds" />
     <Folder Include="database" />
-    <Folder Include="documentation" />
     <Folder Include="public\css\demo\fonts" />
     <Folder Include="public\css\demo" />
     <Folder Include="public\css\themes\type-a" />

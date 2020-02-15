@@ -67,7 +67,7 @@ namespace Ark.Api
 
             app.UseSession();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

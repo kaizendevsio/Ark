@@ -1,4 +1,4 @@
-﻿using Ark.Entities.DTO;
+using Ark.Entities.DTO;
 using Ark.Entities.BO;
 using Ark.Entities.Enums;
 using Ark.DataAccessLayer;
@@ -25,6 +25,26 @@ namespace Ark.AppService
                     {
                         UserInfoRepository userInfoRepository = new UserInfoRepository();
                         return userInfoRepository.GetAll(db);
+                    }
+                }
+            }
+        }
+
+        public List<UserBO> GetAllDepositRequest(DataAccessLayer.ArkContext db = null)
+        {
+            if (db != null)
+            {
+                UserInfoRepository userInfoRepository = new UserInfoRepository();
+                return userInfoRepository.GetAllDeposit(db);
+            }
+            else
+            {
+                using (db = new DataAccessLayer.ArkContext())
+                {
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        UserInfoRepository userInfoRepository = new UserInfoRepository();
+                        return userInfoRepository.GetAllDeposit(db);
                     }
                 }
             }

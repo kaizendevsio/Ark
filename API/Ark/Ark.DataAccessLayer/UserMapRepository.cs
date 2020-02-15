@@ -22,8 +22,25 @@ namespace Ark.DataAccessLayer
         }
         public TblUserMap Get(TblUserAuth userAuth, ArkContext db)
         {
-            TblUserMap userMap = db.TblUserMap.FirstOrDefault(item => item.Id == userAuth.Id);
-            return userMap;
+            var _q = from a in db.TblUserMap
+                     where a.Id == userAuth.Id
+                     join b in db.TblUserAuth on a.Id equals b.Id
+                     join c in db.TblUserBusinessPackage on b.Id equals c.UserAuthId
+                     select new TblUserMap
+                     {
+                         Id = a.Id,
+                         CreatedOn = a.CreatedOn,
+                         IsEnabled = a.IsEnabled,
+                         ModifiedOn = a.ModifiedOn,
+                         UserUid = a.UserUid,
+                         Position = a.Position,
+                         SponsorUserId = a.SponsorUserId,
+                         UplineUserId = a.UplineUserId
+                     };
+
+            TblUserMap _qRes = _q.FirstOrDefault();
+
+            return _qRes;
 
         }
         public List<TblUserMap> GetAll(TblUserMap userMapQuery, ArkContext db)
@@ -79,7 +96,7 @@ namespace Ark.DataAccessLayer
             for (int i = 0; i < _qRes.Count; i++)
             {
                 UserMapBO userMap = new UserMapBO();
-                List<TblUserBusinessPackage> userBusinessPackages = userBusinessPackageRepository.GetAll(_qRes[i].IdNavigation, db);
+                List<TblUserBusinessPackage> userBusinessPackages = userBusinessPackageRepository.GetAllUserPackages(_qRes[i].IdNavigation, db);
                 userBusinessPackages = userBusinessPackages.FindAll(i => i.UserDepositRequest.DepositStatus == (short)DepositStatus.Paid);
                 userMap.title = userBusinessPackages.Count > 0 ? @String.Format("BP ({0:#,##0.000})", userBusinessPackages.Sum(i => i.UserDepositRequest.Amount)) : "Inactive";
                 userMap.name = _qRes[i].IdNavigation.UserName;
@@ -97,7 +114,7 @@ namespace Ark.DataAccessLayer
             UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
 
             TblUserInfo userInfo = userInfoRepository.Get(userAuth, db);
-            List<TblUserBusinessPackage> userBusinessPackages = userBusinessPackageRepository.GetAll(userAuth, db);
+            List<TblUserBusinessPackage> userBusinessPackages = userBusinessPackageRepository.GetAllUserPackages(userAuth, db);
             userBusinessPackages = userBusinessPackages.FindAll(i => i.UserDepositRequest.DepositStatus == (short)DepositStatus.Paid);
 
             UserMapBO userMapBO = new UserMapBO
@@ -115,13 +132,16 @@ namespace Ark.DataAccessLayer
             var _q = from a in db.TblUserMap
                      join b in db.TblUserAuth on a.Id equals b.Id
                      join c in db.TblUserInfo on b.UserInfoId equals c.Id
+                     join d in db.TblUserBusinessPackage on b.Id equals d.UserAuthId
 
                      where a.SponsorUserId == userAuth.Id
                      orderby a.Id ascending
                      select new UnilevelMapBO
                      {
                          Text = b.UserName,
-                         MapBO = a
+                         MapBO = a,
+                         UserAuth = b,
+                         UserBusinessPackage = d
                      };
 
             List<UnilevelMapBO> _qRes = _q.ToList<UnilevelMapBO>();

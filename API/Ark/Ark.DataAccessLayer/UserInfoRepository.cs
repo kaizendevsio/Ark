@@ -4,6 +4,7 @@ using Ark.Entities.BO;
 using Ark.Entities.Enums;
 using System;
 using System.Collections.Generic;
+using Ark.ExternalUtilities;
 
 namespace Ark.DataAccessLayer
 {
@@ -12,10 +13,10 @@ namespace Ark.DataAccessLayer
         public TblUserInfo Create(UserBO userBO, ArkContext db)
         {
             TblUserInfo _userInfo = new TblUserInfo();
+            SeedString seedString = new SeedString();
             Guid g = Guid.NewGuid();
-            Random random = new Random();
 
-            string r = String.Format("{0}{1}{2}", userBO.UserName, random.Next(999), Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65))));
+            string r = String.Format("{0}{1}{2}", userBO.FirstName.Substring(0,1), userBO.LastName.Substring(0,1), seedString.GenerateRandom(8));
 
             _userInfo.FirstName = userBO.FirstName;
             _userInfo.LastName = userBO.LastName;
@@ -63,6 +64,14 @@ namespace Ark.DataAccessLayer
         {
             var _qUi = from a in db.TblUserInfo
                        join b in db.TblUserAuth on a.Id equals b.UserInfoId
+                       join c in db.TblUserBusinessPackage on b.Id equals c.UserAuthId into ubp
+                       from c in ubp.DefaultIfEmpty()
+
+                       join d in db.TblBusinessPackage on c.BusinessPackageId equals d.Id into bp
+                       from _bp in bp.DefaultIfEmpty()
+
+                       join e in db.TblUserDepositRequest on c.UserDepositRequestId equals e.Id into udr
+                       from _udr in udr.DefaultIfEmpty()
                        //where a.Id == userAuth.UserInfoId || b.UserName == userAuth.UserName
                        select new UserBO
                        {
@@ -77,7 +86,38 @@ namespace Ark.DataAccessLayer
                            CreatedOn = a.CreatedOn,
                            CountryIsoCode2 = a.CountryIsoCode2,
                            CompanyName = a.CompanyName,
-                           UserName = b.UserName
+                           UserName = b.UserName,
+                           UserBusinessPackage = new TblUserBusinessPackage { ActivationDate = c.ActivationDate, CreatedOn = c.CreatedOn, PackageStatus = c.PackageStatus, UserDepositRequest = _udr, BusinessPackage = _bp }
+                       };
+
+            List<UserBO> _users = _qUi.ToList();
+            return _users;
+        }
+
+        public List<UserBO> GetAllDeposit(ArkContext db)
+        {
+            var _qUi = from a in db.TblUserInfo
+                       join b in db.TblUserAuth on a.Id equals b.UserInfoId
+                       join c in db.TblUserBusinessPackage on b.Id equals c.UserAuthId
+                       join d in db.TblBusinessPackage on c.BusinessPackageId equals d.Id
+                       join e in db.TblUserDepositRequest on c.UserDepositRequestId equals e.Id 
+
+                       where e.DepositStatus == (int)DepositStatus.PendingPayment
+                       select new UserBO
+                       {
+                           FirstName = a.FirstName,
+                           LastName = a.LastName,
+                           Dob = a.Dob,
+                           Email = a.Email,
+                           PhoneNumber = a.PhoneNumber,
+                           Gender = a.Gender,
+                           Uid = a.Uid,
+                           EmailStatus = a.EmailStatus,
+                           CreatedOn = a.CreatedOn,
+                           CountryIsoCode2 = a.CountryIsoCode2,
+                           CompanyName = a.CompanyName,
+                           UserName = b.UserName,
+                           UserBusinessPackage = new TblUserBusinessPackage { Id = c.Id, ActivationDate = c.ActivationDate, CreatedOn = c.CreatedOn, PackageStatus = c.PackageStatus, UserDepositRequest = e, BusinessPackage = d }
                        };
 
             List<UserBO> _users = _qUi.ToList();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
@@ -16,5 +16,9 @@ namespace Ark.Entities.BO
         public List<UnilevelMapBO> Nodes { get; set; }
         [JsonProperty("mapbo"), JsonIgnore]
         public TblUserMap MapBO { get; set; }
+        public decimal TotalCommission { get; set; }
+        public TblUserAuth UserAuth { get; set; }
+        public TblUserBusinessPackage UserBusinessPackage{ get; set; }
+
     }
 }
