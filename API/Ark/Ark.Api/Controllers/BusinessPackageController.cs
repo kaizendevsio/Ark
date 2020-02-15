@@ -82,7 +82,7 @@ namespace Ark.Api.Controllers
 
                 _apiResponse.HttpStatusCode = "200";
                 _apiResponse.Message = "Package successfully purchased";
-                _apiResponse.RedirectUrl = "/dashboard";
+                _apiResponse.RedirectUrl = "/admin/customers";
                 _apiResponse.Status = "Success";
 
                 return Ok(_apiResponse);

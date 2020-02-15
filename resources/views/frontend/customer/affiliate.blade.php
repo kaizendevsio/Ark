@@ -51,8 +51,8 @@
 			 $_s = Session::get('apiSession');
 
 
-			 try
-			 {
+			// try
+			// {
 				 $url = 'http://localhost:55006/api/user/BusinessPackages';
 				 $options = array(
 					 'http' => array(
@@ -91,21 +91,27 @@
 					 $result = file_get_contents($url, false, $context);
 					 $businessPackages = json_decode($result);
 					 $businessPackages = $businessPackages->businessPackages;
+
 				 }
 				 else{
-					// $url = 'http://localhost:55006/api/user/UnilevelMap';
-					// $options = array(
-					//	 'http' => array(
-					//		 'method'  => 'GET',
-					//		 'header'    => "Accept-language: en\r\n" .
-					//			 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-					//	 )
-					// );
-					// $context  = stream_context_create($options);
-					// $result = file_get_contents($url, false, $context);
-					// $_res = json_decode($result);
-					// $unilevelMap = $_res->userUnilevelMap->nodes;
-					// //var_dump($unilevelMap);
+					 $url = 'http://localhost:55006/api/user/UnilevelMap';
+					 $options = array(
+						 'http' => array(
+							 'method'  => 'GET',
+							 'header'    => "Accept-language: en\r\n" .
+								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+						 )
+					 );
+					 $context  = stream_context_create($options);
+					 $result = file_get_contents($url, false, $context);
+					 $_res = json_decode($result);
+
+					 $unilevelMap_raw = json_encode($_res->userUnilevelMap);
+					 $unilevelMap = isset($_res->userUnilevelMap->nodes) == true ? $_res->userUnilevelMap->nodes : [];
+
+
+					
+					 //var_dump($unilevelMap);
 
 					 $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
 					 $options = array(
@@ -139,13 +145,13 @@
 					 $result = file_get_contents($url, false, $context);
 					 $_res = json_decode($result);
 					 $userLink = $_res->affiliateMapBO;
-					 var_dump($userLink);
+					 //var_dump($userLink);
 				 }
-			 }
-			 catch (Exception $exception)
-			 {
-				 echo '<script>window.location = "' .  route('logout') . '"</script>';
-			 }
+			// }
+			// catch (Exception $exception)
+			// {
+			//	 echo '<script>window.location = "' .  route('logout') . '"</script>';
+			// }
 			 
        @endphp
 
@@ -291,17 +297,31 @@
 									{{__('Source Code Link')}}
 								</div>
 								<div class="form-box-content p-3">
+									
+									@if (isset($userLink))
 									<p>This is your enterprise source code you can share</p>
-									<input type="text" class="form-control" name="name" value="{{ 'http://'.$_SERVER['HTTP_HOST'].'/users/registration?ulink='.$userLink->directSponsorID }}" />
+									<input type="text" id="userLink" class="form-control" name="name" value="{{ 'http://'.$_SERVER['HTTP_HOST'].'/users/registration?ulink='.$userLink->directSponsorID }}" />
+									@else
+									<p>Please activate your account first</p>
+									@endif
+									
 									<hr />
-									<button type="button" class="btn btn-styled btn-base-1 col-md-2" style="">Copy Link</button>
+									<button type="button" onclick="CopyLink()" class="btn btn-styled btn-base-1 col-md-2" style="">Copy Link</button>
 								</div>
 
 								
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									{{__('Direct Affiliates')}}
+									{{__('Enterprisers Under You')}}
+								</div>
+								<div class="form-box-content p-3">
+									 <div id="treeview"></div>
+								</div>
+							</div>
+							<div class="form-box bg-white mt-4">
+								<div class="form-box-title px-3 py-2">
+									{{__('First Level Enterprisers')}}
 								</div>
 								<div class="form-box-content p-3">
 									<div class="card no-border mt-4" style="margin-top: 6px!important;">
@@ -310,7 +330,7 @@
 												<thead>
 													<tr>
 														<th>{{__('Date')}}</th>
-														<th>{{__('Name')}}</th>
+														<th>{{__('Email')}}</th>
 														<th>{{__('Account Package')}}</th>
 														<th>{{__('Status')}}</th>
 														<th>{{__('Total Commissions')}}</th>
@@ -321,11 +341,11 @@
 													@if(isset($unilevelMap) && $unilevelMap != null)
 													@foreach ($unilevelMap as $key => $unilevelMapItem)
 													<tr>
-														<td>{{ $unilevelMapItem->userBusinessPackage->CreatedOn }}</td>
-														<td>{{ $unilevelMapItem->UserAuth->UserName }}</td>
-														<td>{{ $unilevelMapItem->userBusinessPackage->BusinessPackage->PackageName }}</td>
-														<td>{{ $unilevelMapItem->UserAuth->userBusinessPackage->PackageStatus }}</td>
-														<td>{{ $unilevelMapItem->TotalCommission}}</td>
+														<td>{{ date_format(date_create($unilevelMapItem->userBusinessPackage->createdOn),"Y/m/d H:i:s")  }}</td>
+														<td>{{ $unilevelMapItem->userAuth->userName }}</td>
+														<td>{{ $unilevelMapItem->userBusinessPackage->businessPackage->packageName }}</td>
+														<td>{{ $unilevelMapItem->userBusinessPackage->packageStatus == 2 ? 'Activated' : 'Pending Activation'}}</td>
+														<td>{{ $unilevelMapItem->totalCommission}}</td>
 														<td></td>
 													</tr>
 													@endforeach
@@ -337,14 +357,14 @@
 										</div>
 									</div>
 
-									<div class="text-right mt-4">
+									<!--<div class="text-right mt-4">
 										<button type="submit" class="btn btn-styled btn-base-1  col-sm-12  col-lg-3">{{__('View Genealogy')}}</button>
-									</div>
+									</div>-->
 								</div>
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									{{__('Product Commission')}}
+									{{__('Rewards Transactions')}}
 								</div>
 								<div class="form-box-content p-3">
 									<div class="card no-border mt-4" style="margin-top: 6px!important;">
@@ -355,29 +375,31 @@
 														<th>{{__('Date')}}</th>
 														<th>{{__('User')}}</th>
 														<th>{{__('Amount')}}</th>
-														<th>{{__('Payment Status')}}</th>
+														<th>{{__('Reward Name')}}</th>
 														<th>{{__('Options')}}</th>
 													</tr>
 												</thead>
 												<tbody>
-												@if(isset($unilevelMap) && $unilevelMap != null)
-													@foreach ($unilevelMap as $key => $unilevelMapItem)
+												
+												@if(isset($userIncomeTransactions) && $userIncomeTransactions != null)
+													@foreach ($userIncomeTransactions as $key => $userIncomeTransactionItem)
 													<tr>
-														<td>{{ $unilevelMapItem->userBusinessPackage->CreatedOn }}</td>
-														<td>{{ $unilevelMapItem->UserAuth->UserName }}</td>
-														<td>{{ $unilevelMapItem->userBusinessPackage->IncomePercentage }}</td>
-														<td>{{ $unilevelMapItem->UserAuth->userBusinessPackage->IncomeStatus }}</td>
+														<td>{{ date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")  }}</td>
+														<td>{{ $userIncomeTransactionItem->userAuth->userName }}</td>
+														<td>{{ $userIncomeTransactionItem->incomePercentage }}</td>
+														<td>{{ $userIncomeTransactionItem->incomeTypeId == 2 ? 'DIRECT SALES INCOME' : 'TRIMATCH SALES INCOME'}}</td>
 														<td></td>
 													</tr>
 													@endforeach
 												@endif
-
 												</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
 							</div>
+
+							
 
 							@endif
 						@endif
@@ -396,6 +418,35 @@
 </section>
 
 <script>
+
+	var datascource = '@php  if (isset($unilevelMap_raw))
+								 {
+								 	echo $unilevelMap_raw; 
+								 }
+						@endphp'
+								  
+	datascource = "[" + datascource + "]";
+                        var $tree = $('#treeview').treeview({
+                            color: "#428bca",
+                            expandIcon: "fa fa-chevron-right text-danger",
+                            collapseIcon: "fa fa-chevron-down text-danger",
+                            nodeIcon: "fa fa-user",
+                            showTags: true,
+                            showBorder: false,
+                            data: datascource
+                        });
+
+
+                        $('#togglePan').on('click', function () {
+                            // of course, oc.setOptions({ 'pan': this.checked }); is also OK.
+                            oc.setOptions('pan', this.checked);
+                        });
+
+                        $('#toggleZoom').on('click', function () {
+                            // of course, oc.setOptions({ 'zoom': this.checked }); is also OK.
+                            oc.setOptions('zoom', this.checked);
+                        });
+
 	function SelectPaymentMethod() {
 		document.getElementById('packageBuyForm').style.display = "none";
 		switch (document.getElementById('FromWalletCode').value) {
@@ -493,7 +544,22 @@
 		 });
 
     return false
+	}
+	function CopyLink() {
+  /* Get the text field */
+  var copyText = document.getElementById("userLink");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("User source code copied!");
 }
+
 </script>
 
 @endsection

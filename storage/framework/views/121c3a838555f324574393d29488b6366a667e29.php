@@ -167,7 +167,10 @@
 													<div class="form-group">
 														<!-- <label><?php echo e(__('source_code')); ?></label> -->
 														<div class="input-group input-group--style-1">
-															<input type="text" class="form-control<?php echo e($errors->has('source_code') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('source_code')); ?>" placeholder="<?php echo e(__('Source Code')); ?>" name="source_code" />
+
+                                                           
+															<input type="text" class="form-control<?php echo e($errors->has('source_code') ? ' is-invalid' : ''); ?>" value="<?php echo e(app('request')->input('ulink')); ?>" placeholder="<?php echo e(__('Source Code')); ?>" name="source_code" />
+															
 															<span class="input-group-addon">
 																<i class="text-md la la-lock"></i>
 															</span>

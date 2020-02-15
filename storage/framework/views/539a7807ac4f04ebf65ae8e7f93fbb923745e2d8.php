@@ -50,8 +50,8 @@
 			 $_s = Session::get('apiSession');
 
 
-			 try
-			 {
+			// try
+			// {
 				 $url = 'http://localhost:55006/api/user/BusinessPackages';
 				 $options = array(
 					 'http' => array(
@@ -90,21 +90,27 @@
 					 $result = file_get_contents($url, false, $context);
 					 $businessPackages = json_decode($result);
 					 $businessPackages = $businessPackages->businessPackages;
+
 				 }
 				 else{
-					// $url = 'http://localhost:55006/api/user/UnilevelMap';
-					// $options = array(
-					//	 'http' => array(
-					//		 'method'  => 'GET',
-					//		 'header'    => "Accept-language: en\r\n" .
-					//			 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-					//	 )
-					// );
-					// $context  = stream_context_create($options);
-					// $result = file_get_contents($url, false, $context);
-					// $_res = json_decode($result);
-					// $unilevelMap = $_res->userUnilevelMap->nodes;
-					// //var_dump($unilevelMap);
+					 $url = 'http://localhost:55006/api/user/UnilevelMap';
+					 $options = array(
+						 'http' => array(
+							 'method'  => 'GET',
+							 'header'    => "Accept-language: en\r\n" .
+								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+						 )
+					 );
+					 $context  = stream_context_create($options);
+					 $result = file_get_contents($url, false, $context);
+					 $_res = json_decode($result);
+
+					 $unilevelMap_raw = json_encode($_res->userUnilevelMap);
+					 $unilevelMap = isset($_res->userUnilevelMap->nodes) == true ? $_res->userUnilevelMap->nodes : [];
+
+
+					
+					 //var_dump($unilevelMap);
 
 					 $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
 					 $options = array(
@@ -138,13 +144,13 @@
 					 $result = file_get_contents($url, false, $context);
 					 $_res = json_decode($result);
 					 $userLink = $_res->affiliateMapBO;
-					 var_dump($userLink);
+					 //var_dump($userLink);
 				 }
-			 }
-			 catch (Exception $exception)
-			 {
-				 echo '<script>window.location = "' .  route('logout') . '"</script>';
-			 }
+			// }
+			// catch (Exception $exception)
+			// {
+			//	 echo '<script>window.location = "' .  route('logout') . '"</script>';
+			// }
 			 
        ?>
 
@@ -295,17 +301,32 @@
 
 								</div>
 								<div class="form-box-content p-3">
+									
+									<?php if(isset($userLink)): ?>
 									<p>This is your enterprise source code you can share</p>
-									<input type="text" class="form-control" name="name" value="<?php echo e('http://'.$_SERVER['HTTP_HOST'].'/users/registration?ulink='.$userLink->directSponsorID); ?>" />
+									<input type="text" id="userLink" class="form-control" name="name" value="<?php echo e('http://'.$_SERVER['HTTP_HOST'].'/users/registration?ulink='.$userLink->directSponsorID); ?>" />
+									<?php else: ?>
+									<p>Please activate your account first</p>
+									<?php endif; ?>
+									
 									<hr />
-									<button type="button" class="btn btn-styled btn-base-1 col-md-2" style="">Copy Link</button>
+									<button type="button" onclick="CopyLink()" class="btn btn-styled btn-base-1 col-md-2" style="">Copy Link</button>
 								</div>
 
 								
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									<?php echo e(__('Direct Affiliates')); ?>
+									<?php echo e(__('Enterprisers Under You')); ?>
+
+								</div>
+								<div class="form-box-content p-3">
+									 <div id="treeview"></div>
+								</div>
+							</div>
+							<div class="form-box bg-white mt-4">
+								<div class="form-box-title px-3 py-2">
+									<?php echo e(__('First Level Enterprisers')); ?>
 
 								</div>
 								<div class="form-box-content p-3">
@@ -315,7 +336,7 @@
 												<thead>
 													<tr>
 														<th><?php echo e(__('Date')); ?></th>
-														<th><?php echo e(__('Name')); ?></th>
+														<th><?php echo e(__('Email')); ?></th>
 														<th><?php echo e(__('Account Package')); ?></th>
 														<th><?php echo e(__('Status')); ?></th>
 														<th><?php echo e(__('Total Commissions')); ?></th>
@@ -326,11 +347,11 @@
 													<?php if(isset($unilevelMap) && $unilevelMap != null): ?>
 													<?php $__currentLoopData = $unilevelMap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $unilevelMapItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 													<tr>
-														<td><?php echo e($unilevelMapItem->userBusinessPackage->CreatedOn); ?></td>
-														<td><?php echo e($unilevelMapItem->UserAuth->UserName); ?></td>
-														<td><?php echo e($unilevelMapItem->userBusinessPackage->BusinessPackage->PackageName); ?></td>
-														<td><?php echo e($unilevelMapItem->UserAuth->userBusinessPackage->PackageStatus); ?></td>
-														<td><?php echo e($unilevelMapItem->TotalCommission); ?></td>
+														<td><?php echo e(date_format(date_create($unilevelMapItem->userBusinessPackage->createdOn),"Y/m/d H:i:s")); ?></td>
+														<td><?php echo e($unilevelMapItem->userAuth->userName); ?></td>
+														<td><?php echo e($unilevelMapItem->userBusinessPackage->businessPackage->packageName); ?></td>
+														<td><?php echo e($unilevelMapItem->userBusinessPackage->packageStatus == 2 ? 'Activated' : 'Pending Activation'); ?></td>
+														<td><?php echo e($unilevelMapItem->totalCommission); ?></td>
 														<td></td>
 													</tr>
 													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -342,14 +363,14 @@
 										</div>
 									</div>
 
-									<div class="text-right mt-4">
+									<!--<div class="text-right mt-4">
 										<button type="submit" class="btn btn-styled btn-base-1  col-sm-12  col-lg-3"><?php echo e(__('View Genealogy')); ?></button>
-									</div>
+									</div>-->
 								</div>
 							</div>
 							<div class="form-box bg-white mt-4">
 								<div class="form-box-title px-3 py-2">
-									<?php echo e(__('Product Commission')); ?>
+									<?php echo e(__('Rewards Transactions')); ?>
 
 								</div>
 								<div class="form-box-content p-3">
@@ -361,29 +382,31 @@
 														<th><?php echo e(__('Date')); ?></th>
 														<th><?php echo e(__('User')); ?></th>
 														<th><?php echo e(__('Amount')); ?></th>
-														<th><?php echo e(__('Payment Status')); ?></th>
+														<th><?php echo e(__('Reward Name')); ?></th>
 														<th><?php echo e(__('Options')); ?></th>
 													</tr>
 												</thead>
 												<tbody>
-												<?php if(isset($unilevelMap) && $unilevelMap != null): ?>
-													<?php $__currentLoopData = $unilevelMap; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $unilevelMapItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+												
+												<?php if(isset($userIncomeTransactions) && $userIncomeTransactions != null): ?>
+													<?php $__currentLoopData = $userIncomeTransactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $userIncomeTransactionItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 													<tr>
-														<td><?php echo e($unilevelMapItem->userBusinessPackage->CreatedOn); ?></td>
-														<td><?php echo e($unilevelMapItem->UserAuth->UserName); ?></td>
-														<td><?php echo e($unilevelMapItem->userBusinessPackage->IncomePercentage); ?></td>
-														<td><?php echo e($unilevelMapItem->UserAuth->userBusinessPackage->IncomeStatus); ?></td>
+														<td><?php echo e(date_format(date_create($userIncomeTransactionItem->createdOn),"Y/m/d H:i:s")); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->userAuth->userName); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->incomePercentage); ?></td>
+														<td><?php echo e($userIncomeTransactionItem->incomeTypeId == 2 ? 'DIRECT SALES INCOME' : 'TRIMATCH SALES INCOME'); ?></td>
 														<td></td>
 													</tr>
 													<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 												<?php endif; ?>
-
 												</tbody>
 											</table>
 										</div>
 									</div>
 								</div>
 							</div>
+
+							
 
 							<?php endif; ?>
 						<?php endif; ?>
@@ -402,6 +425,35 @@
 </section>
 
 <script>
+
+	var datascource = '<?php  if (isset($unilevelMap_raw))
+								 {
+								 	echo $unilevelMap_raw; 
+								 }
+						?>'
+								  
+	datascource = "[" + datascource + "]";
+                        var $tree = $('#treeview').treeview({
+                            color: "#428bca",
+                            expandIcon: "fa fa-chevron-right text-danger",
+                            collapseIcon: "fa fa-chevron-down text-danger",
+                            nodeIcon: "fa fa-user",
+                            showTags: true,
+                            showBorder: false,
+                            data: datascource
+                        });
+
+
+                        $('#togglePan').on('click', function () {
+                            // of course, oc.setOptions({ 'pan': this.checked }); is also OK.
+                            oc.setOptions('pan', this.checked);
+                        });
+
+                        $('#toggleZoom').on('click', function () {
+                            // of course, oc.setOptions({ 'zoom': this.checked }); is also OK.
+                            oc.setOptions('zoom', this.checked);
+                        });
+
 	function SelectPaymentMethod() {
 		document.getElementById('packageBuyForm').style.display = "none";
 		switch (document.getElementById('FromWalletCode').value) {
@@ -499,7 +551,22 @@
 		 });
 
     return false
+	}
+	function CopyLink() {
+  /* Get the text field */
+  var copyText = document.getElementById("userLink");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("User source code copied!");
 }
+
 </script>
 
 <?php $__env->stopSection(); ?>

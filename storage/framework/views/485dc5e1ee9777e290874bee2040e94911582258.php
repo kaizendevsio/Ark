@@ -150,11 +150,11 @@
 			contentType: 'application/json',
 			success: function (data) {
 				//console.log(data);
-				if (data.Message != undefined && data.HttpStatusCode == "200") {
-					alert(data.Message);
+				if (data.message != undefined && data.httpStatusCode == "200") {
+					alert(data.message);
 				}
 				//window.location = data.RedirectUrl;
-				//window.location.replace(data.RedirectUrl);
+				window.location.replace(data.redirectUrl);
 			},
 			error: function (data, textStatus, jqXHR) {
 				console.log(data.responseJSON);

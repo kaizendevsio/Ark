@@ -168,7 +168,10 @@
 													<div class="form-group">
 														<!-- <label>{{ __('source_code') }}</label> -->
 														<div class="input-group input-group--style-1">
-															<input type="text" class="form-control{{ $errors->has('source_code') ? ' is-invalid' : '' }}" value="{{ old('source_code') }}" placeholder="{{ __('Source Code') }}" name="source_code" />
+
+                                                           
+															<input type="text" class="form-control{{ $errors->has('source_code') ? ' is-invalid' : '' }}" value="{{ app('request')->input('ulink') }}" placeholder="{{ __('Source Code') }}" name="source_code" />
+															
 															<span class="input-group-addon">
 																<i class="text-md la la-lock"></i>
 															</span>

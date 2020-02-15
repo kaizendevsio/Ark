@@ -88,6 +88,7 @@
 
 <!-- jQuery -->
 <script src="<?php echo e(asset('frontend/js/vendor/jquery.min.js')); ?>"></script>
+<script src="<?php echo e(asset('frontend/js/bootstrap-treeview.js')); ?>"></script>
 
 
 <?php if(\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1): ?>

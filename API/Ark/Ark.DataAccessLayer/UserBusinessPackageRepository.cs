@@ -80,7 +80,7 @@ namespace Ark.DataAccessLayer
                          CreatedOn = b.CreatedOn,
                          PackageStatus = b.PackageStatus,
                          CancellationDate = b.CancellationDate,
-                         BusinessPackage =  new TblBusinessPackage { PackageType = e, PackageName = d.PackageName, PackageCode = d.PackageCode, Id = d.Id, CreatedOn = d.CreatedOn, IsEnabled = d.IsEnabled, ValueFrom = d.ValueFrom, ValueTo = d.ValueTo, PackageDescription = d.PackageDescription, NetworkValue = d.NetworkValue}
+                         BusinessPackage =  new TblBusinessPackage { PackageType = e, PackageName = d.PackageName, PackageCode = d.PackageCode, Id = d.Id, CreatedOn = d.CreatedOn, IsEnabled = d.IsEnabled, ValueFrom = d.ValueFrom, ValueTo = d.ValueTo, PackageDescription = d.PackageDescription, NetworkValue = d.NetworkValue, Consumables = d.Consumables}
                        };
 
             List<TblUserBusinessPackage> _ubp = _qUi.ToList<TblUserBusinessPackage>();
@@ -108,7 +108,8 @@ namespace Ark.DataAccessLayer
                            ValueFrom = tblUserMap.SponsorUserId == 2 ?  a.ValueFrom : (a.ValueFrom - a.DiscountValue),
                            ValueTo = tblUserMap.SponsorUserId == 2 ? a.ValueTo : (a.ValueTo - a.DiscountValue),
                            PackageDescription = a.PackageDescription,
-                           Currency = b
+                           Currency = b,
+                           Consumables = a.Consumables
                        };
 
             List<TblBusinessPackage> _ubp = _qUi.ToList<TblBusinessPackage>();
