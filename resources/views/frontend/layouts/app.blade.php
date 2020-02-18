@@ -136,7 +136,7 @@
 
     @yield('content')
 
-    <!--@include('frontend.inc.footer') -->
+    @include('frontend.inc.footer')
 
     @include('frontend.partials.modal')
 
