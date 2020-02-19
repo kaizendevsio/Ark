@@ -22,11 +22,20 @@
                 </tr>
             </thead>
             <tbody>
+				
                 @php
                     $subtotal = 0;
                     $tax = 0;
                     $shipping = 0;
-                @endphp
+					$user_balance = isset(Auth::user()->balance) ? Auth::user()->balance : 0;
+
+             @endphp
+				@php
+			 $total = $subtotal+$tax+$shipping;
+			 if(Session::has('coupon_discount')){
+				 $total -= Session::get('coupon_discount');
+			 }
+             @endphp
                 @foreach (Session::get('cart') as $key => $cartItem)
                     @php
                     $product = \App\Product::find($cartItem['id']);
@@ -113,7 +122,7 @@
 				<tr class="cart-shipping">
 					<th>{{__('Less Available Credit')}}</th>
 					<td class="text-right">
-						<span class="text-italic">{{ floatval($total) < (Auth::user()->balance) ? number_format(floatval($total),2) : number_format(floatval(Auth::user()->balance),2)}}</span>
+						<span class="text-italic">{{ floatval($total) < ($user_balance) ? number_format(floatval($total),2) : number_format(floatval($user_balance),2)}}</span>
 					</td>
 				</tr>
                 
@@ -126,20 +135,15 @@
                     </tr>
                 @endif
 
-                @php
-                    $total = $subtotal+$tax+$shipping;
-                    if(Session::has('coupon_discount')){
-                        $total -= Session::get('coupon_discount');
-                    }
-                @endphp
+              
 
                 <tr class="cart-total">
                     <th><span class="strong-600">{{__('Amount To Pay')}}</span></th>
                     <td class="text-right">
-                        @if ((floatval(Auth::user()->balance) - floatval($total)) < 0)
+                        @if ((floatval($user_balance) - floatval($total)) < 0)
 
 <strong>
-	<span>{{ number_format(abs(floatval(Auth::user()->balance) - floatval($total)),2) }}</span>
+	<span>{{ number_format(abs(floatval($user_balance) - floatval($total)),2) }}</span>
 </strong>
 						@else 
 						<strong>

@@ -19,7 +19,8 @@ namespace Ark.DataAccessLayer
                 TriggeredByUbpId = long.Parse(walletTransaction.From),
                 TransactionType = (short)TransactionType.Received,
                 IncomeStatus = (short)TransactionStatus.Completed,
-                IncomePercentage = walletTransaction.Amount
+                IncomePercentage = walletTransaction.Amount,
+                Remarks = walletTransaction.Remarks
             };
 
             db.TblUserIncomeTransaction.Add(userIncomeTransaction);

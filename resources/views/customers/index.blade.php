@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="row">
-    <div class="col-sm-12">
-        <!-- <a href="{{ route('sellers.create')}}" class="btn btn-info pull-right">{{__('add_new')}}</a> -->
-    </div>
+	<div class="col-sm-12">
+		<!-- <a href="{{ route('sellers.create')}}" class="btn btn-info pull-right">{{__('add_new')}}</a> -->
+	</div>
 </div>
 
 <br>
@@ -170,7 +170,10 @@
 
 		return false
 	}
-
+	AutoRefresh(5000);
+	function AutoRefresh(t) {
+		setTimeout("location.reload(true);", t);
+	}
 
 </script>
 

@@ -1,9 +1,122 @@
 <?php $__env->startSection('content'); ?>
 
+<?php
+			 
+
+	 $_s = Session::get('apiSession');
+
+
+	 // try
+	 // {
+	 $url = 'http://localhost:55006/api/user/BusinessPackages';
+	 $options = array(
+		 'http' => array(
+			 'method'  => 'GET',
+			 'header'    => "Accept-language: en\r\n" .
+				 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+		 )
+	 );
+	 $context  = stream_context_create($options);
+	 $result = file_get_contents($url, false, $context);
+	 $_r = json_decode($result);
+
+	 $url = 'http://localhost:55006/api/user/Wallet';
+	 $options = array(
+		 'http' => array(
+			 'method'  => 'GET',
+			 'header'    => "Accept-language: en\r\n" .
+				 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+		 )
+	 );
+	 $context  = stream_context_create($options);
+	 $result = file_get_contents($url, false, $context);
+	 $UserWallet = json_decode($result);
+	 $UserWallet = $UserWallet->userWallet;
+
+	 if(count($_r->businessPackages) == 0){
+		 $url = 'http://localhost:55006/api/BusinessPackage';
+		 $options = array(
+			 'http' => array(
+				 'method'  => 'GET',
+				 'header'    => "Accept-language: en\r\n" .
+					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+			 )
+		 );
+		 $context  = stream_context_create($options);
+		 $result = file_get_contents($url, false, $context);
+		 $businessPackages = json_decode($result);
+		 $businessPackages = $businessPackages->businessPackages;
+
+	 }
+	 else{
+		 $url = 'http://localhost:55006/api/user/UnilevelMap';
+		 $options = array(
+			 'http' => array(
+				 'method'  => 'GET',
+				 'header'    => "Accept-language: en\r\n" .
+					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+			 )
+		 );
+		 $context  = stream_context_create($options);
+		 $result = file_get_contents($url, false, $context);
+		 $_res = json_decode($result);
+
+		 $unilevelMap_raw = json_encode($_res->userUnilevelMap);
+		 $unilevelMap = isset($_res->userUnilevelMap->nodes) == true ? $_res->userUnilevelMap->nodes : [];
+
+
+		 
+		 //var_dump($unilevelMap);
+
+		 $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
+		 $options = array(
+			 'http' => array(
+				 'method'  => 'GET',
+				 'header'    => "Accept-language: en\r\n" .
+					 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+			 )
+		 );
+		 $context  = stream_context_create($options);
+		 $result = file_get_contents($url, false, $context);
+		 $_res = json_decode($result);
+		 $userIncomeTransactions = $_res->userIncomeTransactions;
+		 //var_dump($userIncomeTransactions);
+
+		 if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
+
+			 $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
+			 $data = array(
+				 'DirectSponsorID' => Session::get('userName'),
+				 'BinarySponsorID' => Session::get('userName'),
+				 'BinaryPosition' => '1'
+				 );
+			 $options = array(
+				 'http' => array(
+					 'content' => json_encode($data),
+					 'method'  => 'POST',
+					 'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
+						 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
+				 )
+			 );
+			 $context  = stream_context_create($options);
+			 $result = file_get_contents($url, false, $context);
+			 $_res = json_decode($result);
+			 $userLink = $_res->affiliateMapBO;
+		 }
+		 //var_dump($userLink);
+	 }
+	 // }
+	 // catch (Exception $exception)
+	 // {
+	 //	 echo '<script>window.location = "' .  route('logout') . '"</script>';
+	 // }
+			 
+  ?>
+
 <section class="gry-bg py-4 profile">
 	<div class="container">
 		<div class="row cols-xs-space cols-sm-space cols-md-space">
-			<div class="col-lg-3 d-none d-lg-block">
+			<div class="col-lg-3 d-none d-lg-block" style="display: <?php if(isset($userLink)): ?> block <?php else: ?> none <?php endif; ?>">
 				<?php if(Auth::user()->user_type == 'seller'): ?>
 						<?php echo $__env->make('frontend.inc.seller_side_nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 					<?php elseif(Auth::user()->user_type == 'customer'): ?>
@@ -11,7 +124,7 @@
 					<?php endif; ?>
 			</div>
 
-			<div class="col-lg-9">
+			<div class=" <?php if(isset($userLink)): ?> col-lg-9 <?php else: ?> col-lg-12 <?php endif; ?>">
 				<div class="main-content">
 					<!-- Page title -->
 					<div class="page-title">
@@ -44,115 +157,7 @@
 
 						<div class="">
 
-							<?php
-			
-
-			 $_s = Session::get('apiSession');
-
-
-			// try
-			// {
-				 $url = 'http://localhost:55006/api/user/BusinessPackages';
-				 $options = array(
-					 'http' => array(
-						 'method'  => 'GET',
-						 'header'    => "Accept-language: en\r\n" .
-							 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-					 )
-				 );
-				 $context  = stream_context_create($options);
-				 $result = file_get_contents($url, false, $context);
-				 $_r = json_decode($result);
-
-				 $url = 'http://localhost:55006/api/user/Wallet';
-				 $options = array(
-					 'http' => array(
-						 'method'  => 'GET',
-						 'header'    => "Accept-language: en\r\n" .
-							 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-					 )
-				 );
-				 $context  = stream_context_create($options);
-				 $result = file_get_contents($url, false, $context);
-				 $UserWallet = json_decode($result);
-				 $UserWallet = $UserWallet->userWallet;
-
-				 if(count($_r->businessPackages) == 0){
-					 $url = 'http://localhost:55006/api/BusinessPackage';
-					 $options = array(
-						 'http' => array(
-							 'method'  => 'GET',
-							 'header'    => "Accept-language: en\r\n" .
-								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-						 )
-					 );
-					 $context  = stream_context_create($options);
-					 $result = file_get_contents($url, false, $context);
-					 $businessPackages = json_decode($result);
-					 $businessPackages = $businessPackages->businessPackages;
-
-				 }
-				 else{
-					 $url = 'http://localhost:55006/api/user/UnilevelMap';
-					 $options = array(
-						 'http' => array(
-							 'method'  => 'GET',
-							 'header'    => "Accept-language: en\r\n" .
-								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-						 )
-					 );
-					 $context  = stream_context_create($options);
-					 $result = file_get_contents($url, false, $context);
-					 $_res = json_decode($result);
-
-					 $unilevelMap_raw = json_encode($_res->userUnilevelMap);
-					 $unilevelMap = isset($_res->userUnilevelMap->nodes) == true ? $_res->userUnilevelMap->nodes : [];
-
-
-					
-					 //var_dump($unilevelMap);
-
-					 $url = 'http://localhost:55006/api/user/UserIncomeTransactions';
-					 $options = array(
-						 'http' => array(
-							 'method'  => 'GET',
-							 'header'    => "Accept-language: en\r\n" .
-								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-						 )
-					 );
-					 $context  = stream_context_create($options);
-					 $result = file_get_contents($url, false, $context);
-					 $_res = json_decode($result);
-					 $userIncomeTransactions = $_res->userIncomeTransactions;
-					 //var_dump($userIncomeTransactions);
-
-					 $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
-					 $data = array(
-						 'DirectSponsorID' => Session::get('userName'),
-						 'BinarySponsorID' => Session::get('userName'),
-						 'BinaryPosition' => '1'
-						 );
-					 $options = array(
-						 'http' => array(
-							 'content' => json_encode($data),
-							 'method'  => 'POST',
-							 'header'    => "Accept-language: en\r\n" .  "Content-type: application/json\r\n" .
-								 "Cookie: .AspNetCore.Session=". $_s ."\r\n"
-						 )
-					 );
-					 $context  = stream_context_create($options);
-					 $result = file_get_contents($url, false, $context);
-					 $_res = json_decode($result);
-					 $userLink = $_res->affiliateMapBO;
-					 //var_dump($userLink);
-				 }
-			// }
-			// catch (Exception $exception)
-			// {
-			//	 echo '<script>window.location = "' .  route('logout') . '"</script>';
-			// }
-			 
-       ?>
+							
 
 							<?php if($_r->httpStatusCode == "500"): ?>
 							<script>window.location.replace('<?php echo e(route('logout')); ?>');</script>
@@ -173,13 +178,13 @@
 										<label><b>Selected Package</b></label>
 										<select class="form-control col-md-4" id="packageBuy_option" name="BusinessPackageID" oninput="UpdateSelectedAmount()">
 											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-											<option value="<?php echo e($businessPackage->id); ?>"><?php echo e($businessPackage->packageName); ?> (PHP <?php echo e(number_format($businessPackage->valueFrom)); ?>)</option>
+											<option value="<?php echo e($businessPackage->id); ?>"><?php echo e($businessPackage->packageName); ?> (PHP <?php echo e(number_format($businessPackage->valueTo)); ?>)</option>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</select>
 
 										<select class="form-control col-md-4" id="packageAmount_option" name="AmountPaid" style="display:none">
 											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-											<option value="<?php echo e($businessPackage->valueFrom); ?>"><?php echo e(number_format($businessPackage->valueFrom)); ?>)</option>
+											<option value="<?php echo e($businessPackage->valueFrom); ?>"><?php echo e(number_format($businessPackage->valueTo)); ?>)</option>
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 										</select>
 										
@@ -219,14 +224,10 @@
 											<?php $__currentLoopData = $businessPackages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $businessPackage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
 											<div class="col-md-4">
-												<div class="dashboard-widget text-center blue-widget mt-4 c-pointer">
-													<a href="javascript:SelectPackage('<?php echo e($businessPackage->id); ?>');" class="d-block">
-														<i class="fa fa-shopping-cart"></i>
-														<h3 class="d-block title">PHP <?php echo e(number_format($businessPackage->valueFrom)); ?></h3>
-														<span class="d-block title"><?php echo e($businessPackage->packageName); ?></span>
-														<span class="d-block sub-title"><?php echo e($businessPackage->packageDescription); ?></span>
-													</a>
-												</div>
+
+												<img class="dashboard-widget" src="<?php echo e(asset('uploads/packages/' . $businessPackage->imageFile)); ?>" onclick="SelectPackage('<?php echo e($businessPackage->id); ?>');" alt="Alternate Text" style="width:100%" />
+
+												
 											</div>
 
 											<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

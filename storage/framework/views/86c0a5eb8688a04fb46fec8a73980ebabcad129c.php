@@ -16,7 +16,7 @@
 	 $result = file_get_contents($url, false, $context);
 	 $_r = json_decode($result);
 
-      if(count($_r->businessPackages) != 0){
+	 if(count($_r->businessPackages) != 0 && $_r->businessPackages[0]->packageStatus == "2"){
 		  $url = 'http://localhost:55006/api/Affiliate/InvitationLink';
 		  $data = array(
 			  'DirectSponsorID' => Session::get('userName'),
@@ -36,12 +36,12 @@
 		  $_res = json_decode($result);
 		  $userLink = $_res->affiliateMapBO;
           
-	  }
+	 }
 ?>
 
 
 
-<div class="sidebar sidebar--style-3 no-border stickyfill p-0" style="">
+<div class="sidebar sidebar--style-3 no-border stickyfill p-0" style="display: <?php if(isset($userLink)): ?> block <?php else: ?> none <?php endif; ?>">
     <div class="widget mb-0">
         <div class="widget-profile-box text-center p-3">
             <?php if(Auth::user()->avatar_original != null): ?>

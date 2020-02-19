@@ -22,11 +22,20 @@
                 </tr>
             </thead>
             <tbody>
+				
                 <?php
                     $subtotal = 0;
                     $tax = 0;
                     $shipping = 0;
-                ?>
+					$user_balance = isset(Auth::user()->balance) ? Auth::user()->balance : 0;
+
+             ?>
+				<?php
+			 $total = $subtotal+$tax+$shipping;
+			 if(Session::has('coupon_discount')){
+				 $total -= Session::get('coupon_discount');
+			 }
+             ?>
                 <?php $__currentLoopData = Session::get('cart'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $cartItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php
                     $product = \App\Product::find($cartItem['id']);
@@ -115,7 +124,7 @@
 				<tr class="cart-shipping">
 					<th><?php echo e(__('Less Available Credit')); ?></th>
 					<td class="text-right">
-						<span class="text-italic"><?php echo e(floatval($total) < (Auth::user()->balance) ? number_format(floatval($total),2) : number_format(floatval(Auth::user()->balance),2)); ?></span>
+						<span class="text-italic"><?php echo e(floatval($total) < ($user_balance) ? number_format(floatval($total),2) : number_format(floatval($user_balance),2)); ?></span>
 					</td>
 				</tr>
                 
@@ -128,20 +137,15 @@
                     </tr>
                 <?php endif; ?>
 
-                <?php
-                    $total = $subtotal+$tax+$shipping;
-                    if(Session::has('coupon_discount')){
-                        $total -= Session::get('coupon_discount');
-                    }
-                ?>
+              
 
                 <tr class="cart-total">
                     <th><span class="strong-600"><?php echo e(__('Amount To Pay')); ?></span></th>
                     <td class="text-right">
-                        <?php if((floatval(Auth::user()->balance) - floatval($total)) < 0): ?>
+                        <?php if((floatval($user_balance) - floatval($total)) < 0): ?>
 
 <strong>
-	<span><?php echo e(number_format(abs(floatval(Auth::user()->balance) - floatval($total)),2)); ?></span>
+	<span><?php echo e(number_format(abs(floatval($user_balance) - floatval($total)),2)); ?></span>
 </strong>
 						<?php else: ?> 
 						<strong>

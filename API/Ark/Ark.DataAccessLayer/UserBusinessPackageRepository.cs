@@ -91,6 +91,9 @@ namespace Ark.DataAccessLayer
         {
             var _qUi = from a in db.TblBusinessPackage
                        join b in db.TblCurrency on a.CurrencyId equals b.Id
+                       //join c in db.TblUserMap on tblUserMap.Id equals c.Id into _um
+
+                       //from um in _um.DefaultIfEmpty()
                        where a.IsEnabled == true
 
                        orderby a.CreatedOn descending
@@ -105,8 +108,9 @@ namespace Ark.DataAccessLayer
                            NetworkValue = a.NetworkValue,
                            PackageCode = a.PackageCode,
                            PackageName = a.PackageName,
-                           ValueFrom = tblUserMap.SponsorUserId == 2 ?  a.ValueFrom : (a.ValueFrom - a.DiscountValue),
-                           ValueTo = tblUserMap.SponsorUserId == 2 ? a.ValueTo : (a.ValueTo - a.DiscountValue),
+                           ValueFrom = tblUserMap.SponsorUserId == 2 ? tblUserMap.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? a.ValueFrom : a.ValueFrom : tblUserMap.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? a.ValueFrom : (a.ValueFrom - a.DiscountValue),
+                           ValueTo = tblUserMap.SponsorUserId == 2 ? tblUserMap.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? a.ValueFrom : a.ValueTo : tblUserMap.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? a.ValueFrom : (a.ValueTo - a.DiscountValue),
+                           ImageFile = tblUserMap.SponsorUserId == 2 ? tblUserMap.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? a.ImageFilePromo : a.ImageFileOriginal : tblUserMap.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? a.ImageFilePromo : a.ImageFileDiscounted,
                            PackageDescription = a.PackageDescription,
                            Currency = b,
                            Consumables = a.Consumables
