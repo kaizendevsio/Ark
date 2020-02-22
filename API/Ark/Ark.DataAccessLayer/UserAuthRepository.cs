@@ -30,6 +30,7 @@ namespace Ark.DataAccessLayer
             _userAuth.IsEnabled = true;
             _userAuth.LoginStatus = (short)LoginStatus.Enabled;
             _userAuth.UserInfoId = userInfo.Id;
+            _userAuth.ShopUserId = userBO.ShopUserId;
 
             db.TblUserAuth.Add(_userAuth);
 

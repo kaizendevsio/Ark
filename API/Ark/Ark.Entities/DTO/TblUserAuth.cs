@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Ark.Entities.DTO
@@ -40,6 +40,7 @@ namespace Ark.Entities.DTO
         public string TemporaryPassword { get; set; }
         public string UserAlias { get; set; }
         public byte[] PasswordByte { get; set; }
+        public long ShopUserId { get; set; }
 
         public virtual TblUserInfo UserInfo { get; set; }
         public virtual TblUserMap TblUserMapIdNavigation { get; set; }

@@ -36,7 +36,7 @@ namespace Ark.DataAccessLayer
                          Position = a.Position,
                          SponsorUserId = a.SponsorUserId,
                          UplineUserId = a.UplineUserId,
-                         IdNavigation = new TblUserAuth { Id = b.Id, UserName = b.UserName, UserInfo = c}
+                         IdNavigation = new TblUserAuth { Id = b.Id, UserName = b.UserName, UserInfo = c, ShopUserId = b.ShopUserId}
                      };
 
             TblUserMap _qRes = _q.FirstOrDefault();

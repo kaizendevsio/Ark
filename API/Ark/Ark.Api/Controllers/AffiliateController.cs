@@ -41,10 +41,10 @@ namespace Ark.Api.Controllers
         }
 
         [HttpPost("Commission")]
-        public ActionResult Commission([FromBody] decimal amountPaid)
+        public ActionResult Commission([FromBody] AffiliateCountersBO affiliateCounters)
         {
             AffiliateAppService affiliateAppService = new AffiliateAppService();
-            AffiliateLinkResponseBO _apiResponse = new AffiliateLinkResponseBO();
+            AffiliateCommissionResponseBO _apiResponse = new AffiliateCommissionResponseBO();
 
             try
             {
@@ -52,8 +52,7 @@ namespace Ark.Api.Controllers
                 SessionController sessionController = new SessionController();
                 TblUserAuth userAuth = sessionController.GetSession(HttpContext.Session);
 
-                affiliateAppService.ComputeCommissions(userAuth, amountPaid);
-
+                _apiResponse.Commission = affiliateAppService.ComputeCommissions(userAuth, affiliateCounters.amountPaid);
                 _apiResponse.HttpStatusCode = "200";
                 _apiResponse.Status = "Success";
 

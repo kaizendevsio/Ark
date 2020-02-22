@@ -42,24 +42,24 @@ namespace Ark.AppService
             }
             return true;
         }
-        public bool ExecuteCommissionDistribution(TblUserAuth userAuth, TblUserBusinessPackage userBusinessPackage, decimal amountPaid, ArkContext db) {
+        public List<ShopUserCommissionItemBO> ExecuteCommissionDistribution(TblUserAuth userAuth, TblUserBusinessPackage userBusinessPackage, decimal amountPaid, ArkContext db) {
             BusinessPackageRepository businessPackageRepository = new BusinessPackageRepository();
             IncomeTypeRepository incomeTypeRepository = new IncomeTypeRepository();
             List<TblIncomeType> incomeTypes = businessPackageRepository.GetIncomeTypes(userBusinessPackage.BusinessPackage, db);
-
+            List<ShopUserCommissionItemBO> shopUserCommissionItem = new List<ShopUserCommissionItemBO>();
 
             foreach (var incomeType in incomeTypes)
             {
                 switch (incomeType.IncomeTypeCode)
                 {
                     case IncomeType.PSI:
-                        ProductSalesCommission(userAuth, incomeTypeRepository.GetDistribution(incomeType.IncomeTypeCode, userBusinessPackage.BusinessPackage, db), amountPaid, db);
+                        shopUserCommissionItem = ProductSalesCommission(userAuth, incomeTypeRepository.GetDistribution(incomeType.IncomeTypeCode, userBusinessPackage.BusinessPackage, db), amountPaid, db);
                         break;
                     default:
                         break;
                 }
             }
-            return true;
+            return shopUserCommissionItem;
         }
         private bool DirectIncome(TblUserAuth userAuth,TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)
         {
@@ -118,64 +118,77 @@ namespace Ark.AppService
 
             return true;
         }
-        private bool ProductSalesCommission(TblUserAuth userAuth, TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)
+        private List<ShopUserCommissionItemBO> ProductSalesCommission(TblUserAuth userAuth, TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)
         {
             UserAuthRepository userAuthRepository = new UserAuthRepository();
             UserMapRepository userMapRepository = new UserMapRepository();
+            UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
 
             userAuth = userAuthRepository.GetByID(userAuth.Id, db);
             TblUserMap userMap = userMapRepository.Get(userAuth, db);
             CalculateIncomeBO calculateIncome = new CalculateIncomeBO();
+            List<ShopUserCommissionItemBO> shopUserCommissionItem = new List<ShopUserCommissionItemBO>();
 
             for (int i = 0; i < 3; i++)
             {
-                switch (incomeDistribution.BusinessPackage.PackageCode)
-                {
-                    case "EPKG3":
-                        switch (i)
-                        {
-                            case 0:
-                                calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                break;
-                            default:
-                                incomeDistribution.Value = incomeDistribution.Value - i;
-                                calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                break;
-                        }
-                        break;
-                    case "EPKG2":
-                        switch (i)
-                        {
-                            case 0:
-                                calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                break;
-                            default:
-                                incomeDistribution.Value = incomeDistribution.Value - i;
-                                calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                break;
-                        }
-                        break;
-                    case "EPKG1":
-                        switch (i)
-                        {
-                            case 0:
-                                calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                break;
-                            default:
-                                incomeDistribution.Value = incomeDistribution.Value - (0.5m * i);
-                                calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                break;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                DistributeToWallet((long)userMap.SponsorUserId, userAuth.Id, calculateIncome, incomeDistribution, db);
                 userMap = userMapRepository.Get(new TblUserAuth { Id = (long)userMap.SponsorUserId }, db);
+                TblUserBusinessPackage userBusinessPackage = userMap != null ? userBusinessPackageRepository.Get(new TblUserAuth { Id = userMap.Id }, db) : null;
+                if (userBusinessPackage != null)
+                {
+                    switch (userBusinessPackage.BusinessPackage.PackageCode)
+                    {
+                        case "EPKG3":
+                            switch (i)
+                            {
+                                case 0:
+                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                    break;
+                                default:
+                                    incomeDistribution.Value = incomeDistribution.Value - i;
+                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                    break;
+                            }
+                            break;
+                        case "EPKG2":
+                            switch (i)
+                            {
+                                case 0:
+                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                    break;
+                                default:
+                                    incomeDistribution.Value = incomeDistribution.Value - i;
+                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                    break;
+                            }
+                            break;
+                        case "EPKG1":
+                            switch (i)
+                            {
+                                case 0:
+                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                    break;
+                                default:
+                                    incomeDistribution.Value = incomeDistribution.Value - (0.5m * i);
+                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                    break;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    shopUserCommissionItem.Add(new ShopUserCommissionItemBO
+                    {
+                        Reward = calculateIncome.IncomeAmount,
+                        ShopUserId = userMap.IdNavigation.ShopUserId
+                    });
+                }
+               
+                
+                //DistributeToWallet((long)userMap.SponsorUserId, userAuth.Id, calculateIncome, incomeDistribution, db);
+                
             }
                        
-            return true;
+            return shopUserCommissionItem;
         }
         private bool ProductSalesRebates(TblUserAuth userAuth, TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)
         {

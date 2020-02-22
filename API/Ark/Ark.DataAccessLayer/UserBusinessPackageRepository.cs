@@ -54,6 +54,40 @@ namespace Ark.DataAccessLayer
 
             return _ubp;
         }
+        public TblUserBusinessPackage Get(TblUserAuth userAuth, ArkContext db)
+        {
+            //TblUserBusinessPackage userBusinessPackage = db.TblUserBusinessPackage.FirstOrDefault(item => item.Id == tblUserBusinessPackage.Id);
+            //return userBusinessPackage;
+
+            var _qUi = from a in db.TblUserBusinessPackage
+                       join b in db.TblBusinessPackage on a.BusinessPackageId equals b.Id
+                       join c in db.TblUserDepositRequest on a.UserDepositRequestId equals c.Id
+
+                       where a.IsEnabled == true && a.UserAuthId == userAuth.Id
+
+                       orderby a.CreatedOn descending
+                       select new TblUserBusinessPackage
+                       {
+                           Id = a.Id,
+                           CreatedOn = a.CreatedOn,
+                           IsEnabled = a.IsEnabled,
+                           ActivationDate = a.ActivationDate,
+                           BusinessPackage = b,
+                           BusinessPackageId = a.BusinessPackageId,
+                           CancellationDate = a.CancellationDate,
+                           CreatedBy = a.CreatedBy,
+                           ExpiryDate = a.ExpiryDate,
+                           UserDepositRequestId = a.UserDepositRequestId,
+                           UserDepositRequest = c,
+                           PackageStatus = a.PackageStatus,
+                           ModifiedOn = a.ModifiedOn,
+                           UserAuthId = a.UserAuthId
+                       };
+
+            TblUserBusinessPackage _ubp = _qUi.FirstOrDefault();
+
+            return _ubp;
+        }
         public void Update(TblUserBusinessPackage tblUserBusinessPackage, ArkContext db)
         {
             db.TblUserBusinessPackage.Update(tblUserBusinessPackage);

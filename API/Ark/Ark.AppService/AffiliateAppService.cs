@@ -20,7 +20,7 @@ namespace Ark.AppService
 
             return affiliateMapBO;
         }
-        public bool ComputeCommissions(TblUserAuth userAuth, decimal _amountPaid, ArkContext db = null)
+        public List<ShopUserCommissionItemBO> ComputeCommissions(TblUserAuth userAuth, decimal _amountPaid, ArkContext db = null)
         {
             using (db = new ArkContext())
             {
@@ -28,14 +28,13 @@ namespace Ark.AppService
                 UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
 
                 List<TblUserBusinessPackage> userBusinessPackages = userBusinessPackageRepository.GetAllUserPackages(userAuth, db);
-
                 TblUserBusinessPackage tblUserBusinessPackage = userBusinessPackageRepository.Get(userBusinessPackages[0], db);
 
                 UserIncomeAppService userIncomeAppService = new UserIncomeAppService();
-                userIncomeAppService.ExecuteCommissionDistribution(new TblUserAuth { Id = (long)tblUserBusinessPackage.UserAuthId }, tblUserBusinessPackage, _amountPaid, db);
+                return userIncomeAppService.ExecuteCommissionDistribution(new TblUserAuth { Id = (long)tblUserBusinessPackage.UserAuthId }, tblUserBusinessPackage, _amountPaid, db);
 
-                transaction.Commit();
-                return true;
+                //transaction.Commit();
+                //return true;
             }
         }
         
