@@ -72,14 +72,12 @@
 			 if ($si != null)
 			 {
 				 var_dump($total_shipping_points);
-				 $_psf = DB::table('shipping_fee_type')->where([['range_from', '
-				<=',floatval($total_shipping_points)],['range_to', '>
-					=',floatval($total_shipping_points)],['region', '=',$si['country']]])->get();
+				 $_psf = DB::table('shipping_fee_type')->where([['range_from', '<=',floatval($total_shipping_points)],['range_to', '>=',floatval($total_shipping_points)],['region', '=',$si['country']]])->get();
 				 if ($_psf != null)
 				 {
 					 $_pt = DB::table('packaging_type')->where([['id', '=',floatval($_psf[0]->packaging_type_id)]])->get();
-					 var_dump($_pt);
-					 $shipping = $_pt[0]->unit_price;
+					 //var_dump($_pt);
+					 $shipping = $_pt != null ? $_pt[0]->unit_price : 0;
 				 }
 				 else{
 					 $shipping = 0;

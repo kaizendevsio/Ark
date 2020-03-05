@@ -7,7 +7,7 @@ using System;
 using System.Threading.Tasks;
 namespace Ark.AppService
 {
-   public class AffiliateAppService
+    public class AffiliateAppService
     {
         public AffiliateMapBO GetAffiliateLink(AffiliateMapBO affiliateMapBO)
         {
@@ -31,12 +31,12 @@ namespace Ark.AppService
                 TblUserBusinessPackage tblUserBusinessPackage = userBusinessPackageRepository.Get(userBusinessPackages[0], db);
 
                 UserIncomeAppService userIncomeAppService = new UserIncomeAppService();
-                return userIncomeAppService.ExecuteCommissionDistribution(new TblUserAuth { Id = (long)tblUserBusinessPackage.UserAuthId }, tblUserBusinessPackage, _amountPaid, db);
+                List<ShopUserCommissionItemBO> shopUserCommissionItems = userIncomeAppService.ExecuteCommissionDistribution(new TblUserAuth { Id = (long)tblUserBusinessPackage.UserAuthId }, tblUserBusinessPackage, _amountPaid, db);
 
-                //transaction.Commit();
-                //return true;
+                transaction.Commit();
+                return shopUserCommissionItems;
             }
         }
-        
+
     }
 }

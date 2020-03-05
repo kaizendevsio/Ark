@@ -222,6 +222,15 @@ if (! function_exists('single_price')) {
     }
 }
 
+if (! function_exists('single_price_dashboard')) {
+    function single_price_dashboard($id)
+    {
+        $product_price = DB::table('product_price')->where('product_id', '=', $id)->get();
+        $price = count($product_price) > 0 ?  single_price($product_price[count($product_price) - 1]->unit_price) . ' - ' . single_price($product_price[0]->unit_price) : single_price(0);
+        return $price;
+    }
+}
+
 //Shows Price on page based on low to high
 if (! function_exists('home_price')) {
     function home_price($id)

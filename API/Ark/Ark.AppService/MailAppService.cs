@@ -38,13 +38,13 @@ namespace Ark.AppService
             return response;
         }
 
-        public bool SendSmtp(UserBO userBO, EmailType emailType)
+        public bool SendSmtp(UserBO userBO, EmailType emailType, string appUrl = null)
         {
             string body = string.Empty;
             
             var mail = new MailMessage()
             {
-                From = new MailAddress("info@ark.ph"),                
+                From = new MailAddress("noreply@ark.com.ph", "ARK PH"),                
             };
 
            
@@ -55,6 +55,7 @@ namespace Ark.AppService
                     {
                         mail.Body = reader.ReadToEnd();
                         mail.Body = mail.Body.Replace("[UserName]", userBO.UserName);
+                        mail.Body = mail.Body.Replace("[ApiURL]", appUrl);
                     }
                    
                     mail.Subject = "Action Required: Confirm Email Address";

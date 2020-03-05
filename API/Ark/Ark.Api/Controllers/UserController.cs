@@ -16,17 +16,21 @@ namespace Ark.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        public readonly string Env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
         [HttpPost("Create")]
         public async Task<ActionResult> CreateAsync([FromBody] UserBO userBO)
         {
             UserAppService userAppService = new UserAppService();
             ApiResponseBO _apiResponse = new ApiResponseBO();
             MailAppService mailAppService = new MailAppService();
+            SessionController sessionController = new SessionController();
 
             try
             {
+                string appUrl = sessionController.ApiUriInit(Env).AbsoluteUri;
                 bool _r = await userAppService.CreateAsync(userBO).ConfigureAwait(true);
-                bool response = mailAppService.SendSmtp(userBO, EmailType.EmailConfirmation);
+                bool response = mailAppService.SendSmtp(userBO, EmailType.EmailConfirmation, appUrl);
 
                 _apiResponse.HttpStatusCode = "200";
                 _apiResponse.Message = "User successfully created, Email sent: " + response;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Ark.Entities.DTO
@@ -21,5 +21,6 @@ namespace Ark.Entities.DTO
         public string Remarks { get; set; }
 
         public virtual TblUserAuth UserAuth { get; set; }
+        public virtual TblIncomeType IncomeType { get; set; }
     }
 }
