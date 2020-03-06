@@ -8,5 +8,6 @@ namespace Ark.Entities.BO
     {
         public long ShopUserId { get; set; }
         public decimal Reward { get; set; }
+        public string Remarks { get; set; }
     }
 }

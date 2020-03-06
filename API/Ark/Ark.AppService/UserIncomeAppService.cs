@@ -113,12 +113,21 @@ namespace Ark.AppService
             if (minimumUserCheckBO.IsPassed)
             {
                 CalculateIncomeBO calculateIncome = CalculateIncome_v2(incomeDistribution, minimumUserCheckBO.userBusinessPackages, amountPaid);
+                decimal _ArkCredits = calculateIncome.IncomeAmount * 0.30m;
+                decimal _ArkCash = calculateIncome.IncomeAmount * 0.70m;
+
+                calculateIncome.IncomeAmount = _ArkCash;
+                calculateIncome.Remarks = String.Format("{0} ({1})", calculateIncome.Remarks, "70%");
                 DistributeToWallet((long)userMap.SponsorUserId, userAuth.Id, calculateIncome, incomeDistribution, db);
+
+                TblUserAuth userAuth2 = userAuthRepository.GetByID((long)userMap.SponsorUserId, db);
+                ShopAppService shopAppService = new ShopAppService();
+                shopAppService.UpdateUserWallet(new ShopUserCommissionItemBO { ShopUserId = userAuth2.ShopUserId, Reward = _ArkCredits, Remarks = String.Format("{0} ({1})", incomeDistribution.IncomeType.IncomeTypeName, "30%")});
             }
 
             return true;
         }
-        private List<ShopUserCommissionItemBO> ProductSalesCommission(TblUserAuth userAuth, TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)
+        private List<ShopUserCommissionItemBO> ProductSalesCommission(TblUserAuth userAuth, TblIncomeDistribution _incomeDistribution, decimal amountPaid, ArkContext db)
         {
             UserAuthRepository userAuthRepository = new UserAuthRepository();
             UserMapRepository userMapRepository = new UserMapRepository();
@@ -129,65 +138,77 @@ namespace Ark.AppService
             CalculateIncomeBO calculateIncome = new CalculateIncomeBO();
             List<ShopUserCommissionItemBO> shopUserCommissionItem = new List<ShopUserCommissionItemBO>();
 
+            TblIncomeDistribution incomeDistribution = new TblIncomeDistribution
+            {
+                Value = _incomeDistribution.Value,
+            };
+
             for (int i = 0; i < 3; i++)
             {
-                userMap = userMapRepository.Get(new TblUserAuth { Id = (long)userMap.SponsorUserId }, db);
-                TblUserBusinessPackage userBusinessPackage = userMap != null ? userBusinessPackageRepository.Get(new TblUserAuth { Id = userMap.Id }, db) : null;
-                if (userBusinessPackage != null)
+                if (userMap != null)
                 {
-                    switch (userBusinessPackage.BusinessPackage.PackageCode)
+                    userMap = userMapRepository.Get(new TblUserAuth { Id = (long)userMap.SponsorUserId }, db);
+                    TblUserBusinessPackage userBusinessPackage = userMap != null ? userBusinessPackageRepository.Get(new TblUserAuth { Id = userMap.Id }, db) : null;
+                    if (userBusinessPackage != null)
                     {
-                        case "EPKG3":
-                            switch (i)
-                            {
-                                case 0:
-                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                    break;
-                                default:
-                                    incomeDistribution.Value = incomeDistribution.Value - i;
-                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                    break;
-                            }
-                            break;
-                        case "EPKG2":
-                            switch (i)
-                            {
-                                case 0:
-                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                    break;
-                                default:
-                                    incomeDistribution.Value = incomeDistribution.Value - i;
-                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                    break;
-                            }
-                            break;
-                        case "EPKG1":
-                            switch (i)
-                            {
-                                case 0:
-                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                    break;
-                                default:
-                                    incomeDistribution.Value = incomeDistribution.Value - (0.5m * i);
-                                    calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                    break;
-                            }
-                            break;
-                        default:
-                            break;
+                        switch (userBusinessPackage.BusinessPackage.PackageCode)
+                        {
+                            case "EPKG3":
+                                switch (i)
+                                {
+                                    case 0:
+                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                        break;
+                                    default:
+                                        incomeDistribution.Value = incomeDistribution.Value - i;
+                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                        break;
+                                }
+                                break;
+                            case "EPKG2":
+                                switch (i)
+                                {
+                                    case 0:
+                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                        break;
+                                    default:
+                                        incomeDistribution.Value = incomeDistribution.Value - i;
+                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                        break;
+                                }
+                                break;
+                            case "EPKG1":
+                                switch (i)
+                                {
+                                    case 0:
+                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                        break;
+                                    default:
+                                        incomeDistribution.Value = incomeDistribution.Value - (0.5m * i);
+                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                        break;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        shopUserCommissionItem.Add(new ShopUserCommissionItemBO
+                        {
+                            Reward = calculateIncome.IncomeAmount,
+                            ShopUserId = userMap.IdNavigation.ShopUserId
+                        });
+
+                        DistributeToWallet((long)userMap.IdNavigation.Id, userAuth.Id, calculateIncome, incomeDistribution, db);
                     }
-                    shopUserCommissionItem.Add(new ShopUserCommissionItemBO
-                    {
-                        Reward = calculateIncome.IncomeAmount,
-                        ShopUserId = userMap.IdNavigation.ShopUserId
-                    });
+
                 }
-               
-                
-                //DistributeToWallet((long)userMap.SponsorUserId, userAuth.Id, calculateIncome, incomeDistribution, db);
-                
+
+
+
+
+
             }
-                       
+
             return shopUserCommissionItem;
         }
         private bool ProductSalesRebates(TblUserAuth userAuth, TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)

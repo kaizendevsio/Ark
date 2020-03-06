@@ -7,6 +7,7 @@ using Ark.Entities.Enums;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ark.DataAccessLayer
 {
@@ -25,32 +26,50 @@ namespace Ark.DataAccessLayer
             //TblUserBusinessPackage userBusinessPackage = db.TblUserBusinessPackage.FirstOrDefault(item => item.Id == tblUserBusinessPackage.Id);
             //return userBusinessPackage;
 
-            var _qUi = from a in db.TblUserBusinessPackage
-                       join b in db.TblBusinessPackage on a.BusinessPackageId equals b.Id
-                       join c in db.TblUserDepositRequest on a.UserDepositRequestId equals c.Id
+            var _qUi = from a in db.TblUserAuth
+                       join b in db.TblUserBusinessPackage on a.Id equals b.UserAuthId
+                       join c in db.TblUserDepositRequest on b.UserDepositRequestId equals c.Id
+                       join d in db.TblBusinessPackage on b.BusinessPackageId equals d.Id
+                       join e in db.TblBusinessPackageType on d.PackageTypeId equals e.Id
+                       join f in db.TblCurrency on c.SourceCurrencyId equals f.Id
 
-                       where a.IsEnabled == true && a.Id == tblUserBusinessPackage.Id
+                       join h in db.TblUserMap on a.Id equals h.Id
+
+                       where a.IsEnabled == true && b.Id == tblUserBusinessPackage.Id
 
                        orderby a.CreatedOn descending
                        select new TblUserBusinessPackage
                        {
-                           Id = a.Id,
-                           CreatedOn = a.CreatedOn,
-                           IsEnabled = a.IsEnabled,
-                           ActivationDate = a.ActivationDate,
-                           BusinessPackage = b,
-                           BusinessPackageId = a.BusinessPackageId,
-                           CancellationDate = a.CancellationDate,
-                           CreatedBy = a.CreatedBy,
-                           ExpiryDate = a.ExpiryDate,
-                           UserDepositRequestId = a.UserDepositRequestId,
+                           Id = b.Id,
+                           CreatedOn = b.CreatedOn,
+                           IsEnabled = b.IsEnabled,
+                           ActivationDate = b.ActivationDate,
+                           BusinessPackage = new TblBusinessPackage
+                           {
+                               Id = d.Id,
+                               PackageType = e,
+                               PackageName = d.PackageName,
+                               PackageCode = d.PackageCode,
+                               CreatedOn = d.CreatedOn,
+                               IsEnabled = d.IsEnabled,
+                               ValueFrom = h.SponsorUserId == 2 ? h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.ValueFrom : d.ValueFrom : h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.ValueFrom : (d.ValueFrom - d.DiscountValue),
+                               ValueTo = h.SponsorUserId == 2 ? h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.ValueFrom : d.ValueTo : h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.ValueFrom : (d.ValueTo - d.DiscountValue),
+                               PackageDescription = d.PackageDescription,
+                               NetworkValue = d.NetworkValue,
+                               Consumables = h.SponsorUserId == 2 ? h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.Consumables3 : d.Consumables : h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.Consumables3 : d.Consumables2,
+                           },
+                           BusinessPackageId = b.BusinessPackageId,
+                           CancellationDate = b.CancellationDate,
+                           CreatedBy = b.CreatedBy,
+                           ExpiryDate = b.ExpiryDate,
+                           UserDepositRequestId = b.UserDepositRequestId,
                            UserDepositRequest = c,
-                           PackageStatus = a.PackageStatus,
-                           ModifiedOn = a.ModifiedOn,
-                           UserAuthId = a.UserAuthId
+                           PackageStatus = b.PackageStatus,
+                           ModifiedOn = b.ModifiedOn,
+                           UserAuthId = b.UserAuthId
                        };
 
-            TblUserBusinessPackage _ubp = _qUi.FirstOrDefault();
+            TblUserBusinessPackage _ubp = _qUi.AsNoTracking().FirstOrDefault();
 
             return _ubp;
         }
@@ -84,12 +103,13 @@ namespace Ark.DataAccessLayer
                            UserAuthId = a.UserAuthId
                        };
 
-            TblUserBusinessPackage _ubp = _qUi.FirstOrDefault();
+            TblUserBusinessPackage _ubp = _qUi.AsNoTracking().FirstOrDefault();
 
             return _ubp;
         }
         public void Update(TblUserBusinessPackage tblUserBusinessPackage, ArkContext db)
         {
+            tblUserBusinessPackage.BusinessPackage = null;
             db.TblUserBusinessPackage.Update(tblUserBusinessPackage);
             db.SaveChanges();
         }
@@ -102,6 +122,10 @@ namespace Ark.DataAccessLayer
                        join d in db.TblBusinessPackage on b.BusinessPackageId equals d.Id
                        join e in db.TblBusinessPackageType on d.PackageTypeId equals e.Id
                        join f in db.TblCurrency on c.SourceCurrencyId equals f.Id
+
+                       join h in db.TblUserMap on a.Id equals h.Id
+
+
                        //join g in db.TblWalletType on c.TargetWalletTypeId equals g.Id
                        orderby b.CreatedOn descending
                        where a.Id == userAuth.Id
@@ -114,10 +138,22 @@ namespace Ark.DataAccessLayer
                          CreatedOn = b.CreatedOn,
                          PackageStatus = b.PackageStatus,
                          CancellationDate = b.CancellationDate,
-                         BusinessPackage =  new TblBusinessPackage { PackageType = e, PackageName = d.PackageName, PackageCode = d.PackageCode, Id = d.Id, CreatedOn = d.CreatedOn, IsEnabled = d.IsEnabled, ValueFrom = d.ValueFrom, ValueTo = d.ValueTo, PackageDescription = d.PackageDescription, NetworkValue = d.NetworkValue, Consumables = d.Consumables}
+                           BusinessPackage = new TblBusinessPackage
+                           {
+                               PackageType = e,
+                               PackageName = d.PackageName,
+                               PackageCode = d.PackageCode,
+                               CreatedOn = d.CreatedOn,
+                               IsEnabled = d.IsEnabled,
+                               ValueFrom = h.SponsorUserId == 2 ? h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.ValueFrom : d.ValueFrom : h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.ValueFrom : (d.ValueFrom - d.DiscountValue),
+                               ValueTo = h.SponsorUserId == 2 ? h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.ValueFrom : d.ValueTo : h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.ValueFrom : (d.ValueTo - d.DiscountValue),
+                               PackageDescription = d.PackageDescription,
+                               NetworkValue = d.NetworkValue,
+                               Consumables = h.SponsorUserId == 2 ? h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.Consumables3 : d.Consumables : h.IdNavigation.UserInfo.CountryIsoCode2 == "ARKPH2020" ? d.Consumables3 : d.Consumables2,
+                           }
                        };
 
-            List<TblUserBusinessPackage> _ubp = _qUi.ToList<TblUserBusinessPackage>();
+            List<TblUserBusinessPackage> _ubp = _qUi.AsNoTracking().ToList<TblUserBusinessPackage>();
 
             return _ubp;
         }
@@ -128,9 +164,9 @@ namespace Ark.DataAccessLayer
                        //join c in db.TblUserMap on tblUserMap.Id equals c.Id into _um
 
                        //from um in _um.DefaultIfEmpty()
+                       orderby a.Id descending
                        where a.IsEnabled == true
 
-                       orderby a.CreatedOn descending
                        select new TblBusinessPackage
                        {
                            Id = a.Id,
@@ -150,7 +186,7 @@ namespace Ark.DataAccessLayer
                            Consumables = a.Consumables
                        };
 
-            List<TblBusinessPackage> _ubp = _qUi.ToList<TblBusinessPackage>();
+            List<TblBusinessPackage> _ubp = _qUi.AsNoTracking().ToList<TblBusinessPackage>();
 
             return _ubp;
         }

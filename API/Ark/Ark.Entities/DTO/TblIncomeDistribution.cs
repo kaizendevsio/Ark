@@ -15,7 +15,7 @@ namespace Ark.Entities.DTO
         public DateTime? LastChanged { get; set; }
         public long BusinessPackageId { get; set; }
         public long IncomeTypeId { get; set; }
-        public decimal Value { get; set; }
+        public  decimal Value { get; set; }
         public IncomeDistributionType DistributionType { get; set; }
 
         public virtual TblBusinessPackage BusinessPackage { get; set; }

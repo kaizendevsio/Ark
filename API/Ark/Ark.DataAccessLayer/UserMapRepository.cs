@@ -170,7 +170,7 @@ namespace Ark.DataAccessLayer
                      orderby a.Id ascending
                      select new UnilevelMapBO
                      {
-                         Text = String.Format("{0} {1} - {2} | {3} | Commissions: {4}", c.FirstName, c.LastName, d.PackageStatus == PackageStatus.PendingActivation ? "Pending Activation" : "Source Code: " + c.Uid , e.PackageName, 0m),
+                         Text = String.Format("{0} {1} - {2} | {3} ", c.FirstName, c.LastName, d.PackageStatus == PackageStatus.PendingActivation ? "Pending Activation" : "Source Code: " + c.Uid , e.PackageName),
                          MapBO = a,
                          UserAuth = b,
                          TotalCommission = 0,//(decimal)tblUserIncomeTransactions.Where(x => x.TriggeredByUbpId == b.Id).Sum(i => i.IncomePercentage),
@@ -197,10 +197,13 @@ namespace Ark.DataAccessLayer
         }
         public UnilevelMapBO GetUnilevel(TblUserAuth userAuth, ArkContext db)
         {
+            UserInfoRepository userInfoRepository = new UserInfoRepository();
+            TblUserInfo userInfo = userInfoRepository.Get(userAuth, db);
+
             List<UnilevelMapBO> _o = GetUnilevelChildren(3, 0, userAuth, db);
             UnilevelMapBO unilevelMapBO = new UnilevelMapBO()
             {
-                Text = userAuth.UserName,
+                Text = String.Format("{0} {1}", userInfo.FirstName, userInfo.LastName),
                 Nodes = _o.Count > 0 ? _o : null
             };
             return unilevelMapBO;

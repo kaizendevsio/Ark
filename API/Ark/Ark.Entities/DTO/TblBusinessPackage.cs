@@ -30,6 +30,8 @@ namespace Ark.Entities.DTO
         public long? DiscountType { get; set; }
         public long? NetworkValue { get; set; }
         public long? Consumables { get; set; }
+        public long? Consumables2 { get; set; }
+        public long? Consumables3 { get; set; }
         public string ImageFile { get; set; }
         public string ImageFileDiscounted { get; set; }
         public string ImageFilePromo { get; set; }

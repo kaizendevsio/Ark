@@ -34,21 +34,25 @@ namespace Ark.DataAccessLayer
         {
               var _qObj = from a in db.TblUserIncomeTransaction
                           join b in db.TblUserAuth on a.UserAuthId equals b.Id
-
+                          
                           join d in db.TblUserAuth on a.TriggeredByUbpId equals d.Id
+                          join c in db.TblUserInfo on d.UserInfoId equals c.Id
+                          join e in db.TblIncomeType on a.IncomeTypeId equals e.Id
+
 
                           where a.UserAuthId == userAuth.Id
                           select new TblUserIncomeTransaction
                           {
                             Id = a.Id,
                             CreatedOn = a.CreatedOn,
-                            UserAuth = d,
+                            UserAuth = new TblUserAuth { Id = d.Id, UserInfo = c, UserAlias = d.UserAlias, UserName = d.UserName},
                             IncomePercentage = a.IncomePercentage,
                             IncomeTypeId = a.IncomeTypeId,
                             TriggeredByUbpId = a.TriggeredByUbpId,
                             TransactionType = a.TransactionType,
                             IncomeStatus = a.IncomeStatus,
-                            Remarks = a.Remarks                            
+                            Remarks = a.Remarks,
+                            IncomeType = e
                           };
 
             List<TblUserIncomeTransaction> userIncomeTransactions = _qObj.ToList();

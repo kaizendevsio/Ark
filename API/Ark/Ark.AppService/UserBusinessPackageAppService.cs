@@ -132,7 +132,6 @@ namespace Ark.AppService
                             CreatedOn = DateTime.Now,
                             ActivationDate = DateTime.Now,
                             BusinessPackageId = businessPackage.Id,
-                            BusinessPackage = businessPackage,
                             UserAuthId = userBusinessPackage.Id,
                             PackageStatus = userBusinessPackage.DepositStatus == DepositStatus.PendingPayment ? PackageStatus.PendingActivation : PackageStatus.Activated,
                             UserDepositRequestId = x.Id
@@ -194,6 +193,8 @@ namespace Ark.AppService
                 UserIncomeAppService userIncomeAppService = new UserIncomeAppService();
                 userIncomeAppService.ExecuteIncomeDistribution(new TblUserAuth { Id = (long)tblUserBusinessPackage.UserAuthId }, tblUserBusinessPackage, _amountPaid, db);
 
+                ShopAppService shopAppService = new ShopAppService();
+                shopAppService.UpdateUserWallet(new ShopUserCommissionItemBO { ShopUserId = userAuth.ShopUserId, Reward = (decimal)tblUserBusinessPackage.BusinessPackage.Consumables, Remarks = "Package Consumables" });
 
                 db.SaveChanges();
                 transaction.Commit();
@@ -222,7 +223,7 @@ namespace Ark.AppService
                     userDepositRequest.ModifiedOn = DateTime.Now;
 
                     userDepositRequestRepository.Update(userDepositRequest, db);
-
+                    tblUserBusinessPackage = userBusinessPackageRepository.Get(new TblUserBusinessPackage { Id = userBusinessPackage.UserPackageID }, db);
 
 
                     WalletTypeRepository walletTypeRepository = new WalletTypeRepository();
@@ -235,6 +236,8 @@ namespace Ark.AppService
                     UserIncomeAppService userIncomeAppService = new UserIncomeAppService();
                     userIncomeAppService.ExecuteIncomeDistribution(new TblUserAuth { Id = (long)tblUserBusinessPackage.UserAuthId }, tblUserBusinessPackage, _amountPaid, db);
 
+                    ShopAppService shopAppService = new ShopAppService();
+                    shopAppService.UpdateUserWallet(new ShopUserCommissionItemBO { ShopUserId = userAuth.ShopUserId, Reward = (decimal)tblUserBusinessPackage.BusinessPackage.Consumables, Remarks = "Package Consumables" });
 
                     db.SaveChanges();
                     transaction.Commit();

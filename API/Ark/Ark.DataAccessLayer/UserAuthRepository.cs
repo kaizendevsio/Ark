@@ -125,7 +125,8 @@ namespace Ark.DataAccessLayer
                              UserInfoId = a.UserInfoId,
                              UserInfo = b,
                              CreatedOn = a.CreatedOn,
-                             Id = a.Id
+                             Id = a.Id,
+                             ShopUserId = a.ShopUserId
                          };
 
             TblUserAuth tblUserAuth = _qAuth.FirstOrDefault();

@@ -7,13 +7,15 @@ using Ark.Entities.BO;
 using Ark.Entities.Enums;
 using Ark.DataAccessLayer;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+
 namespace Ark.DataAccessLayer
 {
    public class BusinessPackageRepository
     {
         public TblBusinessPackage Get(TblBusinessPackage businessPackageQuery, ArkContext db)
         {
-            TblBusinessPackage businessPackage = db.TblBusinessPackage.FirstOrDefault(item => item.Id == businessPackageQuery.Id || item.PackageCode == businessPackageQuery.PackageCode);
+            TblBusinessPackage businessPackage = db.TblBusinessPackage.AsNoTracking().FirstOrDefault(item => item.Id == businessPackageQuery.Id || item.PackageCode == businessPackageQuery.PackageCode);
             return businessPackage;
         }
         public List<TblIncomeType> GetIncomeTypes(TblBusinessPackage businessPackageQuery, ArkContext db)
@@ -37,7 +39,7 @@ namespace Ark.DataAccessLayer
                          IsEnabled = a.IsEnabled
                      };
 
-            List<TblIncomeType> incomeTypes = _q.ToList<TblIncomeType>();
+            List<TblIncomeType> incomeTypes = _q.AsNoTracking().ToList<TblIncomeType>();
 
             return incomeTypes;
         }

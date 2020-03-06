@@ -7,8 +7,10 @@ namespace Ark.DataAccessLayer
 {
     public partial class ArkContext : DbContext
     {
+
         public ArkContext()
         {
+            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public ArkContext(DbContextOptions<ArkContext> options)
@@ -49,8 +51,8 @@ namespace Ark.DataAccessLayer
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=localhost;Database=Ark;Username=dbAdmin;Password=Jr2Ge4FvY!=Z5u!^");
-                //optionsBuilder.UseNpgsql("Host=localhost;Database=Ark;Username=dbAdmin;Password=Jr2Ge4FvY!=Z5u!^");
+                //optionsBuilder.UseNpgsql("Host=ark-uat-db-02.cyw4evbhbqgn.us-east-1.rds.amazonaws.com;Database=Ark;Username=dbAdmin;Password=4*5WD-K8%f*NqmPY");
+                optionsBuilder.UseNpgsql("Host=localhost;Database=Ark;Username=dbAdmin;Password=4*5WD-K8%f*NqmPY");
             }
         }
 
