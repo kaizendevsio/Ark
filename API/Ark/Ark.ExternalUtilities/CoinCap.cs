@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Info.Blockchain.API.Client;
 using Info.Blockchain.API.Wallet;
 using Info.Blockchain.API.Models;
@@ -11,7 +11,7 @@ namespace Ark.ExternalUtilities
 {
     public class CoinCap
     {
-    public CoinCapApiSettings GetSettings()
+        public CoinCapApiSettings GetSettings()
         {
             CoinCapApiSettings coinCapApiSettings = new CoinCapApiSettings();
             coinCapApiSettings.ApiUri = new Uri("https://api.coincap.io/");

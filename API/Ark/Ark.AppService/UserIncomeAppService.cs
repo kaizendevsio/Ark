@@ -141,6 +141,7 @@ namespace Ark.AppService
             TblIncomeDistribution incomeDistribution = new TblIncomeDistribution
             {
                 Value = _incomeDistribution.Value,
+                IncomeTypeId = _incomeDistribution.IncomeTypeId
             };
 
             for (int i = 0; i < 3; i++)

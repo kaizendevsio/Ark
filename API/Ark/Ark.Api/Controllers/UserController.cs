@@ -394,7 +394,8 @@ namespace Ark.Api.Controllers
                 SessionController sessionController = new SessionController();
                 TblUserAuth userAuth = sessionController.GetSession(HttpContext.Session);
 
-                _apiResponse.UserIncomeTransactions = userIncomeAppService.GetUserIncomeTransactions(userAuth);
+                _apiResponse.UserIncomeTransactions = userIncomeAppService.GetUserIncomeTransactions(userAuth).FindAll(i => i.IncomeType.IncomeTypeCode != IncomeType.PSI);
+                _apiResponse.UserCommissionsTransactions = userIncomeAppService.GetUserIncomeTransactions(userAuth);
 
                 _apiResponse.HttpStatusCode = "200";
                 //_apiResponse.Message = "UserWallet GET";

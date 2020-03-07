@@ -15,6 +15,7 @@ namespace Ark.Entities.BO
         public List<TblUserWalletTransaction> UserWalletTransactions { get; set; }
         public List<TblUserWalletAddress> UserWalletAddress { get; set; }
         public List<TblUserIncomeTransaction> UserIncomeTransactions { get; set; }
+        public List<TblUserIncomeTransaction> UserCommissionsTransactions { get; set; }
         public List<TblUserDepositRequest> UserDepositRequests { get; set; }
     }
 }
