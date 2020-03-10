@@ -20,14 +20,14 @@ namespace Ark.ExternalUtilities.Models
     public class items
     {
         [XmlElement(ElementName = "Items")]
-        public Items Items { get; set; }
+        public List<Items> Items { get; set; }
     }
 
     [XmlRoot(ElementName = "orders")]
     public class Orders
     {
         [XmlElement(ElementName = "items")]
-        public Items Items { get; set; }
+        public items Items { get; set; }
     }
 
     [XmlRoot(ElementName = "Request")]

@@ -7,5 +7,6 @@ namespace Ark.ExternalUtilities.Models
    public class PaynamicsRequestForm
     {
         public string paymentrequest { get; set; }
+        public string RequestUrl { get; set; }
     }
 }

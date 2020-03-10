@@ -131,6 +131,7 @@ namespace Ark.AppService
         {
             UserAuthRepository userAuthRepository = new UserAuthRepository();
             UserMapRepository userMapRepository = new UserMapRepository();
+            IncomeTypeRepository incomeTypeRepository = new IncomeTypeRepository();
             UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
 
             userAuth = userAuthRepository.GetByID(userAuth.Id, db);
@@ -138,20 +139,23 @@ namespace Ark.AppService
             CalculateIncomeBO calculateIncome = new CalculateIncomeBO();
             List<ShopUserCommissionItemBO> shopUserCommissionItem = new List<ShopUserCommissionItemBO>();
 
-            TblIncomeDistribution incomeDistribution = new TblIncomeDistribution
-            {
-                Value = _incomeDistribution.Value,
-                IncomeTypeId = _incomeDistribution.IncomeTypeId
-            };
-
+            TblIncomeDistribution incomeDistribution = new TblIncomeDistribution();
+      
             for (int i = 0; i < 3; i++)
             {
                 if (userMap != null)
                 {
                     userMap = userMapRepository.Get(new TblUserAuth { Id = (long)userMap.SponsorUserId }, db);
                     TblUserBusinessPackage userBusinessPackage = userMap != null ? userBusinessPackageRepository.Get(new TblUserAuth { Id = userMap.Id }, db) : null;
+
                     if (userBusinessPackage != null)
                     {
+                        _incomeDistribution = incomeTypeRepository.GetDistribution(_incomeDistribution.IncomeType.IncomeTypeCode, userBusinessPackage.BusinessPackage, db);
+
+                        incomeDistribution.Value = _incomeDistribution.Value;
+                        incomeDistribution.IncomeTypeId = _incomeDistribution.IncomeTypeId;
+                        incomeDistribution.DistributionType = _incomeDistribution.DistributionType;
+
                         switch (userBusinessPackage.BusinessPackage.PackageCode)
                         {
                             case "EPKG3":
@@ -323,12 +327,12 @@ namespace Ark.AppService
                     switch (incomeDistribution.BusinessPackage.CalculationMethod)
                     {
                         case BusinessPackageCalculationMethod.NetworkValue:
-                            calculateIncome.IncomeAmount = (decimal)userBusinessPackages.Sum(i => i.BusinessPackage.NetworkValue) * ((decimal)incomeDistribution.Value / 100);
-                            calculateIncome.Remarks = String.Format("Value = ({0}) * ({1})", (decimal)userBusinessPackages.Sum(i => i.BusinessPackage.NetworkValue), ((decimal)incomeDistribution.Value / 100));
+                            calculateIncome.IncomeAmount = (decimal)userBusinessPackages.Sum(i => i.BusinessPackage.NetworkValue) * ((decimal)incomeDistribution.Value / 100) * (0.9m);
+                            calculateIncome.Remarks = String.Format("Value = ({0}) * ({1}) * ({2})", (decimal)userBusinessPackages.Sum(i => i.BusinessPackage.NetworkValue), ((decimal)incomeDistribution.Value / 100), (0.9m));
                             break;
                         case BusinessPackageCalculationMethod.PaymentValue:
-                            calculateIncome.IncomeAmount = (incomeDistribution.Value / 100) * amountPaid;
-                            calculateIncome.Remarks = String.Format("Value = ({0}) * ({1})", (incomeDistribution.Value / 100), amountPaid);
+                            calculateIncome.IncomeAmount = (incomeDistribution.Value / 100) * amountPaid * (0.9m);
+                            calculateIncome.Remarks = String.Format("Value = ({0}) * ({1}) * ({2})", (incomeDistribution.Value / 100), amountPaid, (0.9m));
                             break;
                         default:
                             break;
