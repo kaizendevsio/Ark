@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Ark.Entities.DTO
@@ -25,6 +25,9 @@ namespace Ark.Entities.DTO
         public string Remarks { get; set; }
         public short? DepositStatus { get; set; }
         public DateTime? ExpiryDate { get; set; }
+        public string RawData { get; set; }
+        public string ReferenceNo { get; set; }
+        public string RawResponseData { get; set; }
 
         public virtual TblCurrency SourceCurrency { get; set; }
         public virtual TblWalletType TargetWalletType { get; set; }

@@ -94,7 +94,7 @@ namespace Ark.Api.Controllers
 
         }
 
-        [HttpPut("Update")]
+        [HttpPost("Update")]
         public ActionResult Update([FromBody] UserBO userBO)
         {
             UserAppService userAppService = new UserAppService();
@@ -102,10 +102,58 @@ namespace Ark.Api.Controllers
 
             try
             {
-                userAppService.CreateAsync(userBO);
+                userAppService.Update(userBO);
 
                 _apiResponse.HttpStatusCode = "200";
-                _apiResponse.Message = "User successfully created";
+                _apiResponse.Message = "User successfully updated";
+                _apiResponse.Status = "Success";
+            }
+            catch (Exception ex)
+            {
+                _apiResponse.HttpStatusCode = "500";
+                _apiResponse.Message = ex.InnerException.Message;
+                _apiResponse.Status = "Error";
+            }
+
+            return Ok(_apiResponse);
+        }
+
+        [HttpPost("PasswordChange")]
+        public ActionResult PasswordChange([FromBody] UserBO userBO)
+        {
+            UserAppService userAppService = new UserAppService();
+            ApiResponseBO _apiResponse = new ApiResponseBO();
+
+            try
+            {
+                userAppService.PasswordChange(userBO);
+
+                _apiResponse.HttpStatusCode = "200";
+                _apiResponse.Message = "User successfully updated";
+                _apiResponse.Status = "Success";
+            }
+            catch (Exception ex)
+            {
+                _apiResponse.HttpStatusCode = "500";
+                _apiResponse.Message = ex.InnerException.Message;
+                _apiResponse.Status = "Error";
+            }
+
+            return Ok(_apiResponse);
+        }
+
+        [HttpPost("AuthStatusChange")]
+        public ActionResult AuthStatusChange([FromBody] UserBO userBO)
+        {
+            UserAppService userAppService = new UserAppService();
+            ApiResponseBO _apiResponse = new ApiResponseBO();
+
+            try
+            {
+                userAppService.AuthStatusChange(userBO);
+
+                _apiResponse.HttpStatusCode = "200";
+                _apiResponse.Message = "User successfully updated";
                 _apiResponse.Status = "Success";
             }
             catch (Exception ex)

@@ -36,7 +36,7 @@ namespace Ark.Entities.DTO
         public string ImageFileDiscounted { get; set; }
         public string ImageFilePromo { get; set; }
         public string ImageFileOriginal { get; set; }
-
+        public DateTime? ExpiryDate { get; set; }
         public BusinessPackageCalculationMethod CalculationMethod { get; set; }
 
         public virtual TblCurrency Currency { get; set; }

@@ -36,6 +36,7 @@ namespace Ark.DataAccessLayer
         public virtual DbSet<TblUserDepositRequest> TblUserDepositRequest { get; set; }
         public virtual DbSet<TblUserIncomePartition> TblUserIncomePartition { get; set; }
         public virtual DbSet<TblUserIncomeTransaction> TblUserIncomeTransaction { get; set; }
+        public virtual DbSet<TblPaynamicsResponse> TblPaynamicsResponse { get; set; }
         public virtual DbSet<TblUserInfo> TblUserInfo { get; set; }
         public virtual DbSet<TblUserMap> TblUserMap { get; set; }
         public virtual DbSet<TblUserRank> TblUserRank { get; set; }
@@ -873,6 +874,23 @@ namespace Ark.DataAccessLayer
                     .HasConstraintName("CurrencyID");
             });
 
+            modelBuilder.Entity<TblPaynamicsResponse>(entity =>
+            {
+                entity.ToTable("tbl_PaynamicsResponse", "dbo");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.ResponseCode).HasMaxLength(5);
+
+                entity.Property(e => e.ResponseMessage).HasMaxLength(255);
+
+                entity.Property(e => e.Description).HasMaxLength(1000);
+
+                entity.Property(e => e.Status).HasColumnType("int");
+
+            });
             OnModelCreatingPartial(modelBuilder);
         }
 

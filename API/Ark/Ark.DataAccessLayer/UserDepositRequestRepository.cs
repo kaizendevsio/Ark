@@ -14,6 +14,8 @@ namespace Ark.DataAccessLayer
     {
         public TblUserDepositRequest Create(TblUserDepositRequest tblUserDepositRequest,ArkContext db)
         {
+            tblUserDepositRequest.CreatedOn = DateTime.Now;
+
             db.TblUserDepositRequest.Add(tblUserDepositRequest);
             db.SaveChanges();
 
@@ -25,11 +27,17 @@ namespace Ark.DataAccessLayer
             TblUserDepositRequest userDepositRequest = db.TblUserDepositRequest.FirstOrDefault(item => item.Id == tblUserDepositRequest.Id);
             return userDepositRequest;
         }
+        public TblUserDepositRequest GetByRef(TblUserDepositRequest tblUserDepositRequest, ArkContext db)
+        {
+            TblUserDepositRequest userDepositRequest = db.TblUserDepositRequest.FirstOrDefault(item => item.ReferenceNo == tblUserDepositRequest.ReferenceNo);
+            return userDepositRequest;
+        }
         public void Update(TblUserDepositRequest tblUserDepositRequest, ArkContext db)
         {
             db.TblUserDepositRequest.Update(tblUserDepositRequest);
             db.SaveChanges();
         }
+        
         public List<TblUserDepositRequest> GetAll(TblUserAuth userAuth, DepositStatus depositStatus, ArkContext db = null)
         {
             List<TblUserDepositRequest> userDepositRequests = db.TblUserDepositRequest.Where(i => i.UserAuthId == userAuth.Id && i.DepositStatus == (short)depositStatus).ToList();

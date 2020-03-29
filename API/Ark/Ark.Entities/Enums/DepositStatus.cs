@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Ark.Entities.Enums
 {
     [Flags]
-    public enum DepositStatus
+    public enum DepositStatus : int
     {
         PendingPayment = 0,
         UnPaid = 1,
@@ -14,6 +14,7 @@ namespace Ark.Entities.Enums
         Expired = 4,
         InvalidPayment = 5,
         Blocked = 6,
-        Revoked = 7
+        Revoked = 7,
+        Cancelled = 8
     }
 }

@@ -52,8 +52,8 @@ namespace Ark.DataAccessLayer
                            EmailStatus = a.EmailStatus,
                            CreatedOn = a.CreatedOn,
                            CountryIsoCode2 = a.CountryIsoCode2,
-                           CompanyName = a.CompanyName
-
+                           CompanyName = a.CompanyName,
+                           Id = a.Id
                        };
 
             TblUserInfo _tblUserInfo = _qUi.FirstOrDefault();
@@ -87,7 +87,8 @@ namespace Ark.DataAccessLayer
                            CountryIsoCode2 = a.CountryIsoCode2,
                            CompanyName = a.CompanyName,
                            UserName = b.UserName,
-                           UserBusinessPackage = new TblUserBusinessPackage { ActivationDate = c.ActivationDate, CreatedOn = c.CreatedOn, PackageStatus = c.PackageStatus, UserDepositRequest = _udr, BusinessPackage = _bp }
+                           UserBusinessPackage = new TblUserBusinessPackage { ActivationDate = c.ActivationDate, ModifiedOn = c.ModifiedOn, CreatedOn = c.CreatedOn, PackageStatus = c.PackageStatus, UserDepositRequest = _udr, BusinessPackage = _bp },
+                           ShopUserId = b.ShopUserId != null ? b.ShopUserId : 0
                        };
 
             List<UserBO> _users = _qUi.ToList();
@@ -129,6 +130,14 @@ namespace Ark.DataAccessLayer
             TblUserInfo userInfo_1 = db.TblUserInfo.SingleOrDefault(i => i.Email == userAuth.UserName);
             userInfo_1.EmailStatus = (short)EmailStatus.Verified;
 
+            db.SaveChanges();
+
+            return true;
+        }
+
+        public bool Update(TblUserInfo userInfo, ArkContext db)
+        {
+            db.TblUserInfo.Update(userInfo);
             db.SaveChanges();
 
             return true;

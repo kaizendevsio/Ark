@@ -64,7 +64,8 @@ namespace Ark.AppService
                     using (StreamReader reader = new StreamReader("./Resources/Templates/Email/email-registration.html"))
                     {
                         mail.Body = reader.ReadToEnd();
-                        mail.Body.Replace("[UserName]", userBO.UserName);
+                        mail.Body = mail.Body.Replace("[UserName]", userBO.UserName);
+                        mail.Body = mail.Body.Replace("[ApiURL]", appUrl);
                     }
 
                     mail.Subject = "Action Required: Confirm Email Address";

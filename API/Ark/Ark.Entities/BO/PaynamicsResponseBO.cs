@@ -8,5 +8,7 @@ namespace Ark.Entities.BO
     public class PaynamicsResponseBO : ApiResponseBO
     {
         public PaynamicsRequestForm ApiResponse { get; set; }
+
+        public ShopOrderItemBO PaymentResponse { get; set; }
     }
 }

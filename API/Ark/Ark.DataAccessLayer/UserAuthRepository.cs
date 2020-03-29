@@ -28,7 +28,7 @@ namespace Ark.DataAccessLayer
             _userAuth.PasswordByte = _hashPasswordByte;
             _userAuth.IsTempPassword = false;
             _userAuth.IsEnabled = true;
-            _userAuth.LoginStatus = (short)LoginStatus.Enabled;
+            _userAuth.LoginStatus = LoginStatus.Enabled;
             _userAuth.UserInfoId = userInfo.Id;
             _userAuth.ShopUserId = userBO.ShopUserId;
 
@@ -112,6 +112,34 @@ namespace Ark.DataAccessLayer
             return tblUserAuth;
         }
 
+        public TblUserAuth GetByShopID(long Suid, ArkContext db)
+        {
+            var _qAuth = from a in db.TblUserAuth
+                         join b in db.TblUserInfo on a.UserInfoId equals b.Id
+                         where a.ShopUserId == Suid
+                         select new TblUserAuth
+                         {
+                             UserName = a.UserName,
+                             PasswordByte = a.PasswordByte,
+                             IsEnabled = a.IsEnabled,
+                             UserInfoId = a.UserInfoId,
+                             UserInfo = b,
+                             CreatedOn = a.CreatedOn,
+                             ShopUserId = a.ShopUserId,
+                             CreatedBy = a.CreatedBy,
+                             IsTempPassword = a.IsTempPassword,
+                             LastChanged = a.LastChanged,
+                             LoginStatus = a.LoginStatus,
+                             ModifiedBy = a.ModifiedBy,
+                             ModifiedOn = a.ModifiedOn,
+                             PasswordFailAttempt = a.PasswordFailAttempt,
+                             Id = a.Id
+                         };
+
+            TblUserAuth tblUserAuth = _qAuth.FirstOrDefault();
+            return tblUserAuth;
+        }
+
         public TblUserAuth GetByID(long Id, ArkContext db)
         {
             var _qAuth = from a in db.TblUserAuth
@@ -133,5 +161,26 @@ namespace Ark.DataAccessLayer
             return tblUserAuth;
         }
 
+        public bool Update(TblUserAuth userAuth, ArkContext db)
+        {
+            userAuth.ModifiedOn = DateTime.Now;
+            db.TblUserAuth.Update(userAuth);
+            db.SaveChanges();
+
+            return true;
+        }
+
+        public bool UpdatePassword(string PasswordString,TblUserAuth userAuth, ArkContext db)
+        {
+            byte[] _passwordByte = Encoding.ASCII.GetBytes(PasswordString);
+            byte[] _hashPasswordByte;
+            SHA512 shaM = new SHA512Managed();
+            _hashPasswordByte = shaM.ComputeHash(_passwordByte);
+
+            userAuth.PasswordByte = _hashPasswordByte;
+
+            Update(userAuth, db);
+            return true;
+        }
     }
 }

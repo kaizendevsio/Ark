@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ark.API.Controllers;
 using Ark.AppService;
+using Ark.DataAccessLayer;
 using Ark.Entities.BO;
 using Ark.Entities.DTO;
 using Microsoft.AspNetCore.Http;
@@ -49,8 +50,8 @@ namespace Ark.Api.Controllers
             try
             {
                 // GET SESSIONS
-                SessionController sessionController = new SessionController();
-                TblUserAuth userAuth = sessionController.GetSession(HttpContext.Session);
+                UserAuthRepository userAuthRepository = new UserAuthRepository();
+                TblUserAuth userAuth = userAuthRepository.GetByShopID(long.Parse(affiliateCounters.ShopUserId), new ArkContext());
 
                 _apiResponse.Commission = affiliateAppService.ComputeCommissions(userAuth, affiliateCounters.amountPaid);
                 _apiResponse.HttpStatusCode = "200";

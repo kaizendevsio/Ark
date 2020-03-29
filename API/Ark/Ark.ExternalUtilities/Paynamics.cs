@@ -102,11 +102,14 @@ namespace Ark.ExternalUtilities
 
             _paynamicsRequest.Signature = hashString;
 
+
+
             string _xml = XmlSerialize(_paynamicsRequest);
             PaynamicsRequestForm paynamicsRequestForm = new PaynamicsRequestForm
             {
                 paymentrequest = Base64Encode(_xml),
-                RequestUrl = String.Format("{0}{1}", paynamicsSettings.ApiUrl.AbsoluteUri, "Default.aspx")
+                RequestUrl = String.Format("{0}{1}", paynamicsSettings.ApiUrl.AbsoluteUri, "Default.aspx"),
+                JsonData = JsonConvert.SerializeObject(_paynamicsRequest)
             };
 
             //HttpUtilities httpUtilities = new HttpUtilities();
@@ -116,9 +119,15 @@ namespace Ark.ExternalUtilities
 
         }
 
-        public void ProcessCallbackRequest(string paynamicsResponseString, string Environment)
+        public ShopOrderItemBO ProcessCallbackRequest(string paynamicsResponseString, string Environment)
         {
+            PaynamicsResponse paynamicsResponse = XmlDeserialize(Base64Decode(paynamicsResponseString));
+            ShopOrderItemBO shopOrderItem = new ShopOrderItemBO();
+            shopOrderItem.RawDetails = JsonConvert.SerializeObject(paynamicsResponse);
+            shopOrderItem.OrderID = paynamicsResponse.Application.Request_id;
+            shopOrderItem.ResponseCode = paynamicsResponse.ResponseStatus.Response_code;
 
+            return shopOrderItem;
         }
 
         public PaynamicsSettings ApiUriInit(PaynamicsEnvironment paynamicsEnvironment, string Environment)
@@ -143,13 +152,13 @@ namespace Ark.ExternalUtilities
 
         }
 
-        public static string Base64Encode(string plainText)
+        public string Base64Encode(string plainText)
         {
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return Convert.ToBase64String(plainTextBytes);
         }
 
-        public static string Base64Decode(string base64EncodedData)
+        public string Base64Decode(string base64EncodedData)
         {
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return Encoding.UTF8.GetString(base64EncodedBytes);
@@ -172,19 +181,20 @@ namespace Ark.ExternalUtilities
             }
         }
 
-        public string XmlDeserialize(PaynamicsRequest subReq)
+        public PaynamicsResponse XmlDeserialize(string xmlString)
         {
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(PaynamicsRequest));
-            var xml = "";
+            XmlSerializer serializer = new XmlSerializer(typeof(PaynamicsResponse));
 
             using (var sww = new StringWriter())
             {
                 using (XmlWriter writer = XmlWriter.Create(sww))
                 {
-                    xsSubmit.Serialize(writer, subReq);
-                    xml = sww.ToString(); // Your XML
 
-                    return xml;
+                    using (var reader = new StringReader(xmlString))
+                    {
+                        PaynamicsResponse paynamicsResponse = (PaynamicsResponse)serializer.Deserialize(reader);
+                        return paynamicsResponse;
+                    }
                 }
             }
         }

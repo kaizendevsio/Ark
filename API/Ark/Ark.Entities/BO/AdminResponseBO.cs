@@ -7,6 +7,7 @@ namespace Ark.Entities.BO
 {
    public class AdminResponseBO : ApiResponseBO
     {
+        public UserBO User { get; set; }
         public List<UserBO> UserList { get; set; }
         public List<UserBO> UserDepositRequests { get; set; }
     }

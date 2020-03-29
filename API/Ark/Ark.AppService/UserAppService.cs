@@ -28,6 +28,11 @@ namespace Ark.AppService
                     throw new System.ArgumentException("Email Not Verified");
                 }
 
+                if (userAuth.LoginStatus != LoginStatus.Enabled)
+                {
+                    throw new System.ArgumentException(String.Format("{0} {1}", "Your account has been", userAuth.LoginStatus.ToString().ToLower()));
+                }
+
                 UserWalletRepository userWalletRepository = new UserWalletRepository();
                 List<UserWalletBO> userWallet = userWalletRepository.GetAllBO(userAuth, db);
 
@@ -97,6 +102,30 @@ namespace Ark.AppService
                         userMapAppService.Create(userBO, userAuth, db);
 
                         transaction.Commit();
+
+                        if (DateTime.Now < new DateTime(2020, 04, 25))
+                        {
+                            UserBusinessPackageAppService userBusinessPackageAppService = new UserBusinessPackageAppService();
+                            TblUserDepositRequest tblUserDepositRequest = userBusinessPackageAppService.Create(new UserBusinessPackageBO
+                            {
+                                DepositStatus = DepositStatus.PendingPayment,
+                                FromWalletCode = "TLI",
+                                Id = userAuth.Id,
+                                BusinessPackageID = 6,
+                                FromCurrencyIso3 = "PHP",
+                                AmountPaid = 0,
+                            });
+
+                            userBusinessPackageAppService.Update(new UserBusinessPackageBO
+                            {
+                                AmountPaid = 0,
+                                UserPackageID = (long)tblUserDepositRequest.SourceCurrencyId,
+                                DepositStatus = DepositStatus.Paid
+                            });
+                        }
+                        
+
+                        
                         return true;
                     }
                 }
@@ -147,6 +176,65 @@ namespace Ark.AppService
             }
 
 
+        }
+        public bool Update(UserBO userBO)
+        {
+            using (var db = new ArkContext())
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    UserAuthRepository userAuthRepository = new UserAuthRepository();
+
+                    TblUserAuth userAuth = userAuthRepository.GetByShopID(userBO.ShopUserId, db);
+                    TblUserInfo userInfo = userAuth.UserInfo;
+
+                    userAuth.UserName = userBO.Email;
+
+                    userInfo.FirstName = userBO.FirstName;
+                    userInfo.LastName = userBO.LastName;
+                    userInfo.PhoneNumber = userBO.PhoneNumber;
+                    userInfo.Email = userBO.Email;
+                    userInfo.ModifiedOn = DateTime.Now;
+
+                    userAuthRepository.Update(userAuth, db);
+
+                    transaction.Commit();
+                    return true;
+                }
+            }
+        }
+        public bool AuthStatusChange(UserBO userBO)
+        {
+            using (var db = new ArkContext())
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    UserAuthRepository userAuthRepository = new UserAuthRepository();
+
+                    TblUserAuth userAuth = userAuthRepository.GetByShopID(userBO.ShopUserId, db);
+                    userAuth.LoginStatus = (LoginStatus)userBO.LoginStatus;
+                    userAuthRepository.Update(userAuth, db);
+
+                    transaction.Commit();
+                    return true;
+                }
+            }
+        }
+        public bool PasswordChange(UserBO userBO)
+        {
+            using (var db = new ArkContext())
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    UserAuthRepository userAuthRepository = new UserAuthRepository();
+
+                    TblUserAuth userAuth = userAuthRepository.GetByShopID(userBO.ShopUserId, db);
+                    userAuthRepository.UpdatePassword(userBO.PasswordString, userAuth, db);
+                    
+                    transaction.Commit();
+                    return true;
+                }
+            }
         }
         public bool StructureMapTesting(StructureMapInjection structureMap)
         {

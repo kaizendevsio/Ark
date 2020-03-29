@@ -15,6 +15,7 @@ namespace Ark.Entities.BO
         public string PaymentAddress { get; set; }
         public long BusinessPackageID { get; set; }
         public string Remarks { get; set; }
+        public DateTime Expiry { get; set; }
         public DepositStatus DepositStatus { get; set; }
     }
 }

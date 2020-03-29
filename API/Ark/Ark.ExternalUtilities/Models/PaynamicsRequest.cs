@@ -33,6 +33,7 @@ namespace Ark.ExternalUtilities.Models
     [XmlRoot(ElementName = "Request")]
     public class PaynamicsRequest
     {
+        public long DepositId { get; set; }
         [XmlElement(ElementName = "orders")]
         public Orders Orders { get; set; }
         [XmlElement(ElementName = "mid")]

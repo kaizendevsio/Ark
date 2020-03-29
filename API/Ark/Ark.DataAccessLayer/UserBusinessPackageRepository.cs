@@ -107,10 +107,51 @@ namespace Ark.DataAccessLayer
 
             return _ubp;
         }
+        public TblUserBusinessPackage GetByDepId(long depId, ArkContext db)
+        {
+            //TblUserBusinessPackage userBusinessPackage = db.TblUserBusinessPackage.FirstOrDefault(item => item.Id == tblUserBusinessPackage.Id);
+            //return userBusinessPackage;
+
+            var _qUi = from a in db.TblUserBusinessPackage
+                       join b in db.TblBusinessPackage on a.BusinessPackageId equals b.Id
+                       join c in db.TblUserDepositRequest on a.UserDepositRequestId equals c.Id
+
+                       where a.IsEnabled == true && a.UserDepositRequestId == depId
+
+                       orderby a.CreatedOn descending
+                       select new TblUserBusinessPackage
+                       {
+                           Id = a.Id,
+                           CreatedOn = a.CreatedOn,
+                           IsEnabled = a.IsEnabled,
+                           ActivationDate = a.ActivationDate,
+                           BusinessPackage = b,
+                           BusinessPackageId = a.BusinessPackageId,
+                           CancellationDate = a.CancellationDate,
+                           CreatedBy = a.CreatedBy,
+                           ExpiryDate = a.ExpiryDate,
+                           UserDepositRequestId = a.UserDepositRequestId,
+                           UserDepositRequest = c,
+                           PackageStatus = a.PackageStatus,
+                           ModifiedOn = a.ModifiedOn,
+                           UserAuthId = a.UserAuthId
+                       };
+
+            TblUserBusinessPackage _ubp = _qUi.AsNoTracking().FirstOrDefault();
+
+            return _ubp;
+        }
         public void Update(TblUserBusinessPackage tblUserBusinessPackage, ArkContext db)
         {
             tblUserBusinessPackage.BusinessPackage = null;
             db.TblUserBusinessPackage.Update(tblUserBusinessPackage);
+            db.SaveChanges();
+        }
+
+        public void Delete(TblUserBusinessPackage tblUserBusinessPackage, ArkContext db)
+        {
+            tblUserBusinessPackage.BusinessPackage = null;
+            db.TblUserBusinessPackage.Remove(tblUserBusinessPackage);
             db.SaveChanges();
         }
 
@@ -128,7 +169,7 @@ namespace Ark.DataAccessLayer
 
                        //join g in db.TblWalletType on c.TargetWalletTypeId equals g.Id
                        orderby b.CreatedOn descending
-                       where a.Id == userAuth.Id
+                       where a.Id == userAuth.Id && b.PackageStatus != PackageStatus.Cancelled && b.PackageStatus != PackageStatus.Expired &&  b.ExpiryDate > DateTime.Now
                        select new TblUserBusinessPackage
                        {
                          Id = b.Id,

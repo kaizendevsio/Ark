@@ -39,5 +39,29 @@ namespace Ark.Api.Controllers
             }
 
         }
+
+        [HttpPost("SingleUser")]
+        public ActionResult SingleUser([FromBody] UserBO userBO)
+        {
+            AdminResponseBO _apiResponse = new AdminResponseBO();
+            try
+            {
+                AdminAccessAppService adminAccessAppService = new AdminAccessAppService();
+                _apiResponse.User = adminAccessAppService.GetUserByShopID(userBO);
+
+                _apiResponse.HttpStatusCode = "200";
+                _apiResponse.Status = "Success";
+
+                return Ok(_apiResponse);
+            }
+            catch (Exception ex)
+            {
+                _apiResponse.HttpStatusCode = "500";
+                _apiResponse.Message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                _apiResponse.Status = "Error";
+                return Ok(_apiResponse);
+            }
+
+        }
     }
 }

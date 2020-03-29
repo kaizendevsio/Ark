@@ -1,3 +1,4 @@
+using Ark.Entities.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -34,7 +35,7 @@ namespace Ark.Entities.DTO
         public bool? IsTempPassword { get; set; }
         public byte[] ResetPasswordCodeByte { get; set; }
         public DateTime? ResetPasswordCodeExpiration { get; set; }
-        public short? LoginStatus { get; set; }
+        public LoginStatus LoginStatus { get; set; }
         public string UserName { get; set; }
         public short? PasswordFailAttempt { get; set; }
         public string TemporaryPassword { get; set; }

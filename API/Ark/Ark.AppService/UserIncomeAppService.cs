@@ -45,20 +45,10 @@ namespace Ark.AppService
         public List<ShopUserCommissionItemBO> ExecuteCommissionDistribution(TblUserAuth userAuth, TblUserBusinessPackage userBusinessPackage, decimal amountPaid, ArkContext db) {
             BusinessPackageRepository businessPackageRepository = new BusinessPackageRepository();
             IncomeTypeRepository incomeTypeRepository = new IncomeTypeRepository();
-            List<TblIncomeType> incomeTypes = businessPackageRepository.GetIncomeTypes(userBusinessPackage.BusinessPackage, db);
             List<ShopUserCommissionItemBO> shopUserCommissionItem = new List<ShopUserCommissionItemBO>();
 
-            foreach (var incomeType in incomeTypes)
-            {
-                switch (incomeType.IncomeTypeCode)
-                {
-                    case IncomeType.PSI:
-                        shopUserCommissionItem = ProductSalesCommission(userAuth, incomeTypeRepository.GetDistribution(incomeType.IncomeTypeCode, userBusinessPackage.BusinessPackage, db), amountPaid, db);
-                        break;
-                    default:
-                        break;
-                }
-            }
+            shopUserCommissionItem = ProductSalesCommission(userAuth, new TblIncomeDistribution { IncomeType = new TblIncomeType { IncomeTypeCode = IncomeType.PSI } }  , amountPaid, db);
+
             return shopUserCommissionItem;
         }
         private bool DirectIncome(TblUserAuth userAuth,TblIncomeDistribution incomeDistribution, decimal amountPaid, ArkContext db)
@@ -150,60 +140,65 @@ namespace Ark.AppService
 
                     if (userBusinessPackage != null)
                     {
-                        _incomeDistribution = incomeTypeRepository.GetDistribution(_incomeDistribution.IncomeType.IncomeTypeCode, userBusinessPackage.BusinessPackage, db);
+                        _incomeDistribution = incomeTypeRepository.GetDistribution(IncomeType.PSI, userBusinessPackage.BusinessPackage, db);
 
-                        incomeDistribution.Value = _incomeDistribution.Value;
-                        incomeDistribution.IncomeTypeId = _incomeDistribution.IncomeTypeId;
-                        incomeDistribution.DistributionType = _incomeDistribution.DistributionType;
-
-                        switch (userBusinessPackage.BusinessPackage.PackageCode)
+                        if (_incomeDistribution != null)
                         {
-                            case "EPKG3":
-                                switch (i)
-                                {
-                                    case 0:
-                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                        break;
-                                    default:
-                                        incomeDistribution.Value = incomeDistribution.Value - i;
-                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                        break;
-                                }
-                                break;
-                            case "EPKG2":
-                                switch (i)
-                                {
-                                    case 0:
-                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                        break;
-                                    default:
-                                        incomeDistribution.Value = incomeDistribution.Value - i;
-                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                        break;
-                                }
-                                break;
-                            case "EPKG1":
-                                switch (i)
-                                {
-                                    case 0:
-                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                        break;
-                                    default:
-                                        incomeDistribution.Value = incomeDistribution.Value - (0.5m * i);
-                                        calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
-                                        break;
-                                }
-                                break;
-                            default:
-                                break;
+                            incomeDistribution.Value = _incomeDistribution.Value;
+                            incomeDistribution.IncomeTypeId = _incomeDistribution.IncomeTypeId;
+                            incomeDistribution.DistributionType = _incomeDistribution.DistributionType;
+
+                            switch (userBusinessPackage.BusinessPackage.PackageCode)
+                            {
+                                case "EPKG3":
+                                    switch (i)
+                                    {
+                                        case 0:
+                                            calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                            break;
+                                        default:
+                                            incomeDistribution.Value = incomeDistribution.Value - i;
+                                            calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                            break;
+                                    }
+                                    break;
+                                case "EPKG2":
+                                    switch (i)
+                                    {
+                                        case 0:
+                                            calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                            break;
+                                        default:
+                                            incomeDistribution.Value = incomeDistribution.Value - i;
+                                            calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                            break;
+                                    }
+                                    break;
+                                case "EPKG1":
+                                    switch (i)
+                                    {
+                                        case 0:
+                                            calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                            break;
+                                        default:
+                                            incomeDistribution.Value = incomeDistribution.Value - (0.5m * i);
+                                            calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            shopUserCommissionItem.Add(new ShopUserCommissionItemBO
+                            {
+                                Reward = calculateIncome.IncomeAmount,
+                                ShopUserId = userMap.IdNavigation.ShopUserId
+                            });
+
+                            DistributeToWallet((long)userMap.IdNavigation.Id, userAuth.Id, calculateIncome, incomeDistribution, db);
                         }
-                        shopUserCommissionItem.Add(new ShopUserCommissionItemBO
-                        {
-                            Reward = calculateIncome.IncomeAmount,
-                            ShopUserId = userMap.IdNavigation.ShopUserId
-                        });
 
-                        DistributeToWallet((long)userMap.IdNavigation.Id, userAuth.Id, calculateIncome, incomeDistribution, db);
+                       
                     }
 
                 }
