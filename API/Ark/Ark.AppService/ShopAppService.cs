@@ -15,69 +15,112 @@ namespace Ark.AppService
     {
         public HttpResponseBO UpdateUserWallet(ShopUserCommissionItemBO shopUser)
         {
-            HttpUtilities httpUtilities = new HttpUtilities();
-            HttpResponseBO _res = httpUtilities.PostAsyncXForm(new Uri("http://localhost/"), "wallet_update", shopUser).Result;
+            var httpUtilities = new HttpUtilities();
+            var _res = httpUtilities.PostAsyncXForm(new Uri("http://localhost/"), "wallet_update", shopUser).Result;
 
             return _res;
         }
 
         public ShopOrderItemBO UpdateOrderPayment(ShopOrderItemBO shopUser, string Environment)
         {
-            UserDepositRequestRepository userDepositRequestRepository = new UserDepositRequestRepository();
-            UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
-            UserAuthRepository userAuthRepository = new UserAuthRepository();
-            PaynamicsResponseRepository paynamicsResponseRepository = new PaynamicsResponseRepository();
+            var userDepositRequestRepository = new UserDepositRequestRepository();
+            var userBusinessPackageRepository = new UserBusinessPackageRepository();
+            var userAuthRepository = new UserAuthRepository();
+            var paynamicsResponseRepository = new PaynamicsResponseRepository();
 
-            Paynamics paynamics = new Paynamics();
-            ShopOrderItemBO shopOrderItemBO = paynamics.ProcessCallbackRequest(shopUser.RawBase64, Environment);
+            var paynamics = new Paynamics();
+            var shopOrderItemBO = paynamics.ProcessCallbackRequest(shopUser.RawBase64, Environment);
 
             using (var db = new ArkContext())
             {
-                TblUserDepositRequest userDepositRequest = userDepositRequestRepository.GetByRef(new TblUserDepositRequest { ReferenceNo = shopOrderItemBO.OrderID }, db);
-                TblUserBusinessPackage userBusinessPackage = userBusinessPackageRepository.GetByDepId(userDepositRequest.Id, db);
+                var userDepositRequest = userDepositRequestRepository.GetByRef(new TblUserDepositRequest { ReferenceNo = shopOrderItemBO.OrderID }, db);
+                var userBusinessPackage = userBusinessPackageRepository.GetByDepId(userDepositRequest.Id, db);
 
                 if (userDepositRequest.DepositStatus == (short)DepositStatus.PendingPayment)
                 {
-                    userDepositRequest.DepositStatus = (short)DepositStatus.Paid;
                     userDepositRequest.RawResponseData = shopOrderItemBO.RawDetails;
-
-                    TblPaynamicsResponse paynamicsResponse = paynamicsResponseRepository.Get(shopOrderItemBO.ResponseCode, db);
+                    var paynamicsResponse = paynamicsResponseRepository.Get(shopOrderItemBO.ResponseCode, db);
                     shopOrderItemBO.Status = paynamicsResponse.Status.ToString();
-
-                    userDepositRequestRepository.Update(userDepositRequest, db);
                     shopOrderItemBO.TransactionType = "SHOP";
 
                     if (userBusinessPackage != null)
                     {
-                        if (paynamicsResponse.Status == PaynamicsResponseStatus.Success)
+                        shopOrderItemBO.TransactionType = "BP";
+
+                        // BUSINESS PACKAGE PURCHASE
+                        switch (paynamicsResponse.Status)
                         {
-                            shopOrderItemBO.TransactionType = "BP";
-                            UserBusinessPackageBO _packageBO = new UserBusinessPackageBO { UserPackageID = userBusinessPackage.Id, AmountPaid = (decimal)userDepositRequest.Amount, FromCurrencyIso3 = "PHP", DepositStatus = DepositStatus.Paid };
-                            UserBusinessPackageAppService userBusinessPackageAppService = new UserBusinessPackageAppService();
-                            userBusinessPackageAppService.Update(_packageBO);
-                        }
-                        else if (paynamicsResponse.Status == PaynamicsResponseStatus.Cancelled)
-                        {
-                            shopOrderItemBO.TransactionType = "BP";
-                            UserBusinessPackageBO _packageBO = new UserBusinessPackageBO { UserPackageID = userBusinessPackage.Id, AmountPaid = (decimal)userDepositRequest.Amount, FromCurrencyIso3 = "PHP", DepositStatus = DepositStatus.Paid };
-                            UserBusinessPackageAppService userBusinessPackageAppService = new UserBusinessPackageAppService();
-                            userBusinessPackageAppService.Cancel(_packageBO);
-                        }
-                        else if (paynamicsResponse.Status == PaynamicsResponseStatus.Error)
-                        {
-                            shopOrderItemBO.TransactionType = "BP";
-                            UserBusinessPackageBO _packageBO = new UserBusinessPackageBO { UserPackageID = userBusinessPackage.Id, AmountPaid = (decimal)userDepositRequest.Amount, FromCurrencyIso3 = "PHP", DepositStatus = DepositStatus.Paid };
-                            UserBusinessPackageAppService userBusinessPackageAppService = new UserBusinessPackageAppService();
-                            userBusinessPackageAppService.Cancel(_packageBO);
+                            case PaynamicsResponseStatus.Success:
+                            {
+                                userDepositRequest.DepositStatus = (short)DepositStatus.Paid;
+                                var _packageBO = new UserBusinessPackageBO { UserPackageID = userBusinessPackage.Id, AmountPaid = (decimal)userDepositRequest.Amount, FromCurrencyIso3 = "PHP", DepositStatus = DepositStatus.Paid };
+                                var userBusinessPackageAppService = new UserBusinessPackageAppService();
+                                userBusinessPackageAppService.Update(_packageBO);
+                                break;
+                            }
+                            case PaynamicsResponseStatus.Cancelled:
+                            {
+                                userDepositRequest.DepositStatus = (short)DepositStatus.Cancelled;
+                                var _packageBO = new UserBusinessPackageBO { UserPackageID = userBusinessPackage.Id, AmountPaid = (decimal)userDepositRequest.Amount, FromCurrencyIso3 = "PHP", DepositStatus = DepositStatus.Paid };
+                                var userBusinessPackageAppService = new UserBusinessPackageAppService();
+                                userBusinessPackageAppService.Cancel(_packageBO);
+                                break;
+                            }
+                            case PaynamicsResponseStatus.Error:
+                            {
+                                userDepositRequest.DepositStatus = (short)DepositStatus.InvalidPayment;
+                                var _packageBO = new UserBusinessPackageBO { UserPackageID = userBusinessPackage.Id, AmountPaid = (decimal)userDepositRequest.Amount, FromCurrencyIso3 = "PHP", DepositStatus = DepositStatus.Paid };
+                                var userBusinessPackageAppService = new UserBusinessPackageAppService();
+                                userBusinessPackageAppService.Cancel(_packageBO);
+                                break;
+                            }
+                            case PaynamicsResponseStatus.Pending:
+                                userDepositRequest.DepositStatus = (short)DepositStatus.PendingPayment;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
                         }
                     }
+                    else
+                    {
+                        // SHOP PAYMENT
+                          switch (paynamicsResponse.Status)
+                        {
+                            case PaynamicsResponseStatus.Success:
+                            {
+                                userDepositRequest.DepositStatus = (short)DepositStatus.Paid;
+                                break;
+                            }
+                            case PaynamicsResponseStatus.Cancelled:
+                            {
+                                userDepositRequest.DepositStatus = (short)DepositStatus.Cancelled;
+                                break;
+                            }
+                            case PaynamicsResponseStatus.Error:
+                            {
+                                userDepositRequest.DepositStatus = (short)DepositStatus.InvalidPayment;
+                                break;
+                            }
+                            case PaynamicsResponseStatus.Pending:
+                                userDepositRequest.DepositStatus = (short)DepositStatus.PendingPayment;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                    userDepositRequestRepository.Update(userDepositRequest, db);
                 }
                 else
                 {
-                    shopOrderItemBO.Status = "Duplicate";
+                    shopOrderItemBO.TransactionType = "SHOP";
+                    if (userBusinessPackage != null)
+                    {
+                        shopOrderItemBO.TransactionType = "BP";
+                    }
+                        shopOrderItemBO.Status = "Duplicate";
                 }
 
-                TblUserAuth userAuth = userAuthRepository.GetByID((long)userDepositRequest.UserAuthId, db);
+                var userAuth = userAuthRepository.GetByID((long)userDepositRequest.UserAuthId, db);
 
                 shopOrderItemBO.ShopUserId = userAuth.ShopUserId;
 
@@ -87,17 +130,17 @@ namespace Ark.AppService
         }
         public bool CancelOrderPayment(string requestId, string Environment)
         {
-            UserDepositRequestRepository userDepositRequestRepository = new UserDepositRequestRepository();
-            UserBusinessPackageRepository userBusinessPackageRepository = new UserBusinessPackageRepository();
-            UserAuthRepository userAuthRepository = new UserAuthRepository();
-            PaynamicsResponseRepository paynamicsResponseRepository = new PaynamicsResponseRepository();
+            var userDepositRequestRepository = new UserDepositRequestRepository();
+            var userBusinessPackageRepository = new UserBusinessPackageRepository();
+            var userAuthRepository = new UserAuthRepository();
+            var paynamicsResponseRepository = new PaynamicsResponseRepository();
 
-            Paynamics paynamics = new Paynamics();
+            var paynamics = new Paynamics();
 
             using (var db = new ArkContext())
             {
-                TblUserDepositRequest userDepositRequest = userDepositRequestRepository.GetByRef(new TblUserDepositRequest { ReferenceNo = paynamics.Base64Decode(requestId) }, db);
-                TblUserBusinessPackage userBusinessPackage = userBusinessPackageRepository.GetByDepId(userDepositRequest.Id, db);
+                var userDepositRequest = userDepositRequestRepository.GetByRef(new TblUserDepositRequest { ReferenceNo = paynamics.Base64Decode(requestId) }, db);
+                var userBusinessPackage = userBusinessPackageRepository.GetByDepId(userDepositRequest.Id, db);
 
                 if (userDepositRequest.DepositStatus == (short)DepositStatus.PendingPayment)
                 {
@@ -105,8 +148,8 @@ namespace Ark.AppService
 
                     if (userBusinessPackage != null)
                     {
-                        UserBusinessPackageBO _packageBO = new UserBusinessPackageBO { UserPackageID = userBusinessPackage.Id, AmountPaid = (decimal)userDepositRequest.Amount, FromCurrencyIso3 = "PHP", DepositStatus = DepositStatus.Paid };
-                        UserBusinessPackageAppService userBusinessPackageAppService = new UserBusinessPackageAppService();
+                        var _packageBO = new UserBusinessPackageBO { UserPackageID = userBusinessPackage.Id, AmountPaid = (decimal)userDepositRequest.Amount, FromCurrencyIso3 = "PHP", DepositStatus = DepositStatus.Paid };
+                        var userBusinessPackageAppService = new UserBusinessPackageAppService();
                         userBusinessPackageAppService.Cancel(_packageBO);
                     }
                 }

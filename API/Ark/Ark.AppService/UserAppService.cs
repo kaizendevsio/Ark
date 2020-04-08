@@ -25,12 +25,12 @@ namespace Ark.AppService
                 // ENFORECE EMAIL VERIFICATION
                 if (userInfo.EmailStatus == (short)EmailStatus.Unverified)
                 {
-                    throw new System.ArgumentException("Email Not Verified");
+                    throw new ArgumentException("Email Not Verified");
                 }
 
                 if (userAuth.LoginStatus != LoginStatus.Enabled)
                 {
-                    throw new System.ArgumentException(String.Format("{0} {1}", "Your account has been", userAuth.LoginStatus.ToString().ToLower()));
+                    throw new ArgumentException(String.Format("{0} {1}", "Your account has been", userAuth.LoginStatus.ToString().ToLower()));
                 }
 
                 UserWalletRepository userWalletRepository = new UserWalletRepository();

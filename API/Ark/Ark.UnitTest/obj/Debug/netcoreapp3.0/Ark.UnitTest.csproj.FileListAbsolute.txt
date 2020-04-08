@@ -264,3 +264,5 @@ C:\Projects\PHP\Ark\API\Ark\Ark.UnitTest\obj\Debug\netcoreapp3.0\Ark.UnitTest.As
 C:\Projects\PHP\Ark\API\Ark\Ark.UnitTest\obj\Debug\netcoreapp3.0\Ark.UnitTest.csproj.CopyComplete
 C:\Projects\PHP\Ark\API\Ark\Ark.UnitTest\obj\Debug\netcoreapp3.0\Ark.UnitTest.dll
 C:\Projects\PHP\Ark\API\Ark\Ark.UnitTest\obj\Debug\netcoreapp3.0\Ark.UnitTest.pdb
+C:\Projects\PHP\Ark\API\Ark\Ark.UnitTest\obj\Debug\netcoreapp3.0\Ark.UnitTest.csproj.CoreCompileInputs.cache
+C:\Projects\PHP\Ark\API\Ark\Ark.UnitTest\obj\Debug\netcoreapp3.0\Ark.UnitTest.genruntimeconfig.cache

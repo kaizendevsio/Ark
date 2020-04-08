@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_Ark.API.1006784602.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.2.0/build/netcoreapp1.0" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="$USER_HOME$/.nuget/packages/mstest.testadapter/1.4.0/build/_common/Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/mstest.testadapter/1.4.0/build/_common/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/mstest.testadapter/1.4.0/build/netcoreapp1.0/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" t="Include" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="Ark.API.sln" t="IncludeFlat" />
+      <e p="Ark.Api" t="IncludeRecursive">
+        <e p="Ark.Api.csproj" t="IncludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="AdminAccessController.cs" t="Include" />
+          <e p="AffiliateController.cs" t="Include" />
+          <e p="BusinessPackageController.cs" t="Include" />
+          <e p="PaynamicsController.cs" t="Include" />
+          <e p="SessionController.cs" t="Include" />
+          <e p="ShopController.cs" t="Include" />
+          <e p="StartupController.cs" t="Include" />
+          <e p="StructureMapInjectionController.cs" t="Include" />
+          <e p="TransactionController.cs" t="Include" />
+          <e p="UserController.cs" t="Include" />
+          <e p="ValuesController.cs" t="Include" />
+          <e p="WalletController.cs" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Resources" t="Include">
+          <e p="Templates" t="Include">
+            <e p="Email" t="Include">
+              <e p="Email-Sending-Confirmation.html" t="Include" />
+              <e p="EmailConfirmation.html" t="Include" />
+              <e p="email-2fa-ga-disable.html" t="Include" />
+              <e p="email-applying-convert.html" t="Include" />
+              <e p="email-auto-reply.html" t="Include" />
+              <e p="email-bonus.html" t="Include" />
+              <e p="email-change-password.html" t="Include" />
+              <e p="email-confirmation.html" t="Include" />
+              <e p="email-conversion-successful..html" t="Include" />
+              <e p="email-forgot-password.html" t="Include" />
+              <e p="email-purchasing-trade.html" t="Include" />
+              <e p="email-receive-confirmation.html" t="Include" />
+              <e p="email-registration.html" t="Include" />
+              <e p="email-save-profile.html" t="Include" />
+              <e p="email-success-login.html" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="WeatherForecast.cs" t="Include" />
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="mono_crash.mem.12937.1.blob" t="Include" />
+        <e p="mono_crash.mem.31640.1.blob" t="Include" />
+        <e p="mono_crash.mem.6970.1.blob" t="Include" />
+        <e p="mono_crash.mem.7274.1.blob" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Ark.Api.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Ark.AppService" t="IncludeRecursive">
+        <e p="AdminAccessAppService.cs" t="Include" />
+        <e p="AffiliateAppService.cs" t="Include" />
+        <e p="Ark.AppService.csproj" t="IncludeRecursive" />
+        <e p="ExternalRecordsAppService.cs" t="Include" />
+        <e p="MailAppService.cs" t="Include" />
+        <e p="SessionController.cs" t="Include" />
+        <e p="ShopAppService.cs" t="Include" />
+        <e p="UserAffiliateAppService.cs" t="Include" />
+        <e p="UserAppService.cs" t="Include" />
+        <e p="UserBusinessPackageAppService.cs" t="Include" />
+        <e p="UserIncomeAppService.cs" t="Include" />
+        <e p="UserMapAppService.cs" t="Include" />
+        <e p="UserWalletAddressAppService.cs" t="Include" />
+        <e p="UserWalletAppService.cs" t="Include" />
+        <e p="WalletAppService.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Ark.AppService.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Ark.DataAccessLayer" t="IncludeRecursive">
+        <e p="Ark.DataAccessLayer.csproj" t="IncludeRecursive" />
+        <e p="ArkContext.cs" t="Include" />
+        <e p="BusinessPackageRepository.cs" t="Include" />
+        <e p="CurrencyTypeRepository.cs" t="Include" />
+        <e p="ExchangeRateRepository.cs" t="Include" />
+        <e p="GenericRepository.cs" t="Include" />
+        <e p="IncomeTypeRepository.cs" t="Include" />
+        <e p="PaynamicsResponseRepository.cs" t="Include" />
+        <e p="UserAuthHistoryRepository.cs" t="Include" />
+        <e p="UserAuthRepository.cs" t="Include" />
+        <e p="UserBusinessPackageRepository.cs" t="Include" />
+        <e p="UserDepositRequestRepository.cs" t="Include" />
+        <e p="UserDividendRepository.cs" t="Include" />
+        <e p="UserIncomeTransactionRepository.cs" t="Include" />
+        <e p="UserInfoRepository.cs" t="Include" />
+        <e p="UserMapRepository.cs" t="Include" />
+        <e p="UserRoleRepository.cs" t="Include" />
+        <e p="UserWalletAddressRepository.cs" t="Include" />
+        <e p="UserWalletRepository.cs" t="Include" />
+        <e p="UserWalletTransactionRepository.cs" t="Include" />
+        <e p="WalletTypeRepository.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Ark.DataAccessLayer.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Ark.Entities" t="IncludeRecursive">
+        <e p="Ark.Entities.csproj" t="IncludeRecursive" />
+        <e p="BO" t="Include">
+          <e p="AdminResponseBO.cs" t="Include" />
+          <e p="AffiliateCommissionResponseBO.cs" t="Include" />
+          <e p="AffiliateCountersBO.cs" t="Include" />
+          <e p="AffiliateLinkResponseBO.cs" t="Include" />
+          <e p="AffiliateMapBO.cs" t="Include" />
+          <e p="ApiResponseBO.cs" t="Include" />
+          <e p="ApiStatusBO.cs" t="Include" />
+          <e p="BaseAuditBO.cs" t="Include" />
+          <e p="BlockchainTxBO.cs" t="Include" />
+          <e p="BusinessPackagesResponseBO.cs" t="Include" />
+          <e p="CalculateIncomeBO.cs" t="Include" />
+          <e p="CryptoCurrencyDepositBO.cs" t="Include" />
+          <e p="ExchangeRateBO.cs" t="Include" />
+          <e p="HostBO.cs" t="Include" />
+          <e p="MinimumUserCheckBO.cs" t="Include" />
+          <e p="PaynamicsResponseBO.cs" t="Include" />
+          <e p="ShopUserCommissionItemBO.cs" t="Include" />
+          <e p="StructureMapInjection.cs" t="Include" />
+          <e p="StructureMapInjectionKey.cs" t="Include" />
+          <e p="TransactionQueryBO.cs" t="Include" />
+          <e p="UnilevelMapBO.cs" t="Include" />
+          <e p="UserAffiliateProfitsResponseBO.cs" t="Include" />
+          <e p="UserBO.cs" t="Include" />
+          <e p="UserBusinessPackageBO.cs" t="Include" />
+          <e p="UserMapBO.cs" t="Include" />
+          <e p="UserMapTblBO.cs" t="Include" />
+          <e p="UserQueryBO.cs" t="Include" />
+          <e p="UserResponseBO.cs" t="Include" />
+          <e p="UserWalletBO.cs" t="Include" />
+          <e p="WalletAddressResponseBO.cs" t="Include" />
+          <e p="WalletBO.cs" t="Include" />
+          <e p="WalletRecieveBO.cs" t="Include" />
+          <e p="WalletTransactionBO.cs" t="Include" />
+        </e>
+        <e p="DTO" t="Include">
+          <e p="TblAddressCity.cs" t="Include" />
+          <e p="TblAddressCountry.cs" t="Include" />
+          <e p="TblAppSystem.cs" t="Include" />
+          <e p="TblAuditFields.cs" t="Include" />
+          <e p="TblBusinessPackage.cs" t="Include" />
+          <e p="TblBusinessPackageType.cs" t="Include" />
+          <e p="TblCurrency.cs" t="Include" />
+          <e p="TblExchangeRate.cs" t="Include" />
+          <e p="TblIncomeDistribution.cs" t="Include" />
+          <e p="TblIncomeType.cs" t="Include" />
+          <e p="TblPaynamicsResponse.cs" t="Include" />
+          <e p="TblUserAddress.cs" t="Include" />
+          <e p="TblUserAuth.cs" t="Include" />
+          <e p="TblUserAuthHistory.cs" t="Include" />
+          <e p="TblUserBonus.cs" t="Include" />
+          <e p="TblUserBusinessPackage.cs" t="Include" />
+          <e p="TblUserDepositRequest.cs" t="Include" />
+          <e p="TblUserIncomePartition.cs" t="Include" />
+          <e p="TblUserIncomeTransaction.cs" t="Include" />
+          <e p="TblUserInfo.cs" t="Include" />
+          <e p="TblUserMap.cs" t="Include" />
+          <e p="TblUserRank.cs" t="Include" />
+          <e p="TblUserRole.cs" t="Include" />
+          <e p="TblUserWallet.cs" t="Include" />
+          <e p="TblUserWalletAddress.cs" t="Include" />
+          <e p="TblUserWalletTransaction.cs" t="Include" />
+          <e p="TblUserWithdrawalRequest.cs" t="Include" />
+          <e p="TblWalletType.cs" t="Include" />
+        </e>
+        <e p="Enums" t="Include">
+          <e p="AccountRole.cs" t="Include" />
+          <e p="AccountType.cs" t="Include" />
+          <e p="AffiliateBonusType.cs" t="Include" />
+          <e p="AuthStatus.cs" t="Include" />
+          <e p="BinaryMapStatus.cs" t="Include" />
+          <e p="BusinessPackageCalculationMethod.cs" t="Include" />
+          <e p="CurrencyType.cs" t="Include" />
+          <e p="DepositStatus.cs" t="Include" />
+          <e p="EmailStatus.cs" t="Include" />
+          <e p="EmailType.cs" t="Include" />
+          <e p="GenericStatusType.cs" t="Include" />
+          <e p="IncomeDistributionType.cs" t="Include" />
+          <e p="IncomeType.cs" t="Include" />
+          <e p="LoginStatus.cs" t="Include" />
+          <e p="PackageStatus.cs" t="Include" />
+          <e p="SortingType.cs" t="Include" />
+          <e p="TransactionStatus.cs" t="Include" />
+          <e p="TransactionType.cs" t="Include" />
+          <e p="UserRole.cs" t="Include" />
+          <e p="WalletType.cs" t="Include" />
+          <e p="WalletTypeID.cs" t="Include" />
+          <e p="WithdrawalRequestStatus.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Ark.Entities.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Ark.ExternalUtilities" t="IncludeRecursive">
+        <e p="Ark.ExternalUtilities.csproj" t="IncludeRecursive" />
+        <e p="Blockchain.cs" t="Include" />
+        <e p="Changelly.cs" t="Include" />
+        <e p="CoinCap.cs" t="Include" />
+        <e p="Cryptography.cs" t="Include" />
+        <e p="Enums" t="Include">
+          <e p="PaynamicsResponseStatus.cs" t="Include" />
+        </e>
+        <e p="FormUtilities.cs" t="Include" />
+        <e p="HttpUtilities.cs" t="Include" />
+        <e p="Models" t="Include">
+          <e p="BlockchainApiSettings.cs" t="Include" />
+          <e p="BlockchainResponse.cs" t="Include" />
+          <e p="BlockchainTx.cs" t="Include" />
+          <e p="ChangellyApiSettings.cs" t="Include" />
+          <e p="ChangellyMessage.cs" t="Include" />
+          <e p="ChangellyParams.cs" t="Include" />
+          <e p="ChangellyResponse.cs" t="Include" />
+          <e p="ChangellyTransactionResponse.cs" t="Include" />
+          <e p="CoinCapApiSettings.cs" t="Include" />
+          <e p="CoinProperty.cs" t="Include" />
+          <e p="GenericApiSettings.cs" t="Include" />
+          <e p="HttpResponseBO.cs" t="Include" />
+          <e p="PaynamicsEnvironment.cs" t="Include" />
+          <e p="PaynamicsRequest.cs" t="Include" />
+          <e p="PaynamicsRequestForm.cs" t="Include" />
+          <e p="PaynamicsResponse.cs" t="Include" />
+          <e p="PaynamicsSettings.cs" t="Include" />
+          <e p="PaynamicsSignatureBO.cs" t="Include" />
+          <e p="ShopOrderItemBO.cs" t="Include" />
+        </e>
+        <e p="Paynamics.cs" t="Include" />
+        <e p="SeedString.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Ark.ExternalUtilities.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Ark.UnitTest" t="IncludeRecursive">
+        <e p="Ark.UnitTest.csproj" t="IncludeRecursive" />
+        <e p="UnitTest1.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Ark.UnitTest.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

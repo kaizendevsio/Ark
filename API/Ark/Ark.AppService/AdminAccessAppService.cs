@@ -58,13 +58,25 @@ namespace Ark.AppService
                         Gender = userAuth.UserInfo.Gender,
                         CountryIsoCode2 = userAuth.UserInfo.CountryIsoCode2,
                         EmailStatus = userAuth.UserInfo.EmailStatus,
-                        PhoneNumber = userAuth.UserInfo.PhoneNumber
+                        PhoneNumber = userAuth.UserInfo.PhoneNumber,
+                        Id = userAuth.Id
                     };
 
                     return user;
                 }
             }
 
+        }
+
+        public List<UserWalletBO> GetUserWallets(TblUserAuth userAuth, ArkContext db = null)
+        {
+            using (db = new ArkContext())
+            {
+                UserWalletRepository userWalletRepository = new UserWalletRepository();
+                List<UserWalletBO> userWallet = userWalletRepository.GetAllBO(userAuth, db);
+
+                return userWallet;
+            }
         }
 
     }

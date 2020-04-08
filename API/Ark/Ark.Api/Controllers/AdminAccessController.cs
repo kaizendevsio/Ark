@@ -48,6 +48,7 @@ namespace Ark.Api.Controllers
             {
                 AdminAccessAppService adminAccessAppService = new AdminAccessAppService();
                 _apiResponse.User = adminAccessAppService.GetUserByShopID(userBO);
+                _apiResponse.UserWallets = adminAccessAppService.GetUserWallets(new TblUserAuth { Id = _apiResponse.User.Id });
 
                 _apiResponse.HttpStatusCode = "200";
                 _apiResponse.Status = "Success";

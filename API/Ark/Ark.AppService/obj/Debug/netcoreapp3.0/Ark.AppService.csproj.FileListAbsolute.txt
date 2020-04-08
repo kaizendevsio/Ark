@@ -1,30 +1,61 @@
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\bin\Debug\netcoreapp3.0\Ark.AppService.deps.json
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\bin\Debug\netcoreapp3.0\Ark.AppService.dll
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\bin\Debug\netcoreapp3.0\Ark.AppService.pdb
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.dll
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\bin\Debug\netcoreapp3.0\Ark.Entities.dll
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\bin\Debug\netcoreapp3.0\Ark.ExternalUtilities.dll
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.pdb
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\bin\Debug\netcoreapp3.0\Ark.Entities.pdb
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\bin\Debug\netcoreapp3.0\Ark.ExternalUtilities.pdb
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.csprojAssemblyReference.cache
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.AssemblyInfoInputs.cache
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.AssemblyInfo.cs
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.csproj.CopyComplete
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.dll
-C:\Projects\Net Core\Ark\CryptoCityWallet.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.pdb
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\bin\Debug\netcoreapp3.0\Ark.AppService.deps.json
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\bin\Debug\netcoreapp3.0\Ark.AppService.dll
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\bin\Debug\netcoreapp3.0\Ark.AppService.pdb
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.dll
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\bin\Debug\netcoreapp3.0\Ark.Entities.dll
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\bin\Debug\netcoreapp3.0\Ark.ExternalUtilities.dll
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.pdb
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\bin\Debug\netcoreapp3.0\Ark.Entities.pdb
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\bin\Debug\netcoreapp3.0\Ark.ExternalUtilities.pdb
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.csprojAssemblyReference.cache
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.AssemblyInfoInputs.cache
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.AssemblyInfo.cs
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.csproj.CopyComplete
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.dll
-C:\Projects\PHP\Ark\API\Ark\Ark.AppService\obj\Debug\netcoreapp3.0\Ark.AppService.pdb
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.deps.json
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.dll
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.pdb
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/bin/Debug/netcoreapp3.0/Ark.Entities.dll
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.dll
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/bin/Debug/netcoreapp3.0/Ark.Entities.pdb
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.pdb
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.csprojAssemblyReference.cache
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.AssemblyInfoInputs.cache
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.AssemblyInfo.cs
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.csproj.CopyComplete
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.dll
+C:/Projects/Net Core/Ark/CryptoCityWallet.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.deps.json
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.dll
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.Entities.dll
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.dll
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.Entities.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.csprojAssemblyReference.cache
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.AssemblyInfoInputs.cache
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.AssemblyInfo.cs
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.csproj.CopyComplete
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.dll
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.csproj.CoreCompileInputs.cache
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.deps.json
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.dll
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.pdb
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.Entities.dll
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.dll
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.Entities.pdb
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.pdb
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.csprojAssemblyReference.cache
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.AssemblyInfoInputs.cache
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.AssemblyInfo.cs
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.csproj.CopyComplete
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.dll
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.pdb
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.deps.json
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.dll
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.AppService.pdb
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.Entities.dll
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.dll
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.Entities.pdb
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.pdb
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.csprojAssemblyReference.cache
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.AssemblyInfoInputs.cache
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.AssemblyInfo.cs
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.csproj.CopyComplete
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.dll
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/obj/Debug/netcoreapp3.0/Ark.AppService.pdb

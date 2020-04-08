@@ -1,0 +1,77 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.UnitTest/Ark.UnitTest.csproj",
+    "projectName": "Ark.UnitTest",
+    "projectPath": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.UnitTest/Ark.UnitTest.csproj",
+    "outputPath": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.UnitTest/obj/",
+    "projectStyle": "PackageReference",
+    "originalTargetFrameworks": [
+      "netcoreapp3.0"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp3.0": {
+        "projectReferences": {
+          "/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/Ark.AppService.csproj": {
+            "projectPath": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/Ark.AppService.csproj"
+          },
+          "/home/xeon/Documents/Projects/Net Core/Ark/Ark.Entities/Ark.Entities.csproj": {
+            "projectPath": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.Entities/Ark.Entities.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp3.0": {
+      "dependencies": {
+        "MSTest.TestAdapter": {
+          "target": "Package",
+          "version": "[1.4.0, )"
+        },
+        "MSTest.TestFramework": {
+          "target": "Package",
+          "version": "[1.4.0, )"
+        },
+        "Microsoft.NET.Test.Sdk": {
+          "target": "Package",
+          "version": "[16.2.0, )"
+        },
+        "coverlet.collector": {
+          "target": "Package",
+          "version": "[1.0.1, )"
+        }
+      },
+      "imports": [
+        "net461",
+        "net462",
+        "net47",
+        "net471",
+        "net472",
+        "net48"
+      ],
+      "assetTargetFallback": true,
+      "warn": true,
+      "downloadDependencies": [
+        {
+          "name": "Microsoft.NETCore.App.Ref",
+          "version": "[3.0.0, 3.0.0]"
+        }
+      ],
+      "frameworkReferences": {
+        "Microsoft.NETCore.App": {
+          "privateAssets": "all"
+        }
+      },
+      "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.103/RuntimeIdentifierGraph.json"
+    }
+  }
+}

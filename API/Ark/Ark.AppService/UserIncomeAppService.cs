@@ -186,6 +186,18 @@ namespace Ark.AppService
                                             break;
                                     }
                                     break;
+                                case "EPKG1TRL":
+                                    switch (i)
+                                    {
+                                        case 0:
+                                            calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                            break;
+                                        default:
+                                            incomeDistribution.Value = incomeDistribution.Value - (0.5m * i);
+                                            calculateIncome = CalculateProductCommission(incomeDistribution, amountPaid);
+                                            break;
+                                    }
+                                    break;
                                 default:
                                     break;
                             }

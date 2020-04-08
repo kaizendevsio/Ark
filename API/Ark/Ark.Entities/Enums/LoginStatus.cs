@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Ark.Entities.Enums
 {
     [Flags]
-   public enum LoginStatus : short
+   public enum LoginStatus : int
     {
         Disabled = 0,
         Enabled = 1,

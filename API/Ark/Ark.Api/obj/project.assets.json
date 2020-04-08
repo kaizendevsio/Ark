@@ -10693,44 +10693,37 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Xeon\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "/home/xeon/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\PHP\\Ark\\API\\Ark\\Ark.Api\\Ark.Api.csproj",
+      "projectUniqueName": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.Api/Ark.Api.csproj",
       "projectName": "Ark.Api",
-      "projectPath": "C:\\Projects\\PHP\\Ark\\API\\Ark\\Ark.Api\\Ark.Api.csproj",
-      "packagesPath": "C:\\Users\\Xeon\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\PHP\\Ark\\API\\Ark\\Ark.Api\\obj\\",
+      "projectPath": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.Api/Ark.Api.csproj",
+      "packagesPath": "/home/xeon/.nuget/packages/",
+      "outputPath": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.Api/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Xeon\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "/home/xeon/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Projects\\PHP\\Ark\\API\\Ark\\Ark.AppService\\Ark.AppService.csproj": {
-              "projectPath": "C:\\Projects\\PHP\\Ark\\API\\Ark\\Ark.AppService\\Ark.AppService.csproj"
+            "/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/Ark.AppService.csproj": {
+              "projectPath": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.AppService/Ark.AppService.csproj"
             },
-            "C:\\Projects\\PHP\\Ark\\API\\Ark\\Ark.Entities\\Ark.Entities.csproj": {
-              "projectPath": "C:\\Projects\\PHP\\Ark\\API\\Ark\\Ark.Entities\\Ark.Entities.csproj"
+            "/home/xeon/Documents/Projects/Net Core/Ark/Ark.Entities/Ark.Entities.csproj": {
+              "projectPath": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.Entities/Ark.Entities.csproj"
             },
-            "C:\\Projects\\PHP\\Ark\\API\\Ark\\Ark.ExternalUtilities\\Ark.ExternalUtilities.csproj": {
-              "projectPath": "C:\\Projects\\PHP\\Ark\\API\\Ark\\Ark.ExternalUtilities\\Ark.ExternalUtilities.csproj"
+            "/home/xeon/Documents/Projects/Net Core/Ark/Ark.ExternalUtilities/Ark.ExternalUtilities.csproj": {
+              "projectPath": "/home/xeon/Documents/Projects/Net Core/Ark/Ark.ExternalUtilities/Ark.ExternalUtilities.csproj"
             }
           }
         }
@@ -10789,19 +10782,7 @@
         "warn": true,
         "downloadDependencies": [
           {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[3.0.1, 3.0.1]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.0.2, 3.0.2]"
-          },
-          {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[3.0.0, 3.0.0]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
             "version": "[3.0.0, 3.0.0]"
           }
         ],
@@ -10813,7 +10794,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.103/RuntimeIdentifierGraph.json"
       }
     }
   }

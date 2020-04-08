@@ -1,26 +1,53 @@
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.deps.json
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.dll
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.pdb
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.Entities.dll
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.ExternalUtilities.dll
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.Entities.pdb
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.ExternalUtilities.pdb
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.csprojAssemblyReference.cache
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.AssemblyInfoInputs.cache
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.AssemblyInfo.cs
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.csproj.CopyComplete
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.dll
-C:\Projects\Net Core\Ark\CryptoCityWallet.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.pdb
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.deps.json
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.dll
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.DataAccessLayer.pdb
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.Entities.dll
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.ExternalUtilities.dll
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.Entities.pdb
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\bin\Debug\netcoreapp3.0\Ark.ExternalUtilities.pdb
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.csprojAssemblyReference.cache
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.AssemblyInfoInputs.cache
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.AssemblyInfo.cs
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.csproj.CopyComplete
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.dll
-C:\Projects\PHP\Ark\API\Ark\Ark.DataAccessLayer\obj\Debug\netcoreapp3.0\Ark.DataAccessLayer.pdb
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.deps.json
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.Entities.dll
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.dll
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.Entities.pdb
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.pdb
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.csprojAssemblyReference.cache
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.AssemblyInfoInputs.cache
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.AssemblyInfo.cs
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.csproj.CopyComplete
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+C:/Projects/Net Core/Ark/CryptoCityWallet.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.deps.json
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.Entities.dll
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.dll
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.Entities.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.csprojAssemblyReference.cache
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.AssemblyInfoInputs.cache
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.AssemblyInfo.cs
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.csproj.CopyComplete
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+C:/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.csproj.CoreCompileInputs.cache
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.deps.json
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.Entities.dll
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.dll
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.Entities.pdb
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.pdb
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.csprojAssemblyReference.cache
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.AssemblyInfoInputs.cache
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.AssemblyInfo.cs
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.csproj.CopyComplete
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+/media/xeon/B84E3F314E3EE830/Projects/PHP/Ark/API/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.deps.json
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.Entities.dll
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.dll
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.Entities.pdb
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/bin/Debug/netcoreapp3.0/Ark.ExternalUtilities.pdb
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.csprojAssemblyReference.cache
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.AssemblyInfoInputs.cache
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.AssemblyInfo.cs
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.csproj.CopyComplete
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.dll
+/home/xeon/Documents/Projects/Net Core/Ark/Ark.DataAccessLayer/obj/Debug/netcoreapp3.0/Ark.DataAccessLayer.pdb

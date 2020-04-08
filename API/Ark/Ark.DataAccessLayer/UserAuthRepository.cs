@@ -56,6 +56,7 @@ namespace Ark.DataAccessLayer
                              PasswordByte = a.PasswordByte,
                              IsEnabled = a.IsEnabled,
                              UserInfoId = a.UserInfoId,
+                             LoginStatus = a.LoginStatus,
                              Id = a.Id
                          };
 

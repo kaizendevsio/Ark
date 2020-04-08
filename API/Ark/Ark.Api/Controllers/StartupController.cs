@@ -31,6 +31,7 @@ namespace Ark.Api.Controllers
             apiStatus.Host.TickCount64 = Environment.TickCount64;
             apiStatus.Host.Version = Environment.OSVersion.ToString();
 
+
             apiStatus.Status = "Running";
 
             return Ok(apiStatus);
