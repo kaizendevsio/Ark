@@ -52,8 +52,19 @@ namespace Ark.DataAccessLayer
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=ark-uat-db-02.cyw4evbhbqgn.us-east-1.rds.amazonaws.com;Database=Ark;Username=dbAdmin;Password=4*5WD-K8%f*NqmPY");
-                //optionsBuilder.UseNpgsql("Host=localhost;Database=Ark;Username=dbAdmin;Password=4*5WD-K8%f*NqmPY");
+                var _Environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                if (_Environment == "Development")
+                {
+                    optionsBuilder.UseNpgsql("Host=localhost;Database=Ark;Username=dbAdmin;Password=4*5WD-K8%f*NqmPY");
+                }
+                else if (_Environment == "Staging")
+                {
+                    optionsBuilder.UseNpgsql("Host=ark-postgre-uat.ckqxaqk0hxeu.ap-southeast-1.rds.amazonaws.com;Database=Ark;Username=dbAdmin;Password=4*5WD-K8%f*NqmPY");
+                }
+                else
+                {
+                    optionsBuilder.UseNpgsql("Host=ark-postgre-prod.ckqxaqk0hxeu.ap-southeast-1.rds.amazonaws.com;Database=Ark;Username=dbAdmin;Password=4*5WD-K8%f*NqmPY");
+                }
             }
         }
 
